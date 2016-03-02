@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+* Created by hdy.
+* 如果你改变了此类 read 请将此行删除
+* 799374340@qq.com
+--><mapper namespace="UserWebMapper">
+    <!-- UserWeb -->
+    <sql id="createTable">
+    DROP TABLE `user_web`;
+    CREATE TABLE `user_web` (
+ PRIMARY KEY (`id`) ,
+        `id` bigint(20) AUTO_INCREMENT  COMMENT '主键' ,
+
+        `user_name` varchar(20) COMMENT '登录名称'  DEFAULT  '' ,
+
+        `mobile` varchar(20) COMMENT '手机号码'  DEFAULT  '' ,
+
+        `two_code_img_src` varchar(50) COMMENT '二维码图片'  DEFAULT  '' ,
+
+        `nickname` varchar(30) COMMENT '昵称'  DEFAULT  '' ,
+
+        `user_password` varchar(100) COMMENT '登录密码存储加密后的值'  DEFAULT  '' ,
+
+        `real_name` varchar(20) COMMENT '用户真名'  DEFAULT  '' ,
+
+        `score_amount` decimal(12,2) COMMENT '积分余额'  DEFAULT  '0.00' ,
+
+        `money_amount` decimal(12,2) COMMENT '现金余额'  DEFAULT  '0.00' ,
+
+        `regist_time` datetime COMMENT '注册时间'  ,
+
+        `last_login_time` datetime COMMENT '最后登录时间'  ,
+
+        `account_status` tinyint(2) COMMENT '账号状态'  DEFAULT  '0' ,
+
+        `sex` tinyint(1) COMMENT '性别'  DEFAULT  '0' ,
+
+        `birthday` datetime COMMENT '生日'  ,
+
+        `baby_sex` tinyint(1) COMMENT '大宝宝性别'  DEFAULT  '0' ,
+
+        `baby_birthday` datetime COMMENT '大宝宝生日'  ,
+
+        `baby_two_sex` tinyint(1) COMMENT '二宝宝性别'  DEFAULT  '0' ,
+
+        `baby_two_birthday` datetime COMMENT '二宝宝生日'  ,
+
+        `baby_three_sex` tinyint(1) COMMENT '三宝宝性别'  DEFAULT  '0' ,
+
+        `baby_three_birthday` datetime COMMENT '三宝宝生日'  ,
+
+        `head_img_src` varchar(100) COMMENT '头像地址'  DEFAULT  '' ,
+
+        `account_level` tinyint(2) COMMENT '账号等级'  DEFAULT  '0' 
+    )
+    </sql>
+    <sql id="selectSqlUserWeb">
+        userWeb.id ,
+        userWeb.user_name userName,
+        userWeb.mobile ,
+        userWeb.two_code_img_src twoCodeImgSrc,
+        userWeb.nickname ,
+        userWeb.user_password userPassword,
+        userWeb.real_name realName,
+        userWeb.score_amount scoreAmount,
+        userWeb.money_amount moneyAmount,
+        userWeb.regist_time registTime,
+        userWeb.last_login_time lastLoginTime,
+        userWeb.account_status accountStatus,
+        userWeb.sex ,
+        userWeb.birthday ,
+        userWeb.baby_sex babySex,
+        userWeb.baby_birthday babyBirthday,
+        userWeb.baby_two_sex babyTwoSex,
+        userWeb.baby_two_birthday babyTwoBirthday,
+        userWeb.baby_three_sex babyThreeSex,
+        userWeb.baby_three_birthday babyThreeBirthday,
+        userWeb.head_img_src headImgSrc,
+        userWeb.account_level accountLevel
+    </sql>
+
+   <sql id="whereSqlUserWeb">
+        1=1
+        <if test="id!=null "> and userWeb.id = #{id}</if>
+        <if test="userName!=null "> and userWeb.user_name = #{userName}</if>
+        <if test="mobile!=null "> and userWeb.mobile = #{mobile}</if>
+        <if test="twoCodeImgSrc!=null "> and userWeb.two_code_img_src = #{twoCodeImgSrc}</if>
+        <if test="nickname!=null "> and userWeb.nickname = #{nickname}</if>
+        <if test="userPassword!=null "> and userWeb.user_password = #{userPassword}</if>
+        <if test="realName!=null "> and userWeb.real_name = #{realName}</if>
+        <if test="scoreAmount!=null "> and userWeb.score_amount = #{scoreAmount}</if>
+        <if test="moneyAmount!=null "> and userWeb.money_amount = #{moneyAmount}</if>
+        <if test="registTime!=null "> and userWeb.regist_time = #{registTime}</if>
+        <if test="lastLoginTime!=null "> and userWeb.last_login_time = #{lastLoginTime}</if>
+        <if test="accountStatus!=null "> and userWeb.account_status = #{accountStatus}</if>
+        <if test="sex!=null "> and userWeb.sex = #{sex}</if>
+        <if test="birthday!=null "> and userWeb.birthday = #{birthday}</if>
+        <if test="babySex!=null "> and userWeb.baby_sex = #{babySex}</if>
+        <if test="babyBirthday!=null "> and userWeb.baby_birthday = #{babyBirthday}</if>
+        <if test="babyTwoSex!=null "> and userWeb.baby_two_sex = #{babyTwoSex}</if>
+        <if test="babyTwoBirthday!=null "> and userWeb.baby_two_birthday = #{babyTwoBirthday}</if>
+        <if test="babyThreeSex!=null "> and userWeb.baby_three_sex = #{babyThreeSex}</if>
+        <if test="babyThreeBirthday!=null "> and userWeb.baby_three_birthday = #{babyThreeBirthday}</if>
+        <if test="headImgSrc!=null "> and userWeb.head_img_src = #{headImgSrc}</if>
+        <if test="accountLevel!=null "> and userWeb.account_level = #{accountLevel}</if>
+                <if test="idFirst!=null "> and userWeb.id <![CDATA[=]]>
+                            #{idFirst}
+                </if>
+                <if test="userNameFirst!=null "> and userWeb.user_name <![CDATA[like]]>
+                            concat('%',#{userNameFirst},'%')
+                </if>
+                <if test="mobileFirst!=null "> and userWeb.mobile <![CDATA[like]]>
+                            concat('%',#{mobileFirst},'%')
+                </if>
+                <if test="realNameFirst!=null "> and userWeb.real_name <![CDATA[like]]>
+                            concat('%',#{realNameFirst},'%')
+                </if>
+                <if test="accountLevelFirst!=null "> and userWeb.account_level <![CDATA[=]]>
+                            #{accountLevelFirst}
+                </if>
+        <if test="whereSql!=null"> ${whereSql}</if>
+    </sql>
+
+    <insert id="insertUserWeb" parameterType="UserWeb" >
+        <selectKey resultType="long" order="AFTER" keyProperty="id" >
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        insert into user_web (
+                user_name ,
+                mobile ,
+                two_code_img_src ,
+                nickname ,
+                user_password ,
+                real_name ,
+                score_amount ,
+                money_amount ,
+                regist_time ,
+                last_login_time ,
+                account_status ,
+                sex ,
+                birthday ,
+                baby_sex ,
+                baby_birthday ,
+                baby_two_sex ,
+                baby_two_birthday ,
+                baby_three_sex ,
+                baby_three_birthday ,
+                head_img_src ,
+                account_level 
+        )
+        values(
+                <choose>
+                    <when test="userName==null">
+                             ''
+                    </when>
+                    <otherwise>#{userName}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="mobile==null">
+                             ''
+                    </when>
+                    <otherwise>#{mobile}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="twoCodeImgSrc==null">
+                             ''
+                    </when>
+                    <otherwise>#{twoCodeImgSrc}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="nickname==null">
+                             ''
+                    </when>
+                    <otherwise>#{nickname}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="userPassword==null">
+                             ''
+                    </when>
+                    <otherwise>#{userPassword}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="realName==null">
+                             ''
+                    </when>
+                    <otherwise>#{realName}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="scoreAmount==null">
+                             '0.00'
+                    </when>
+                    <otherwise>#{scoreAmount}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="moneyAmount==null">
+                             '0.00'
+                    </when>
+                    <otherwise>#{moneyAmount}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="registTime==null">
+                            NULL
+                    </when>
+                    <otherwise>#{registTime,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="lastLoginTime==null">
+                            NULL
+                    </when>
+                    <otherwise>#{lastLoginTime,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="accountStatus==null">
+                             '0'
+                    </when>
+                    <otherwise>#{accountStatus}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="sex==null">
+                             '0'
+                    </when>
+                    <otherwise>#{sex}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="birthday==null">
+                            NULL
+                    </when>
+                    <otherwise>#{birthday,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="babySex==null">
+                             '0'
+                    </when>
+                    <otherwise>#{babySex}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="babyBirthday==null">
+                            NULL
+                    </when>
+                    <otherwise>#{babyBirthday,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="babyTwoSex==null">
+                             '0'
+                    </when>
+                    <otherwise>#{babyTwoSex}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="babyTwoBirthday==null">
+                            NULL
+                    </when>
+                    <otherwise>#{babyTwoBirthday,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="babyThreeSex==null">
+                             '0'
+                    </when>
+                    <otherwise>#{babyThreeSex}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="babyThreeBirthday==null">
+                            NULL
+                    </when>
+                    <otherwise>#{babyThreeBirthday,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="headImgSrc==null">
+                             ''
+                    </when>
+                    <otherwise>#{headImgSrc}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="accountLevel==null">
+                             '0'
+                    </when>
+                    <otherwise>#{accountLevel}</otherwise>
+                </choose>
+        )
+    </insert>
+
+    <select id="getUserWeb" parameterType="hashmap" resultType="UserWeb">
+        select <include refid="selectSqlUserWeb"/> from user_web userWeb where <include refid="whereSqlUserWeb"/>
+    </select>
+    <select id="getUserWebList" parameterType="hashmap" resultType="UserWeb">
+        select <include refid="selectSqlUserWeb"/> from user_web userWeb where <include refid="whereSqlUserWeb"/>
+        <if test="orderBy != null"> order by  ${orderBy} </if>
+        <if test="limit != null"> LIMIT #{limitIndex},#{limit} </if>
+    </select>
+    <select id="getUserWebListCount" parameterType="hashmap" resultType="int">
+        select count(1)  from user_web userWeb
+        where <include refid="whereSqlUserWeb"/>
+    </select>
+
+    <update id="updateUserWeb" parameterType="UserWeb">
+        update user_web set
+                <choose><when test="userName!=null">user_name=#{userName},</when></choose>
+                <choose><when test="mobile!=null">mobile=#{mobile},</when></choose>
+                <choose><when test="twoCodeImgSrc!=null">two_code_img_src=#{twoCodeImgSrc},</when></choose>
+                <choose><when test="nickname!=null">nickname=#{nickname},</when></choose>
+                <choose><when test="userPassword!=null">user_password=#{userPassword},</when></choose>
+                <choose><when test="realName!=null">real_name=#{realName},</when></choose>
+                <choose><when test="scoreAmount!=null">score_amount=#{scoreAmount},</when></choose>
+                <choose><when test="moneyAmount!=null">money_amount=#{moneyAmount},</when></choose>
+                <choose><when test="registTime!=null">regist_time=#{registTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="lastLoginTime!=null">last_login_time=#{lastLoginTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="accountStatus!=null">account_status=#{accountStatus},</when></choose>
+                <choose><when test="sex!=null">sex=#{sex},</when></choose>
+                <choose><when test="birthday!=null">birthday=#{birthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="babySex!=null">baby_sex=#{babySex},</when></choose>
+                <choose><when test="babyBirthday!=null">baby_birthday=#{babyBirthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="babyTwoSex!=null">baby_two_sex=#{babyTwoSex},</when></choose>
+                <choose><when test="babyTwoBirthday!=null">baby_two_birthday=#{babyTwoBirthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="babyThreeSex!=null">baby_three_sex=#{babyThreeSex},</when></choose>
+                <choose><when test="babyThreeBirthday!=null">baby_three_birthday=#{babyThreeBirthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="headImgSrc!=null">head_img_src=#{headImgSrc},</when></choose>
+                <choose><when test="accountLevel!=null">account_level=#{accountLevel},</when></choose>
+        id = #{id}
+        where  id = #{id}
+    </update>
+
+    <update id="updateUserWebByWhereSql" parameterType="hashmap">
+        update user_web set
+                <choose><when test="userName!=null">user_name=#{userName},</when></choose>
+                <choose><when test="mobile!=null">mobile=#{mobile},</when></choose>
+                <choose><when test="twoCodeImgSrc!=null">two_code_img_src=#{twoCodeImgSrc},</when></choose>
+                <choose><when test="nickname!=null">nickname=#{nickname},</when></choose>
+                <choose><when test="userPassword!=null">user_password=#{userPassword},</when></choose>
+                <choose><when test="realName!=null">real_name=#{realName},</when></choose>
+                <choose><when test="scoreAmount!=null">score_amount=#{scoreAmount},</when></choose>
+                <choose><when test="moneyAmount!=null">money_amount=#{moneyAmount},</when></choose>
+                <choose><when test="registTime!=null">regist_time=#{registTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="lastLoginTime!=null">last_login_time=#{lastLoginTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="accountStatus!=null">account_status=#{accountStatus},</when></choose>
+                <choose><when test="sex!=null">sex=#{sex},</when></choose>
+                <choose><when test="birthday!=null">birthday=#{birthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="babySex!=null">baby_sex=#{babySex},</when></choose>
+                <choose><when test="babyBirthday!=null">baby_birthday=#{babyBirthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="babyTwoSex!=null">baby_two_sex=#{babyTwoSex},</when></choose>
+                <choose><when test="babyTwoBirthday!=null">baby_two_birthday=#{babyTwoBirthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="babyThreeSex!=null">baby_three_sex=#{babyThreeSex},</when></choose>
+                <choose><when test="babyThreeBirthday!=null">baby_three_birthday=#{babyThreeBirthday,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="headImgSrc!=null">head_img_src=#{headImgSrc},</when></choose>
+                <choose><when test="accountLevel!=null">account_level=#{accountLevel},</when></choose>
+        id = id
+        where ${whereSql}
+    </update>
+
+    <delete id="truncateUserWeb">
+        truncate table user_web
+    </delete>
+
+    <delete id="deleteUserWeb" parameterType="hashmap">
+        delete from user_web where id = #{id}
+    </delete>
+
+    <delete id="deleteUserWebByWhereSql" parameterType="hashmap">
+        delete from user_web where ${whereSql}
+    </delete>
+
+    <delete id="batchDeleteUserWeb" parameterType="java.util.List">
+        delete from user_web where id in
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <insert id="batchInsertUserWeb" parameterType="java.util.List">
+        insert into user_web (user_name,mobile,two_code_img_src,nickname,user_password,real_name,score_amount,money_amount,regist_time,last_login_time,account_status,sex,birthday,baby_sex,baby_birthday,baby_two_sex,baby_two_birthday,baby_three_sex,baby_three_birthday,head_img_src,account_level)
+        values
+        <foreach collection="list" item= "item" index ="index" separator=",">
+            (
+                    <choose><when test="item.userName==null">  ''  </when><otherwise>#{item.userName}</otherwise></choose> ,
+                    <choose><when test="item.mobile==null">  ''  </when><otherwise>#{item.mobile}</otherwise></choose> ,
+                    <choose><when test="item.twoCodeImgSrc==null">  ''  </when><otherwise>#{item.twoCodeImgSrc}</otherwise></choose> ,
+                    <choose><when test="item.nickname==null">  ''  </when><otherwise>#{item.nickname}</otherwise></choose> ,
+                    <choose><when test="item.userPassword==null">  ''  </when><otherwise>#{item.userPassword}</otherwise></choose> ,
+                    <choose><when test="item.realName==null">  ''  </when><otherwise>#{item.realName}</otherwise></choose> ,
+                    <choose><when test="item.scoreAmount==null">  '0.00'  </when><otherwise>#{item.scoreAmount}</otherwise></choose> ,
+                    <choose><when test="item.moneyAmount==null">  '0.00'  </when><otherwise>#{item.moneyAmount}</otherwise></choose> ,
+                    <choose><when test="item.registTime==null">NULL</when><otherwise>#{item.registTime,jdbcType=TIMESTAMP}</otherwise></choose> ,
+                    <choose><when test="item.lastLoginTime==null">NULL</when><otherwise>#{item.lastLoginTime,jdbcType=TIMESTAMP}</otherwise></choose> ,
+                    <choose><when test="item.accountStatus==null">  '0'  </when><otherwise>#{item.accountStatus}</otherwise></choose> ,
+                    <choose><when test="item.sex==null">  '0'  </when><otherwise>#{item.sex}</otherwise></choose> ,
+                    <choose><when test="item.birthday==null">NULL</when><otherwise>#{item.birthday,jdbcType=TIMESTAMP}</otherwise></choose> ,
+                    <choose><when test="item.babySex==null">  '0'  </when><otherwise>#{item.babySex}</otherwise></choose> ,
+                    <choose><when test="item.babyBirthday==null">NULL</when><otherwise>#{item.babyBirthday,jdbcType=TIMESTAMP}</otherwise></choose> ,
+                    <choose><when test="item.babyTwoSex==null">  '0'  </when><otherwise>#{item.babyTwoSex}</otherwise></choose> ,
+                    <choose><when test="item.babyTwoBirthday==null">NULL</when><otherwise>#{item.babyTwoBirthday,jdbcType=TIMESTAMP}</otherwise></choose> ,
+                    <choose><when test="item.babyThreeSex==null">  '0'  </when><otherwise>#{item.babyThreeSex}</otherwise></choose> ,
+                    <choose><when test="item.babyThreeBirthday==null">NULL</when><otherwise>#{item.babyThreeBirthday,jdbcType=TIMESTAMP}</otherwise></choose> ,
+                    <choose><when test="item.headImgSrc==null">  ''  </when><otherwise>#{item.headImgSrc}</otherwise></choose> ,
+                    <choose><when test="item.accountLevel==null">  '0'  </when><otherwise>#{item.accountLevel}</otherwise></choose> 
+            )
+        </foreach >
+    </insert>
+
+    <update id="batchUpdateUserWeb"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update user_web
+            <set>
+                    <choose><when test="item.userName!=null">user_name=#{item.userName},</when></choose>
+                    <choose><when test="item.mobile!=null">mobile=#{item.mobile},</when></choose>
+                    <choose><when test="item.twoCodeImgSrc!=null">two_code_img_src=#{item.twoCodeImgSrc},</when></choose>
+                    <choose><when test="item.nickname!=null">nickname=#{item.nickname},</when></choose>
+                    <choose><when test="item.userPassword!=null">user_password=#{item.userPassword},</when></choose>
+                    <choose><when test="item.realName!=null">real_name=#{item.realName},</when></choose>
+                    <choose><when test="item.scoreAmount!=null">score_amount=#{item.scoreAmount},</when></choose>
+                    <choose><when test="item.moneyAmount!=null">money_amount=#{item.moneyAmount},</when></choose>
+                    <choose><when test="item.registTime!=null">regist_time=#{item.registTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="item.lastLoginTime!=null">last_login_time=#{item.lastLoginTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="item.accountStatus!=null">account_status=#{item.accountStatus},</when></choose>
+                    <choose><when test="item.sex!=null">sex=#{item.sex},</when></choose>
+                    <choose><when test="item.birthday!=null">birthday=#{item.birthday,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="item.babySex!=null">baby_sex=#{item.babySex},</when></choose>
+                    <choose><when test="item.babyBirthday!=null">baby_birthday=#{item.babyBirthday,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="item.babyTwoSex!=null">baby_two_sex=#{item.babyTwoSex},</when></choose>
+                    <choose><when test="item.babyTwoBirthday!=null">baby_two_birthday=#{item.babyTwoBirthday,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="item.babyThreeSex!=null">baby_three_sex=#{item.babyThreeSex},</when></choose>
+                    <choose><when test="item.babyThreeBirthday!=null">baby_three_birthday=#{item.babyThreeBirthday,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="item.headImgSrc!=null">head_img_src=#{item.headImgSrc},</when></choose>
+                    <choose><when test="item.accountLevel!=null">account_level=#{item.accountLevel},</when></choose>
+                id = #{item.id}
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+
+
+    <!-- sql end-->
+    <!-- 本文件对于研发人员 只读 不能修改 =================================================================================================================================================== -->
+</mapper>

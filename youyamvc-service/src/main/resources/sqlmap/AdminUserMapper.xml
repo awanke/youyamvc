@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminUserMapper">
+	<!-- a_admin_user -->
+   <sql id="selectSqlAdminUser">
+   id,user_name userName,password,real_name realName,email,telephone,mobile_phone mobilePhone,address,create_time_ymd createTimeYmd,create_time_hms createTimeHms,modified_time_ymd modifiedTimeYmd,modified_time_hms modifiedTimeHms,super_admin superAdmin
+   </sql>
+   <sql id="whereSqlAdminUser">
+    1=1 <if test="id!=null "> and id=#{id}</if><if test="userName!=null and userName!=''"> and user_name=#{userName}</if><if test="password!=null and password!=''"> and password=#{password}</if><if test="realName!=null and realName!=''"> and real_name=#{realName}</if><if test="email!=null and email!=''"> and email=#{email}</if><if test="telephone!=null and telephone!=''"> and telephone=#{telephone}</if><if test="mobilePhone!=null and mobilePhone!=''"> and mobile_phone=#{mobilePhone}</if><if test="address!=null and address!=''"> and address=#{address}</if><if test="createTimeYmd!=null "> and create_time_ymd=#{createTimeYmd}</if><if test="createTimeHms!=null "> and create_time_hms=#{createTimeHms}</if><if test="modifiedTimeYmd!=null "> and modified_time_ymd=#{modifiedTimeYmd}</if><if test="modifiedTimeHms!=null "> and modified_time_hms=#{modifiedTimeHms}</if><if test="superAdmin!=null "> and super_admin=#{superAdmin}</if>
+   <if test="whereSql!=null"> ${whereSql}</if> 
+   </sql>
+   <sql id="updateWhereSqlAdminUser">
+    id = #{id}
+   </sql>
+	<insert id="insertAdminUser" parameterType="AdminUser" >
+ 	    <selectKey resultType="long" order="AFTER" keyProperty="id" >
+	      SELECT LAST_INSERT_ID() AS id
+	    </selectKey>
+              insert into a_admin_user (user_name,password,real_name,email,telephone,mobile_phone,address,create_time_ymd,create_time_hms,modified_time_ymd,modified_time_hms,super_admin) values(#{userName},#{password},#{realName},#{email},#{telephone},#{mobilePhone},#{address},<choose><when test="createTimeYmd==null">0</when><otherwise>#{createTimeYmd}</otherwise></choose>,<choose><when test="createTimeHms==null">0</when><otherwise>#{createTimeHms}</otherwise></choose>,<choose><when test="modifiedTimeYmd==null">0</when><otherwise>#{modifiedTimeYmd}</otherwise></choose>,<choose><when test="modifiedTimeHms==null">0</when><otherwise>#{modifiedTimeHms}</otherwise></choose>,<choose><when test="superAdmin==null">0</when><otherwise>#{superAdmin}</otherwise></choose>)
+ 	</insert>
+ 	<select id="getAdminUser" parameterType="hashmap" resultType="AdminUser">
+              select <include refid="selectSqlAdminUser"/> from a_admin_user where <include refid="whereSqlAdminUser"/>
+ 	</select>
+ 	<select id="getAdminUserList" parameterType="hashmap" resultType="AdminUser">
+              select <include refid="selectSqlAdminUser"/> from a_admin_user where <include refid="whereSqlAdminUser"/>
+               <if test="orderBy != null"> order by  ${orderBy} </if> 
+               <if test="limit != null"> LIMIT #{limitIndex},#{limit} </if> 
+ 	</select>
+ 	<select id="getAdminUserListCount" parameterType="hashmap" resultType="int">
+              select count(1)  from a_admin_user where <include refid="whereSqlAdminUser"/>
+ 	</select>
+ 	<update id="updateAdminUser" parameterType="AdminUser">
+              update a_admin_user set id=#{id},user_name=#{userName},password=#{password},real_name=#{realName},email=#{email},telephone=#{telephone},mobile_phone=#{mobilePhone},address=#{address},create_time_ymd=#{createTimeYmd},create_time_hms=#{createTimeHms},modified_time_ymd=#{modifiedTimeYmd},modified_time_hms=#{modifiedTimeHms},super_admin=#{superAdmin}
+                  where  <include refid="updateWhereSqlAdminUser"/>
+ 	</update>
+ 	<delete id="truncateAdminUser">
+             truncate table a_admin_user 
+ 	</delete>
+ 	<delete id="deleteAdminUser" parameterType="hashmap">
+             delete from a_admin_user where id=#{id} 
+ 	</delete>
+  <insert id="batchInsertAdminUser" >
+  insert into a_admin_user (
+user_name,password,real_name,email,telephone,mobile_phone,address,create_time_ymd,create_time_hms,modified_time_ymd,modified_time_hms,super_admin)
+ values 
+<foreach collection="list" item= "item" index ="index" separator=",">
+(
+#{item.userName},#{item.password},#{item.realName},#{item.email},#{item.telephone},#{item.mobilePhone},#{item.address},<choose><when test="item.createTimeYmd==null">0</when><otherwise>#{item.createTimeYmd}</otherwise></choose>,<choose><when test="item.createTimeHms==null">0</when><otherwise>#{item.createTimeHms}</otherwise></choose>,<choose><when test="item.modifiedTimeYmd==null">0</when><otherwise>#{item.modifiedTimeYmd}</otherwise></choose>,<choose><when test="item.modifiedTimeHms==null">0</when><otherwise>#{item.modifiedTimeHms}</otherwise></choose>,<choose><when test="item.superAdmin==null">0</when><otherwise>#{item.superAdmin}</otherwise></choose>)
+</foreach >
+  </insert>
+</mapper>
