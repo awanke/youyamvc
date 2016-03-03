@@ -22,6 +22,7 @@
             <h1>
                 列表
                 <a class="btn btn-app" href="admin/adminUser/detail"><i class="fa fa-edit"></i>新增</a>
+
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -57,12 +58,26 @@
                             </div>
                         </div><!-- /.box-header -->
                         <div class="box-body table-responsive">
+                            <div class="row">
+                                <div class="form-horizontal" >
+                                    <div class="col-sm-1">
+                                        <input type="button" class="form-control" onclick="importJsonFile('user_web')" value="清空数据">
+                                    </div>
+                                </div>
+                                <div class="form-horizontal" >
+                                    <div class="col-sm-1">
+                                        <input type="button" class=" form-control" onclick="exportJsonFile()" value="导出">
 
-                            <input type="button" onclick="importJsonFile('user_web')" value="清空数据">
-                            <input type="button" onclick="batchDeleteItem('user_web')" value="导出">
-                            <input type="file" id="importJsonFile"
-                                   name="myfiles" onchange="importJsonFile('')" class="file"/>导入
-
+                                    </div>
+                                </div>
+                                <div class="form-horizontal" >
+                                        <label class="col-sm-1 control-label">导入文件:</label>
+                                        <div class="col-sm-1">
+                                            <input type="file" id="importJsonFile" class="form-control"
+                                                   name="myfiles" onchange="importJsonFile('admin/adminUser/import/json')"/>
+                                        </div>
+                                </div>
+                            </div>
                             <table id="example2" class="table table-bordered table-hover dataTable">
                                 <thead id="thead">
                                 <tr>
@@ -99,6 +114,9 @@
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 <%@include file="../include/tail.jsp"%>
+<script type="text/javascript" src="assets/admin/js/ajaxfileupload.js"></script>
+<script charset="utf-8" src="assets/admin/app/base.js"></script>
+
 <script language="javascript" type="text/javascript" src="${CTX}assets/admin/js/My97DatePicker/WdatePicker.js"></script>
 <script src="assets/admin/app/adminUser/adminUserPaging.js" type="text/javascript"></script>
 </body>

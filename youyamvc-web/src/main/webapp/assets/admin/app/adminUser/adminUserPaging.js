@@ -140,3 +140,26 @@ function  getAAdminUserPage(pageIndex){
         }
     });
 }
+
+function exportJsonFile(){
+    var url ='admin/adminUser/export/json/0/10';
+    var requestParam = {date:new Date().getTime()}
+    var userName = $("#userName").val();
+    if(userName!=''){
+        requestParam.userName=userName;
+    }
+    var realName = $("#realName").val();
+    if(realName!=''){
+        requestParam.realName=realName;
+    }
+    var email = $("#email").val();
+    if(email!=''){
+        requestParam.email=email;
+    }
+    //排序
+    var orderBy = buildOrderBy()
+    if(typeof orderBy =='undefined' || orderBy!=''){
+        requestParam.orderBy = orderBy;
+    }
+    window.location.href=url;
+}
