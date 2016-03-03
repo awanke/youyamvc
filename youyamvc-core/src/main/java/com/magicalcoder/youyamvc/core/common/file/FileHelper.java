@@ -57,6 +57,34 @@ public class FileHelper {
         }
         return null;
     }
+
+    public  static String fastReadFileUTF8(InputStream fis){
+        return fastReadFile(fis,"UTF-8");
+    }
+    /*精简读取文件*/
+    public  static String fastReadFile(InputStream fis,String charType){
+        try{
+            InputStreamReader inr = new InputStreamReader(fis,charType);
+            BufferedReader br = new BufferedReader(inr);
+            //每行内容
+            String lineStr="";
+            StringBuilder sb = new StringBuilder();
+            while((lineStr=br.readLine())!=null){
+                if(lineStr!=null && !"".equals(lineStr)){
+                    String str = lineStr.trim();
+                    sb.append(str);
+                }
+            }
+            br.close();
+            inr.close();
+            fis.close();
+            return sb.toString();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 快速读文件
      * @param fileSrc

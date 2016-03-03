@@ -2,6 +2,7 @@ package com.magicalcoder.youyamvc.web.controller.web.common;
 
 import com.magicalcoder.youyamvc.app.userweb.util.ValidCodeUtil;
 import com.magicalcoder.youyamvc.core.common.dto.JsonData;
+import com.magicalcoder.youyamvc.core.common.file.FileHelper;
 import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
 import com.magicalcoder.youyamvc.web.common.BaseController;
@@ -53,6 +54,9 @@ public class WebCommonController extends BaseController {
         List<Map<String,String>> imgList = new ArrayList<Map<String,String>>();
 
         for (MultipartFile myfile : myfiles) {
+
+            System.out.println(FileHelper.fastReadFile(myfile.getInputStream(),"UTF-8"));
+
             String url = "/upload/"+folder+"/";
             if (myfile.isEmpty()) {
                 toSimpleJson(response, MapUtil.buildMap("code", 1));

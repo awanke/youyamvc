@@ -57,6 +57,12 @@
                             </div>
                         </div><!-- /.box-header -->
                         <div class="box-body table-responsive">
+
+                            <input type="button" onclick="importJsonFile('user_web')" value="清空数据">
+                            <input type="button" onclick="batchDeleteItem('user_web')" value="导出">
+                            <input type="file" id="importJsonFile"
+                                   name="myfiles" onchange="importJsonFile('')" class="file"/>导入
+
                             <table id="example2" class="table table-bordered table-hover dataTable">
                                 <thead id="thead">
                                 <tr>

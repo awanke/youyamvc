@@ -6,10 +6,14 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.dto.JsonData;
+import com.magicalcoder.youyamvc.core.common.utils.ImgeUtil;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URLEncoder;
 import java.sql.Date;
 
 /**
@@ -155,6 +159,75 @@ public class JsonWrite {
             writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 图片流输出
+     * @param response
+     * @param imgUrl 图片url
+     */
+    public void toImge(HttpServletResponse response,String imgUrl){
+        if(StringUtils.isBlank(imgUrl)){
+            return;
+        }
+        String sufix = ImgeUtil.suffix(imgUrl);
+        BufferedImage bi = ImgeUtil.requestRemoteImg(imgUrl);
+        //1.设置响应头通知浏览器以图片的形式打开
+        response.setContentType("image/jpeg");//等同于response.setHeader("Content-Type", "image/jpeg");
+        //2.设置响应头控制浏览器不要缓存
+/*        response.setDateHeader("expries", -1);
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");*/
+        //3.将图片写给浏览器
+        try {
+            ImageIO.write(bi, sufix, response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 文件流输出
+     * @param response
+     * @param targetFilePath 文件地址
+     */
+    public void toFile(HttpServletResponse response,String targetFilePath){
+        File file = new File(targetFilePath);
+        toFile(response,file);
+    }
+    /**
+     * 文件流输出
+     * @param response
+     * @param file 文件
+     */
+    public void toFile(HttpServletResponse response, File file) {
+        try {
+            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = new FileInputStream(file);
+            int len = 0;
+            byte[] buffer = new byte[256];
+            out = response.getOutputStream();
+            while((len = in.read(buffer)) > 0) {
+                out.write(buffer,0,len);
+            }
+        }catch(Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            if(in != null) {
+                try {
+                    in.close();
+                }catch(Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

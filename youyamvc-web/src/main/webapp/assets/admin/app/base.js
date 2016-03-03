@@ -1,3 +1,23 @@
+//导入json文件
+function importJsonFile(url){
+    $.ajaxFileUpload({
+        //处理文件上传操作的服务器端地址(可以传参数)
+        url:url+'?date='+new Date().getTime(),
+        secureuri:false,                       //是否启用安全提交,默认为false
+        fileElementId:"importJsonFile",           //文件选择框的id属性
+        dataType:'json',                       //服务器返回的格式,可以是json或xml等
+        success:function(data, status){        //服务器响应成功时的处理函数
+            if(data.code==0){     //0表示上传成功(后跟上传后的文件路径),1表示失败(后跟失败描述)
+                alert("导入成功")
+            }else{
+                alert("上传失败请重试")
+            }
+        },
+        error:function(data, status, e){ //服务器响应失败时的处理函数
+            alert("上传失败请重试")
+        }
+    });
+}
 
 function uploadFile(index,folder){
     $.ajaxFileUpload({

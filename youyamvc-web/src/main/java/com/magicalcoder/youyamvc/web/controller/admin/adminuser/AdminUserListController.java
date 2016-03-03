@@ -1,5 +1,6 @@
 package com.magicalcoder.youyamvc.web.controller.admin.adminuser;
 
+import com.alibaba.fastjson.JSON;
 import com.magicalcoder.youyamvc.app.adminuser.AdminUserConstant;
 import com.magicalcoder.youyamvc.app.adminuser.dto.AdminUserDto;
 import com.magicalcoder.youyamvc.app.adminuser.service.AdminUserService;
@@ -7,16 +8,23 @@ import com.magicalcoder.youyamvc.app.adminuser.utils.AdminUserContextUtil;
 import com.magicalcoder.youyamvc.app.model.AdminUser;
 import com.magicalcoder.youyamvc.app.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
+import com.magicalcoder.youyamvc.core.common.file.FileHelper;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
+import com.magicalcoder.youyamvc.core.common.utils.date.DateFormatUtils;
+import com.magicalcoder.youyamvc.core.common.utils.serialize.SerializerFastJsonUtil;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,18 +58,18 @@ public class AdminUserListController extends AdminLoginController {
         Map<String,Object> ajaxData = new HashMap<String, Object>();
         ajaxData.put("pageList",pageList);
         ajaxData.put("pageCount",pageCount);
-        toJson(response,new AjaxData("ok","success",ajaxData));
+        toJson(response, new AjaxData("ok", "success", ajaxData));
     }
     //新增
     @RequestMapping(value = "/detail")
     public String detail(ModelMap model){
-        detailDeal(null,model);
+        detailDeal(null, model);
         return "admin/adminUser/adminUserDetail";
     }
     //详情
     @RequestMapping(value = "/detail/{id}")
     public String detailId(@PathVariable Long id,ModelMap model){
-        detailDeal(id,model);
+        detailDeal(id, model);
         return "admin/adminUser/adminUserDetail";
     }
     private void detailDeal(Long id,ModelMap model){
@@ -69,7 +77,7 @@ public class AdminUserListController extends AdminLoginController {
         if(id!=null){
             entity = adminUserService.getAdminUser(id);
         }
-        model.addAttribute("adminUser",entity);
+        model.addAttribute("adminUser", entity);
     }
     //保存
     @RequestMapping(value = "save",method = RequestMethod.POST)
@@ -111,5 +119,40 @@ public class AdminUserListController extends AdminLoginController {
         }
         adminUserService.deleteAdminUser(id);
         toJson(response,new AjaxData("ok","",""));
+    }
+
+    @RequestMapping(value = "import/json")
+    public void importJson(@RequestParam MultipartFile myfiles,HttpServletResponse response) throws IOException {
+        String fileContent = FileHelper.fastReadFileUTF8(myfiles.getInputStream());
+        List<AdminUser> list = SerializerFastJsonUtil.get().readJsonList(fileContent,AdminUser.class);
+        System.out.println(list.size());
+        toWebSuccessJson(response);
+    }
+
+    @RequestMapping(value = "export/json/{start}/{limit}",method = RequestMethod.GET)
+    public void exportJson(
+                     @PathVariable Integer start,@PathVariable Integer limit,
+                     @RequestParam(required = false,value = "orderBy") String orderBy ,
+                     @RequestParam(required = false,value = "userName") String userName ,
+                     @RequestParam(required = false,value = "realName") String realName ,
+                     @RequestParam(required = false,value = "email") String email ,
+                     HttpServletResponse response){
+        List<AdminUser> pageList = adminUserService.getAdminUserList(ProjectUtil.buildMap(
+                "userName" , userName,"realName" , realName,"email" , email,
+                "orderBy",orderBy,"limitIndex", start,"limit", limit ));
+        String file = "admin_user";
+        File tmpFile = null;
+        try {
+            tmpFile = File.createTempFile(file,".txt");
+            String json = JSON.toJSONString(pageList, true);
+            FileHelper.fastWriteFileUTF8(tmpFile, json);
+            toFile(response, tmpFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(tmpFile!=null){
+                tmpFile.delete();
+            }
+        }
     }
 }

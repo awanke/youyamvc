@@ -41,7 +41,8 @@ pageEncoding="UTF-8"%>
                                 <div class="form">
                                     <div class="box-body">
                                         <div class="row">
-
+
+
                                          <div class="col-xs-2">
                                              <div class="form-group">
                                                  <label for="idFirst">主键 (=)</label>
@@ -109,48 +110,68 @@ pageEncoding="UTF-8"%>
                         <!-- /.box-header -->
                         <div class="box-body table-responsive" style="overflow: auto">
                             <input type="button" onclick="batchDeleteItem('user_web')" value="删除选中项">
+
                             <table id="example2" class="table table-bordered table-hover dataTable">
                                 <thead id="thead">
                                           <tr>
                                               <th><input type="checkbox" id="checkAll"></th>
                                               <th>序号</th>
-                                             <th  class="sorting" orderField="id">                                                  主键
+                                             <th  class="sorting" orderField="id">
+                                                  主键
                                               </th>
-                                             <th  class="sorting" orderField="user_name">                                                  登录名称
+                                             <th  class="sorting" orderField="user_name">
+                                                  登录名称
                                               </th>
-                                             <th  class="sorting" orderField="mobile">                                                  手机号码
+                                             <th  class="sorting" orderField="mobile">
+                                                  手机号码
                                               </th>
-                                             <th  class="sorting" orderField="nickname">                                                  昵称
+                                             <th  class="sorting" orderField="nickname">
+                                                  昵称
                                               </th>
-                                             <th  class="sorting" orderField="real_name">                                                  用户真名
+                                             <th  class="sorting" orderField="real_name">
+                                                  用户真名
                                               </th>
-                                             <th  class="sorting" orderField="score_amount">                                                  积分余额
+                                             <th  class="sorting" orderField="score_amount">
+                                                  积分余额
                                               </th>
-                                             <th  class="sorting" orderField="money_amount">                                                  现金余额
+                                             <th  class="sorting" orderField="money_amount">
+                                                  现金余额
                                               </th>
-                                             <th  class="sorting" orderField="regist_time">                                                  注册时间
+                                             <th  class="sorting" orderField="regist_time">
+                                                  注册时间
                                               </th>
-                                             <th  class="sorting" orderField="last_login_time">                                                  最后登录时间
+                                             <th  class="sorting" orderField="last_login_time">
+                                                  最后登录时间
                                               </th>
-                                             <th  class="sorting" orderField="account_status">                                                  账号状态
+                                             <th  class="sorting" orderField="account_status">
+                                                  账号状态
                                               </th>
-                                             <th  class="sorting" orderField="sex">                                                  性别
+                                             <th  class="sorting" orderField="sex">
+                                                  性别
                                               </th>
-                                             <th  class="sorting" orderField="birthday">                                                  生日
+                                             <th  class="sorting" orderField="birthday">
+                                                  生日
                                               </th>
-                                             <th  class="sorting" orderField="baby_sex">                                                  大宝宝性别
+                                             <th  class="sorting" orderField="baby_sex">
+                                                  大宝宝性别
                                               </th>
-                                             <th  class="sorting" orderField="baby_birthday">                                                  大宝宝生日
+                                             <th  class="sorting" orderField="baby_birthday">
+                                                  大宝宝生日
                                               </th>
-                                             <th  class="sorting" orderField="baby_two_sex">                                                  二宝宝性别
+                                             <th  class="sorting" orderField="baby_two_sex">
+                                                  二宝宝性别
                                               </th>
-                                             <th  class="sorting" orderField="baby_two_birthday">                                                  二宝宝生日
+                                             <th  class="sorting" orderField="baby_two_birthday">
+                                                  二宝宝生日
                                               </th>
-                                             <th  class="sorting" orderField="baby_three_sex">                                                  三宝宝性别
+                                             <th  class="sorting" orderField="baby_three_sex">
+                                                  三宝宝性别
                                               </th>
-                                             <th  class="sorting" orderField="baby_three_birthday">                                                  三宝宝生日
+                                             <th  class="sorting" orderField="baby_three_birthday">
+                                                  三宝宝生日
                                               </th>
-                                             <th  class="sorting" orderField="account_level">                                                  账号等级
+                                             <th  class="sorting" orderField="account_level">
+                                                  账号等级
                                               </th>
                                               <th>操作</th>
                                           </tr>
