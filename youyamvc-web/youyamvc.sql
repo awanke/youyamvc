@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v9.62 
-MySQL - 5.5.43-0+deb7u1-log : Database - youyamvc
+SQLyog Enterprise - MySQL GUI v7.14 
+MySQL - 5.5.44-0+deb8u1 : Database - youyamvc
 *********************************************************************
 */
 
@@ -8,10 +8,9 @@ MySQL - 5.5.43-0+deb7u1-log : Database - youyamvc
 
 /*!40101 SET SQL_MODE=''*/;
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`youyamvc` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `youyamvc`;
@@ -58,6 +57,23 @@ CREATE TABLE `dict` (
 
 /*Data for the table `dict` */
 
+/*Table structure for table `school` */
+
+DROP TABLE IF EXISTS `school`;
+
+CREATE TABLE `school` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '学校主键',
+  `school_name` varchar(50) DEFAULT '' COMMENT '学校名称',
+  `adress` varchar(100) DEFAULT '' COMMENT '学校地址',
+  `school_desc` longtext COMMENT '学校描述',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `school` */
+
+insert  into `school`(`id`,`school_name`,`adress`,`school_desc`) values (2,'好的很22','11','');
+
 /*Table structure for table `user_web` */
 
 DROP TABLE IF EXISTS `user_web`;
@@ -95,5 +111,3 @@ insert  into `user_web`(`id`,`user_name`,`user_password`,`real_name`,`score_amou
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

@@ -52,9 +52,9 @@
 
         <!-- Main content -->
         <section class="content">
-            <div>访问 <a href="http://www.magicalcoder.com/admin">MagicalCoder</a>注册用户名，然后登陆进去
+            <div>访问 <a target="_blank" href="http://www.magicalcoder.com/admin">MagicalCoder</a>注册用户名，然后登陆进去
                 使用MagicalCoder提供的在线编辑工具，编辑完后点生成代码 然后把下载的模板解压覆盖到youyamvc
-                重启项目 所有增删改查等功能便自动完成
+                重启项目 所有增删改查多表关联等功能便自动完成
             </div>
 
         </section><!-- /.content -->
