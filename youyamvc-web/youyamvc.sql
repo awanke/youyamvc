@@ -57,23 +57,6 @@ CREATE TABLE `dict` (
 
 /*Data for the table `dict` */
 
-/*Table structure for table `school` */
-
-DROP TABLE IF EXISTS `school`;
-
-CREATE TABLE `school` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '学校主键',
-  `school_name` varchar(50) DEFAULT '' COMMENT '学校名称',
-  `adress` varchar(100) DEFAULT '' COMMENT '学校地址',
-  `school_desc` longtext COMMENT '学校描述',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `school` */
-
-insert  into `school`(`id`,`school_name`,`adress`,`school_desc`) values (2,'好的很22','11','');
-
 /*Table structure for table `user_web` */
 
 DROP TABLE IF EXISTS `user_web`;
