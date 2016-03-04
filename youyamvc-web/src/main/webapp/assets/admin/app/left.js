@@ -5,7 +5,7 @@
 var $ = jQuery;
 $(document).ready(function(){
     $.getJSON("admin/loginMessage",{},function(data){
-        $("#userName").text(data.result.userName)
+        $("#magicalCoderUserName").text(data.result.userName)
     })
     var aid = localStorage.aid
     var a = $("#"+aid);

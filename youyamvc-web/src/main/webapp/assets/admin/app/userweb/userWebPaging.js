@@ -4,7 +4,20 @@
 * 799374340@qq.com
 */
 
-
+function buildReqParam(){
+    var requestParam = {date:new Date().getTime()}
+    setRequestParamById(requestParam,'idFirst')
+    setRequestParamById(requestParam,'userNameFirst')
+    setRequestParamById(requestParam,'mobileFirst')
+    setRequestParamById(requestParam,'realNameFirst')
+    setRequestParamById(requestParam,'accountLevelFirst')
+    //排序
+    var orderBy = buildOrderBy()
+    if(typeof orderBy =='undefined' || orderBy!=''){
+        requestParam.orderBy = orderBy;
+    }
+    return requestParam
+}
 
 /*pageIndex 当前是第几页 1:第一页*/
 function  getItemPage(pageIndex){
@@ -35,22 +48,12 @@ function  getItemPage(pageIndex){
     var pageSize = 20;//每页多少条记录
     var pageCount = parseInt($("#pageCount").val());//总共多少条记录
     var url ='admin/user_web/page/'+pageIndex+'/'+pageCount;
-    var requestParam = {date:new Date().getTime()}
-    setRequestParamById(requestParam,'idFirst')
-    setRequestParamById(requestParam,'userNameFirst')
-    setRequestParamById(requestParam,'mobileFirst')
-    setRequestParamById(requestParam,'realNameFirst')
-    setRequestParamById(requestParam,'accountLevelFirst')
-    //排序
-    var orderBy = buildOrderBy()
-    if(typeof orderBy =='undefined' || orderBy!=''){
-        requestParam.orderBy = orderBy;
-    }
+
     $.ajax({
         url:url,
         type:'get',
         dataType:'json',
-        data:requestParam,
+        data:buildReqParam(),
         cache:false,
         beforeSend:function(xhr){},
         complete:function(xhr){},

@@ -75,29 +75,12 @@ function  getAAdminUserPage(pageIndex){
     var pageSize = 20;//每页多少条记录
     var pageCount = parseInt($("#pageCount").val());//总共多少条记录
     var url ='admin/adminUser/page/'+pageIndex+'/'+pageCount;
-    var requestParam = {date:new Date().getTime()}
-    var userName = $("#userName").val();
-    if(userName!=''){
-        requestParam.userName=userName;
-    }
-    var realName = $("#realName").val();
-    if(realName!=''){
-        requestParam.realName=realName;
-    }
-    var email = $("#email").val();
-    if(email!=''){
-        requestParam.email=email;
-    }
-    //排序
-    var orderBy = buildOrderBy()
-    if(typeof orderBy =='undefined' || orderBy!=''){
-        requestParam.orderBy = orderBy;
-    }
+
     $.ajax({
         url:url,
         type:'get',
         dataType:'json',
-        data:requestParam,
+        data:buildReqParam(),
         cache:false,
         beforeSend:function(xhr){},
         complete:function(xhr){},
@@ -141,8 +124,7 @@ function  getAAdminUserPage(pageIndex){
     });
 }
 
-function exportJsonFile(){
-    var url ='admin/adminUser/export/json/0/10';
+function buildReqParam(){
     var requestParam = {date:new Date().getTime()}
     var userName = $("#userName").val();
     if(userName!=''){
@@ -161,5 +143,11 @@ function exportJsonFile(){
     if(typeof orderBy =='undefined' || orderBy!=''){
         requestParam.orderBy = orderBy;
     }
-    window.location.href=url;
+    return requestParam
+}
+function exportJsonFile(){
+    var start = $("#start").val()
+    var limit = $("#limit").val()
+    var url ='admin/adminUser/export/json/'+start+'/'+limit;
+    window.location.href=url+'?'+buildUrlParam(buildReqParam());
 }

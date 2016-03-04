@@ -8,7 +8,7 @@
             <img src="assets/admin/img/avatar3.png" class="img-circle" alt="User Image" />
         </div>
         <div class="pull-left info">
-            <p id="userName"></p>
+            <p id="magicalCoderUserName"></p>
             <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
         </div>
     </div>

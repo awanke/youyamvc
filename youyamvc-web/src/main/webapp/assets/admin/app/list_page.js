@@ -100,6 +100,19 @@ function deleteItem(lowerEntity,id){
     })
 }
 
+function truncateTable(lowerEntity){
+    if(!confirm("确定要清空表全部数据吗？")){
+        return
+    }
+    $.getJSON("admin/"+lowerEntity+"/truncate",{date:new Date().getTime()},function(data){
+        if(data.code ==0){
+            alert("操作成功")
+            window.location.reload();
+        }else{
+            alert("操作失败")
+        }
+    })
+}
 
 function batchDeleteItem(lowerEntity){
     if(!confirm("确定要删除？")){

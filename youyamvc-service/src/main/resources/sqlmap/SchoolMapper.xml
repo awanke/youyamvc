@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+* Created by www.magicalcoder.com
+* 如果你改变了此类 read 请将此行删除
+* 799374340@qq.com
+-->
+<mapper namespace="SchoolMapper">
+    <!-- School -->
+    <sql id="createTable">
+    DROP TABLE `school`;
+    CREATE TABLE `school` (
+        PRIMARY KEY (`id`) , UNIQUE KEY `uniq_id` (`id`) ,
+        `id` bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '学校主键' ,
+
+        `school_name` varchar(50) COMMENT '学校名称'  DEFAULT  '' ,
+
+        `adress` varchar(100) COMMENT '学校地址'  DEFAULT  '' ,
+
+        `school_desc` longtext COMMENT '学校描述'  DEFAULT  '' 
+    )
+    </sql>
+    <sql id="selectSqlSchool">
+        school.id ,
+        school.school_name schoolName,
+        school.adress ,
+        school.school_desc schoolDesc
+    </sql>
+
+   <sql id="whereSqlSchool">
+        1=1
+        <if test="id!=null "> and school.id = #{id}</if>
+        <if test="schoolName!=null "> and school.school_name = #{schoolName}</if>
+        <if test="adress!=null "> and school.adress = #{adress}</if>
+        <if test="schoolDesc!=null "> and school.school_desc = #{schoolDesc}</if>
+                <if test="schoolNameFirst!=null "> and school.school_name <![CDATA[=]]>
+                            #{schoolNameFirst}
+                </if>
+        <if test="whereSql!=null"> ${whereSql}</if>
+    </sql>
+
+    <insert id="insertSchool" parameterType="School" >
+        <selectKey resultType="Long" order="AFTER" keyProperty="id" >
+            <choose>
+                <when test="id==null">
+                    SELECT LAST_INSERT_ID() AS id
+                </when>
+                <otherwise>SELECT #{id} as id</otherwise>
+            </choose>
+        </selectKey>
+        insert into school (<if test="id!=null">`id`,</if>
+                `school_name` ,
+                `adress` ,
+                `school_desc` 
+        )
+        values(<if test="id!=null">#{ id },</if>
+                <choose>
+                    <when test="schoolName==null">
+                             ''
+                    </when>
+                    <otherwise>#{schoolName}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="adress==null">
+                             ''
+                    </when>
+                    <otherwise>#{adress}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="schoolDesc==null">
+                             ''
+                    </when>
+                    <otherwise>#{schoolDesc}</otherwise>
+                </choose>
+        )
+    </insert>
+
+    <select id="getSchool" parameterType="hashmap" resultType="School">
+        select <include refid="selectSqlSchool"/> from school school where <include refid="whereSqlSchool"/>
+    </select>
+    <select id="getSchoolList" parameterType="hashmap" resultType="School">
+        select <include refid="selectSqlSchool"/> from school school where <include refid="whereSqlSchool"/>
+        <if test="orderBy != null"> order by  ${orderBy} </if>
+        <if test="limit != null"> LIMIT #{limitIndex},#{limit} </if>
+    </select>
+    <select id="getSchoolListCount" parameterType="hashmap" resultType="int">
+        select count(1)  from school school
+        where <include refid="whereSqlSchool"/>
+    </select>
+
+    <update id="updateSchool" parameterType="School">
+        update school school set
+                <choose><when test="schoolName!=null">school.school_name=#{schoolName},</when></choose>
+                <choose><when test="adress!=null">school.adress=#{adress},</when></choose>
+                <choose><when test="schoolDesc!=null">school.school_desc=#{schoolDesc},</when></choose>
+        school.id = #{id}
+        where  school.id = #{id}
+    </update>
+
+    <update id="updateSchoolByWhereSql" parameterType="hashmap">
+        update school school set
+                <choose><when test="schoolName!=null">school.school_name=#{schoolName},</when></choose>
+                <choose><when test="adress!=null">school.adress=#{adress},</when></choose>
+                <choose><when test="schoolDesc!=null">school.school_desc=#{schoolDesc},</when></choose>
+        school.id = id
+        where ${whereSql}
+    </update>
+
+    <delete id="truncateSchool">
+        truncate table school
+    </delete>
+
+    <delete id="deleteSchool" parameterType="hashmap">
+        delete school from school school where school.id = #{id}
+    </delete>
+
+    <delete id="deleteSchoolByWhereSql" parameterType="hashmap">
+        delete school from school school where ${whereSql}
+    </delete>
+
+    <delete id="batchDeleteSchool" parameterType="java.util.List">
+        delete school from school school where school.id in
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <insert id="batchInsertSchool" parameterType="java.util.List">
+        insert into school (`school_name`,`adress`,`school_desc`)
+        values
+        <foreach collection="list" item= "item" index ="index" separator=",">
+            (
+                    <choose><when test="item.schoolName==null">  ''  </when><otherwise>#{item.schoolName}</otherwise></choose> ,
+                    <choose><when test="item.adress==null">  ''  </when><otherwise>#{item.adress}</otherwise></choose> ,
+                    <choose><when test="item.schoolDesc==null">  ''  </when><otherwise>#{item.schoolDesc}</otherwise></choose> 
+            )
+        </foreach >
+    </insert>
+
+    <update id="batchUpdateSchool"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update school school
+            <set>
+                    <choose><when test="item.schoolName!=null">school.school_name=#{item.schoolName},</when></choose>
+                    <choose><when test="item.adress!=null">school.adress=#{item.adress},</when></choose>
+                    <choose><when test="item.schoolDesc!=null">school.school_desc=#{item.schoolDesc},</when></choose>
+                school.id = #{item.id}
+            </set>
+            where school.id = #{item.id}
+        </foreach>
+    </update>
+
+
+
+    <!-- sql end-->
+    <!-- 本文件对于研发人员 只读 不能修改 =================================================================================================================================================== -->
+</mapper>

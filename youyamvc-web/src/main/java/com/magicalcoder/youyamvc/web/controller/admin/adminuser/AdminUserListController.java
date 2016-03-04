@@ -9,6 +9,7 @@ import com.magicalcoder.youyamvc.app.model.AdminUser;
 import com.magicalcoder.youyamvc.app.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.file.FileHelper;
+import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
 import com.magicalcoder.youyamvc.core.common.utils.date.DateFormatUtils;
@@ -121,12 +122,22 @@ public class AdminUserListController extends AdminLoginController {
         toJson(response,new AjaxData("ok","",""));
     }
 
+    @RequestMapping(value = "truncate")
+    public void truncate(HttpServletResponse response) {
+//        adminUserService.truncateAdminUser();
+        toWebSuccessJson(response);
+    }
+
     @RequestMapping(value = "import/json")
     public void importJson(@RequestParam MultipartFile myfiles,HttpServletResponse response) throws IOException {
-        String fileContent = FileHelper.fastReadFileUTF8(myfiles.getInputStream());
-        List<AdminUser> list = SerializerFastJsonUtil.get().readJsonList(fileContent,AdminUser.class);
-        System.out.println(list.size());
-        toWebSuccessJson(response);
+        if(myfiles.getOriginalFilename().endsWith(".txt")){
+            String fileContent = FileHelper.fastReadFileUTF8(myfiles.getInputStream());
+            List<AdminUser> list = SerializerFastJsonUtil.get().readJsonList(fileContent,AdminUser.class);
+            toWebSuccessJson(response);
+        }else {
+            toWebFailureJson(response, "文件后缀名必须为.txt");
+        }
+
     }
 
     @RequestMapping(value = "export/json/{start}/{limit}",method = RequestMethod.GET)

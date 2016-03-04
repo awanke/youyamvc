@@ -61,13 +61,20 @@
                             <div class="row">
                                 <div class="form-horizontal" >
                                     <div class="col-sm-1">
-                                        <input type="button" class="form-control" onclick="importJsonFile('user_web')" value="清空数据">
+                                        <input type="button" class="form-control" onclick="truncateTable('adminUser')" value="清空数据">
                                     </div>
+
                                 </div>
                                 <div class="form-horizontal" >
+                                    <label class="col-sm-1 control-label">导出文件:</label>
                                     <div class="col-sm-1">
-                                        <input type="button" class=" form-control" onclick="exportJsonFile()" value="导出">
-
+                                        <input type="text" class="form-control" size="2"  id="start" value="0">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="text"  class="form-control" size="2" id="limit" value="50">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="button" class="form-control" onclick="exportJsonFile()" value="开始导出">
                                     </div>
                                 </div>
                                 <div class="form-horizontal" >

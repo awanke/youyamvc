@@ -102,6 +102,23 @@ function trimInput(idArr){
 function openUrl(_t,url){
     $(_t).attr("href",url)
 }
+
+function buildUrlParam(reqParam){
+    if(reqParam){
+        var arr = [];
+        for(var key in reqParam){
+            if(reqParam[key]){
+                arr.push("&")
+                arr.push(key)
+                arr.push('=')
+                arr.push(reqParam[key])
+            }
+        }
+        arr[0]=''
+        return arr.join('')
+    }
+    return ''
+}
 //============================表单验证===========================
 //表单验证
 function validateForm(formJquery){
