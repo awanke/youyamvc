@@ -14,7 +14,7 @@
 
     <build>
         <finalName>youyamvc-web</finalName>
-        <!--<plugins>
+        <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
@@ -26,13 +26,13 @@
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>definedpackage/test/zip.xml</descriptor>
+                                <descriptor>definedpackage/publish/zip.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-        </plugins>-->
+        </plugins>
     </build>
  <dependencies>
 		<dependency>

@@ -11,20 +11,35 @@
     <sql id="createTable">
     DROP TABLE `school`;
     CREATE TABLE `school` (
-        PRIMARY KEY (`id`) , UNIQUE KEY `uniq_id` (`id`) ,
+        PRIMARY KEY (`id`) , KEY (`id`) , UNIQUE KEY `uniq_id` (`id`) ,
         `id` bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '学校主键' ,
 
         `school_name` varchar(50) COMMENT '学校名称'  DEFAULT  '' ,
 
-        `adress` varchar(100) COMMENT '学校地址'  DEFAULT  '' ,
+        `head_img` varchar(50) COMMENT '学校头像'  DEFAULT  '' ,
 
-        `school_desc` longtext COMMENT '学校描述'  DEFAULT  '' 
+        `class_count` int(4) COMMENT '班级个数'  DEFAULT  '0' ,
+
+        `adress` text COMMENT '学校地址'  DEFAULT  NULL ,
+
+        `school_type` tinyint(2) COMMENT '学校类型'  DEFAULT  '0' ,
+
+        `open` char(1) COMMENT '是否开学'  DEFAULT  '0' ,
+
+        `create_time` datetime COMMENT '创建时间'  ,
+
+        `school_desc` longtext COMMENT '学校描述'  DEFAULT  NULL 
     )
     </sql>
     <sql id="selectSqlSchool">
         school.id ,
         school.school_name schoolName,
+        school.head_img headImg,
+        school.class_count classCount,
         school.adress ,
+        school.school_type schoolType,
+        school.open ,
+        school.create_time createTime,
         school.school_desc schoolDesc
     </sql>
 
@@ -32,10 +47,27 @@
         1=1
         <if test="id!=null "> and school.id = #{id}</if>
         <if test="schoolName!=null "> and school.school_name = #{schoolName}</if>
+        <if test="headImg!=null "> and school.head_img = #{headImg}</if>
+        <if test="classCount!=null "> and school.class_count = #{classCount}</if>
         <if test="adress!=null "> and school.adress = #{adress}</if>
+        <if test="schoolType!=null "> and school.school_type = #{schoolType}</if>
+        <if test="open!=null "> and school.open = #{open}</if>
+        <if test="createTime!=null "> and school.create_time = #{createTime}</if>
         <if test="schoolDesc!=null "> and school.school_desc = #{schoolDesc}</if>
-                <if test="schoolNameFirst!=null "> and school.school_name <![CDATA[=]]>
-                            #{schoolNameFirst}
+                <if test="schoolNameFirst!=null "> and school.school_name <![CDATA[like]]>
+                            concat('%',#{schoolNameFirst},'%')
+                </if>
+                <if test="schoolTypeFirst!=null "> and school.school_type <![CDATA[=]]>
+                            #{schoolTypeFirst}
+                </if>
+                <if test="openFirst!=null "> and school.open <![CDATA[=]]>
+                            #{openFirst}
+                </if>
+                <if test="createTimeFirst!=null "> and school.create_time <![CDATA[>=]]>
+                        #{createTimeFirst,jdbcType=TIMESTAMP}
+                </if>
+                <if test="createTimeSecond!=null "> and school.create_time <![CDATA[<=]]>
+                        #{createTimeSecond,jdbcType=TIMESTAMP}
                 </if>
         <if test="whereSql!=null"> ${whereSql}</if>
     </sql>
@@ -51,7 +83,12 @@
         </selectKey>
         insert into school (<if test="id!=null">`id`,</if>
                 `school_name` ,
+                `head_img` ,
+                `class_count` ,
                 `adress` ,
+                `school_type` ,
+                `open` ,
+                `create_time` ,
                 `school_desc` 
         )
         values(<if test="id!=null">#{ id },</if>
@@ -62,14 +99,44 @@
                     <otherwise>#{schoolName}</otherwise>
                 </choose>,
                 <choose>
-                    <when test="adress==null">
+                    <when test="headImg==null">
                              ''
+                    </when>
+                    <otherwise>#{headImg}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="classCount==null">
+                             '0'
+                    </when>
+                    <otherwise>#{classCount}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="adress==null">
+                        NULL
                     </when>
                     <otherwise>#{adress}</otherwise>
                 </choose>,
                 <choose>
+                    <when test="schoolType==null">
+                             '0'
+                    </when>
+                    <otherwise>#{schoolType}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="open==null">
+                             '0'
+                    </when>
+                    <otherwise>#{open}</otherwise>
+                </choose>,
+                <choose>
+                    <when test="createTime==null">
+                        NULL
+                    </when>
+                    <otherwise>#{createTime,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
+                <choose>
                     <when test="schoolDesc==null">
-                             ''
+                        NULL
                     </when>
                     <otherwise>#{schoolDesc}</otherwise>
                 </choose>
@@ -92,7 +159,12 @@
     <update id="updateSchool" parameterType="School">
         update school school set
                 <choose><when test="schoolName!=null">school.school_name=#{schoolName},</when></choose>
+                <choose><when test="headImg!=null">school.head_img=#{headImg},</when></choose>
+                <choose><when test="classCount!=null">school.class_count=#{classCount},</when></choose>
                 <choose><when test="adress!=null">school.adress=#{adress},</when></choose>
+                <choose><when test="schoolType!=null">school.school_type=#{schoolType},</when></choose>
+                <choose><when test="open!=null">school.open=#{open},</when></choose>
+                <choose><when test="createTime!=null">school.create_time=#{createTime,jdbcType=TIMESTAMP},</when></choose>
                 <choose><when test="schoolDesc!=null">school.school_desc=#{schoolDesc},</when></choose>
         school.id = #{id}
         where  school.id = #{id}
@@ -101,7 +173,12 @@
     <update id="updateSchoolByWhereSql" parameterType="hashmap">
         update school school set
                 <choose><when test="schoolName!=null">school.school_name=#{schoolName},</when></choose>
+                <choose><when test="headImg!=null">school.head_img=#{headImg},</when></choose>
+                <choose><when test="classCount!=null">school.class_count=#{classCount},</when></choose>
                 <choose><when test="adress!=null">school.adress=#{adress},</when></choose>
+                <choose><when test="schoolType!=null">school.school_type=#{schoolType},</when></choose>
+                <choose><when test="open!=null">school.open=#{open},</when></choose>
+                <choose><when test="createTime!=null">school.create_time=#{createTime,jdbcType=TIMESTAMP},</when></choose>
                 <choose><when test="schoolDesc!=null">school.school_desc=#{schoolDesc},</when></choose>
         school.id = id
         where ${whereSql}
@@ -125,13 +202,18 @@
     </delete>
 
     <insert id="batchInsertSchool" parameterType="java.util.List">
-        insert into school (`school_name`,`adress`,`school_desc`)
+        insert into school (`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`)
         values
         <foreach collection="list" item= "item" index ="index" separator=",">
             (
                     <choose><when test="item.schoolName==null">  ''  </when><otherwise>#{item.schoolName}</otherwise></choose> ,
-                    <choose><when test="item.adress==null">  ''  </when><otherwise>#{item.adress}</otherwise></choose> ,
-                    <choose><when test="item.schoolDesc==null">  ''  </when><otherwise>#{item.schoolDesc}</otherwise></choose> 
+                    <choose><when test="item.headImg==null">  ''  </when><otherwise>#{item.headImg}</otherwise></choose> ,
+                    <choose><when test="item.classCount==null">  '0'  </when><otherwise>#{item.classCount}</otherwise></choose> ,
+                    <choose><when test="item.adress==null">  NULL  </when><otherwise>#{item.adress}</otherwise></choose> ,
+                    <choose><when test="item.schoolType==null">  '0'  </when><otherwise>#{item.schoolType}</otherwise></choose> ,
+                    <choose><when test="item.open==null">  '0'  </when><otherwise>#{item.open}</otherwise></choose> ,
+                    <choose><when test="item.createTime==null">NULL</when><otherwise>#{item.createTime,jdbcType=TIMESTAMP}</otherwise></choose> ,
+                    <choose><when test="item.schoolDesc==null">  NULL  </when><otherwise>#{item.schoolDesc}</otherwise></choose> 
             )
         </foreach >
     </insert>
@@ -141,7 +223,12 @@
             update school school
             <set>
                     <choose><when test="item.schoolName!=null">school.school_name=#{item.schoolName},</when></choose>
+                    <choose><when test="item.headImg!=null">school.head_img=#{item.headImg},</when></choose>
+                    <choose><when test="item.classCount!=null">school.class_count=#{item.classCount},</when></choose>
                     <choose><when test="item.adress!=null">school.adress=#{item.adress},</when></choose>
+                    <choose><when test="item.schoolType!=null">school.school_type=#{item.schoolType},</when></choose>
+                    <choose><when test="item.open!=null">school.open=#{item.open},</when></choose>
+                    <choose><when test="item.createTime!=null">school.create_time=#{item.createTime,jdbcType=TIMESTAMP},</when></choose>
                     <choose><when test="item.schoolDesc!=null">school.school_desc=#{item.schoolDesc},</when></choose>
                 school.id = #{item.id}
             </set>

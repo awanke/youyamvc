@@ -56,7 +56,7 @@ public interface SchoolService{
     * @param entity   not empty
     * @param whereSql not blank 有sql注入风险 请开发人员自行保证安全性
     */
-    void updateSchoolByWhereSql(Map<String,Object> entity,String whereSql);
+    void updateSchoolByWhereSql(Map<String, Object> entity, String whereSql);
 
     /**
     * 根据主键删除实体

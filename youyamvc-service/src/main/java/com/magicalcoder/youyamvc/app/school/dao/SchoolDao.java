@@ -15,7 +15,7 @@ public interface SchoolDao{
     void batchInsertSchool(List<School> list);
     void batchUpdateSchool(List<School> list);
     void updateSchool(School entity);
-    void updateSchoolByWhereSql(Map<String,Object> entity);
+    void updateSchoolByWhereSql(Map<String, Object> entity);
     List<School> getSchoolList(Map<String, Object> query);
     Integer getSchoolListCount(Map<String, Object> query);
     void truncateSchool();

@@ -148,8 +148,15 @@ function setRequestParamById(requestParam,id){
     }
 }
 function setRequestParamByName(requestParam,name){
-    var v = $("input[name='"+name+"']").val();
-    if(v!=''){
+    var type = $("[name='"+name+"']").attr("type")
+    var v ;
+    if(type && type=='radio'){
+        v = $("[name='"+name+"']:checked").val();
+    }else{
+        v = $("[name='"+name+"']").val();
+    }
+    if(v && v!=''){
         requestParam[name]=v;
     }
+
 }

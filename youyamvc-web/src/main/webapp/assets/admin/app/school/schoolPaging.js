@@ -7,6 +7,10 @@
 function buildReqParam(){
     var requestParam = {date:new Date().getTime()}
     setRequestParamById(requestParam,'schoolNameFirst')
+    setRequestParamById(requestParam,'schoolTypeFirst')
+    setRequestParamByName(requestParam,'openFirst')
+    setRequestParamById(requestParam,'createTimeFirst')
+    setRequestParamById(requestParam,'createTimeSecond')
     //排序
     var orderBy = buildOrderByObj()
     requestParam.orderBySqlField = orderBy.orderBySqlField;
@@ -19,6 +23,10 @@ function  getItemPage(pageIndex){
     var template =
         '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
         '<td>{schoolName}</td>' +
+        '<td>{schoolType}</td>' +
+        '<td>{open}</td>' +
+        '<td>{classCount}</td>' +
+        '<td>{createTime}</td>' +
         '<td><a href="admin/school/detail/{id}">编辑</a>' +
         '<a href="javascript:{}" onclick="deleteItem(\'school\',{id})">删除</a></td></tr>';
 
@@ -47,6 +55,10 @@ function  getItemPage(pageIndex){
                         //排名
                         value.rankNum = ++rankNum;
                         //自定义输出
+                        var schoolTypeMap = {"":"全部","0":"普通","1":"重点"}
+                        value.schoolType = schoolTypeMap[value.schoolType+""]
+                        var openMap = {"":"全部","false":"否","true":"是"}
+                        value.open = openMap[value.open+""]
                         //赋值替换
                         var tm = template;
                         for(var key in value){

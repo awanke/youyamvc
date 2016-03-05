@@ -50,12 +50,100 @@ pageEncoding="UTF-8"%>
                                 <div class="box-body">
                                     <div class="form-group ">
                                         <label class="col-sm-1 control-label">
+                                            学校名称
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control " id="schoolName"
+                                                   name="schoolName" title="学校名称"  placeholder="请输入学校名称"
+                                                             value="${school.schoolName}">
+                                        </div>
+                                        <label class="col-sm-2 control-label" >
+                                            <span class="validateMsg"></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-1 control-label">
+                                            学校头像
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <img id="headImgReview"  src="${school.headImg}" />
+                                            <input type="text" class="form-control "
+                                                         id="headImg" name="headImg"
+                                                         value="${school.headImg}" placeholder="">
+                                            <input type="file" id="headImgFile"
+                                                        name="myfiles" onchange="uploadFile('headImg','school')" class="file" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" >
+                                            <span class="validateMsg"></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-1 control-label">
+                                            班级个数
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control " id="classCount"
+                                                   name="classCount" title="班级个数"  placeholder="请输入班级个数"
+                                                             value="${school.classCount}">
+                                        </div>
+                                        <label class="col-sm-2 control-label" >
+                                            <span class="validateMsg"></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-1 control-label">
                                             学校地址
                                         </label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control " id="adress"
-                                                   name="adress" title="学校地址"  placeholder="请输入学校地址"
-                                                             value="${school.adress}">
+                                            <textarea cols="100" rows="8"
+                                                  class="form-control " id="adress"
+                                                 name="adress" title="学校地址"  placeholder="请输入学校地址"
+                                                         >${school.adress}</textarea>
+                                        </div>
+                                        <label class="col-sm-2 control-label" >
+                                            <span class="validateMsg"></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-1 control-label">
+                                            学校类型
+                                        </label>
+                                        <div class="col-sm-9">
+                                             <select class="form-control" id="schoolType" name="schoolType" title="学校类型"  >
+                                                         <option
+                                                 <c:if test="${ school.schoolType == 0 }">selected</c:if>
+                                                 value="0" >普通</option>
+                                                         <option
+                                                 <c:if test="${ school.schoolType == 1 }">selected</c:if>
+                                                 value="1" >重点</option>
+                                             </select>
+                                        </div>
+                                        <label class="col-sm-2 control-label" >
+                                            <span class="validateMsg"></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-1 control-label">
+                                            是否开学
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="radio" class="form-control " name="open" title="是否开学"                                                  <c:if test="${school.open }">checked</c:if>
+                                               value="true" >是
+                                            <input type="radio" class="form-control " name="open" title="是否开学"                                                  <c:if test="${!school.open }">checked</c:if>
+                                               value="false" >否
+                                        </div>
+                                        <label class="col-sm-2 control-label" >
+                                            <span class="validateMsg"></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-1 control-label">
+                                            创建时间
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input id="createTime" type="text" name="createTime" class="Wdate form-control"                                                onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'%y-%M-%d %H:%m:%s'})"
+                                               value="<fmt:formatDate value="${ school.createTime }"
+                                               pattern="yyyy-MM-dd HH:mm:ss"/>" style="width: 170px;">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>
@@ -70,19 +158,6 @@ pageEncoding="UTF-8"%>
                                                   style="width:1350px;height:600px;visibility:hidden;"
                                                   name="schoolDesc" title="学校描述"  placeholder="请输入学校描述"
                                                 >${school.schoolDesc}</textarea>
-                                        </div>
-                                        <label class="col-sm-2 control-label" >
-                                            <span class="validateMsg"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label class="col-sm-1 control-label">
-                                            学校名称
-                                        </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control " id="schoolName"
-                                                   name="schoolName" title="学校名称"  placeholder="请输入学校名称"
-                                                             value="${school.schoolName}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>
@@ -103,6 +178,8 @@ pageEncoding="UTF-8"%>
     <%@include file="../include/tail.jsp"%>
 
     <script charset="utf-8" src="assets/admin/app/base.js"></script>
+    <script language="javascript" type="text/javascript" src="${CTX}assets/admin/js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="assets/admin/js/ajaxfileupload.js"></script>
     <script charset="utf-8" src="assets/admin/js/kindeditor-4.1.10/kindeditor.js"></script>
     <script charset="utf-8" src="assets/admin/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
     <script charset="utf-8" src="assets/admin/js/kindeditor-4.1.10/plugins/code/prettify.js"></script>

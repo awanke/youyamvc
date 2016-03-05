@@ -36,7 +36,7 @@
                 <li><a id="2-1" href="admin/adminUser/list"><i class="fa fa-circle-o"></i> 用户列表</a></li>
             </ul>
         </li>
-        <%--<li class="treeview">
+        <li class="treeview">
             <a href="#">
                 <i class="fa fa-laptop"></i>
                 <span>演示功能</span>
@@ -45,7 +45,7 @@
             <ul class="treeview-menu">
                 <li><a id="3-1" href="admin/school/list"><i class="fa fa-circle-o"></i> 学校列表</a></li>
             </ul>
-        </li>--%>
+        </li>
     </ul>
 </section>
 <script src="assets/admin/app/left.js" type="text/javascript"></script>
