@@ -189,6 +189,8 @@ function validate(_t){
         if(v==''){
             return "必填字段";
         }
+    }
+    if(v!=''){
         if(mathNumber==''){
             if(isNaN(v)){
                 return "必须为数值";
