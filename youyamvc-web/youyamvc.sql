@@ -39,7 +39,7 @@ CREATE TABLE `a_admin_user` (
 
 /*Data for the table `a_admin_user` */
 
-insert  into `a_admin_user`(`id`,`user_name`,`password`,`real_name`,`email`,`telephone`,`mobile_phone`,`address`,`create_time_ymd`,`create_time_hms`,`modified_time_ymd`,`modified_time_hms`,`super_admin`) values (1,'admin','admin','','','','','',0,0,0,0,0);
+insert  into `a_admin_user`(`id`,`user_name`,`password`,`real_name`,`email`,`telephone`,`mobile_phone`,`address`,`create_time_ymd`,`create_time_hms`,`modified_time_ymd`,`modified_time_hms`,`super_admin`) values (1,'admin','admin','1','','','','',0,0,0,0,0);
 
 /*Table structure for table `dict` */
 
@@ -56,6 +56,28 @@ CREATE TABLE `dict` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `dict` */
+
+/*Table structure for table `school` */
+
+DROP TABLE IF EXISTS `school`;
+
+CREATE TABLE `school` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '学校主键',
+  `school_name` varchar(50) DEFAULT '' COMMENT '学校名称',
+  `head_img` varchar(50) DEFAULT '' COMMENT '学校头像',
+  `class_count` int(4) DEFAULT '0' COMMENT '班级个数',
+  `adress` text COMMENT '学校地址',
+  `school_type` tinyint(2) DEFAULT '0' COMMENT '学校类型',
+  `open` char(1) DEFAULT '0' COMMENT '是否开学',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `school_desc` longtext COMMENT '学校描述',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `school` */
+
+insert  into `school`(`id`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`) values (1,'哈佛','upload/school/20160305125732_516366.jpg',21,'美国',1,'1','2016-03-05 12:57:45','大学很好');
 
 /*Table structure for table `user_web` */
 
