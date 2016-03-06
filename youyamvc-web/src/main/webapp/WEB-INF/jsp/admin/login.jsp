@@ -8,7 +8,7 @@
     <%@include file="../common/head.jsp"%>
     <title>AdminLTE | Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- bootstrap 3.0.2 -->
+  <%--  <!-- bootstrap 3.0.2 -->
     <link href="assets/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
     <link href="assets/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -16,7 +16,8 @@
     <link href="assets/admin/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->--%>
+    <%@include file="include/head.jsp"%>
 
 </head>
 <body class="bg-black">
@@ -42,15 +43,8 @@
             <button type="submit" class="btn bg-olive btn-block">登录</button>
         </div>
     </form>
-
-
 </div>
-
-
-<!-- jQuery 2.0.2 -->
-<script src="assets/admin/js/jquery/jquery-2.0.2.js"></script>
-<!-- Bootstrap -->
-<script src="assets/admin/js/bootstrap.min.js" type="text/javascript"></script>
+<%@include file="include/tail.jsp"%>
 <script type="text/javascript">
     //刷新验证码
     function changeImg(obj){

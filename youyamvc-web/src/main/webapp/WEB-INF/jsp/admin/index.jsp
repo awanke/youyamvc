@@ -7,7 +7,7 @@
 
     <%@include file="../common/head.jsp"%>
     <title>AdminLTE | Dashboard</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <%--<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
     <link href="assets/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
@@ -23,7 +23,9 @@
     <!-- Theme style -->
     <link href="assets/admin/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="assets/admin/js/jquery/1.8.2/jquery-min-1.8.2.js"></script>
+    <script type="text/javascript" src="assets/admin/js/jquery/1.8.2/jquery-min-1.8.2.js"></script>--%>
+    <%@include file="include/head.jsp"%>
+
 </head>
 <body class="skin-blue">
 <!-- header logo: style can be found in header.less -->
@@ -61,15 +63,7 @@
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 
-<!-- add new calendar event modal -->
-<!-- jQuery UI 1.10.3 -->
-<script src="assets/admin/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
-<!-- Bootstrap -->
-<script src="assets/admin/js/bootstrap.min.js" type="text/javascript"></script>
+<%@include file="include/tail.jsp"%>
 
-<!-- AdminLTE App -->
-<script src="assets/admin/js/AdminLTE/app.js" type="text/javascript"></script>
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 </body>
 </html>
