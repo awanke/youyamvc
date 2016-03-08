@@ -185,6 +185,11 @@ function validate(_t){
     var maxLength= _t.attr("maxLength")
     var email= _t.attr("email")
     var url= _t.attr("url")
+    var variable= _t.attr("variable")
+    var chineseCharacter= _t.attr("chineseCharacter")
+    var definedOne= _t.attr("definedOne")
+    var definedTwo= _t.attr("definedTwo")
+    var definedThree= _t.attr("definedThree")
     if(required=='required'){
         if(v==''){
             return "必填字段";
@@ -242,6 +247,36 @@ function validate(_t){
             var reg = /http:\/\/([\w-]+\.)+[\w-]+(\/[\w-\s.\/?%&=]*)?/;
             if (!reg.test(v)){
                 return "Url格式不正确";
+            }
+        }
+        if(variable==''){
+            var reg = /\w+/;
+            if (!reg.test(v)){
+                return "请使用字母数字下划线组成";
+            }
+        }
+        if(chineseCharacter==''){
+            var reg = /[\u4e00-\u9fa5]+/;
+            if (!reg.test(v)){
+                return "请使用中文汉字";
+            }
+        }
+        if(definedOne && definedOne!=''){
+            var reg=new RegExp(definedOne,'g');
+            if (!reg.test(v)){
+                return "不满足要求1";
+            }
+        }
+        if(definedTwo && definedTwo!=''){
+            var reg=new RegExp(definedTwo,'g');
+            if (!reg.test(v)){
+                return "不满足要求2";
+            }
+        }
+        if(definedThree && definedThree!=''){
+            var reg=new RegExp(definedThree,'g');
+            if (!reg.test(v)){
+                return "不满足要求3";
             }
         }
     }
