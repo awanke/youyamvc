@@ -264,19 +264,19 @@ function validate(_t){
         if(definedOne && definedOne!=''){
             var reg=new RegExp(definedOne,'g');
             if (!reg.test(v)){
-                return "不满足要求1";
+                return "不满足"+definedOne;
             }
         }
         if(definedTwo && definedTwo!=''){
             var reg=new RegExp(definedTwo,'g');
             if (!reg.test(v)){
-                return "不满足要求2";
+                return "不满足"+definedTwo;
             }
         }
         if(definedThree && definedThree!=''){
             var reg=new RegExp(definedThree,'g');
             if (!reg.test(v)){
-                return "不满足要求3";
+                return "不满足"+definedThree;
             }
         }
     }
