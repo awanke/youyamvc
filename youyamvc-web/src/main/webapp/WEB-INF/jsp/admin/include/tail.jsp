@@ -7,6 +7,3 @@
 
 <!-- magiccoder app-->
 <script src="assets/admin/js/page/common_paging.js" type="text/javascript"></script>
-<script  type="text/javascript">
-    var CTX = '${CTX}';
-</script>

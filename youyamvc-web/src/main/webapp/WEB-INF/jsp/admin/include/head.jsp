@@ -18,3 +18,14 @@
 <link href="assets/admin/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 <link href="assets/admin/css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="assets/admin/js/jquery/1.8.2/jquery-min-1.8.2.js"></script>
+<!-- Theme style -->
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="assets/admin/js/AdminLTE/html5shiv-3.7.0.js"></script>
+<script src="assets/admin/js/AdminLTE/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="assets/admin/js/json.js"></script>
+<script  type="text/javascript">
+    var CTX = '${CTX}';
+</script>
