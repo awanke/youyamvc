@@ -20,9 +20,12 @@
 		</repository>
 	</repositories>
   <properties>
+	  	<!-- 支持jdk1.7 如果更换到1.8请升级spring版本至少4.1.5-->
         <java.version>1.6</java.version>
         <java.encoding>UTF-8</java.encoding>
         <encoding>UTF-8</encoding>
+        <java.home>你的jdk路径</java.home>
+        <spring.version>3.2.3.RELEASE</spring.version>
     </properties>
     <build>
         <plugins>
@@ -34,6 +37,12 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${java.encoding}</encoding>
+<!--
+				如果报sun 包找不到 请打开此注释 并开启上面java.home真实路径 或者直接把下面的配置到classpath环境变量 重启编辑器
+				<compilerArguments>
+						<verbose />
+						<bootclasspath>${java.home}\jre\lib\rt.jar;${java.home}\jre\lib\jce.jar</bootclasspath>
+					</compilerArguments>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -53,47 +62,47 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-beans</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context-support</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-jdbc</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
-				<version>3.2.3.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 	        
 	        <!-- 配置MyBatis框架的依赖包 -->

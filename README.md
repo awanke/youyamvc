@@ -9,7 +9,7 @@ youyamvc 由MagicalCoder网站开发的一款基于SpringMvc搭建的javaWeb框�
 技术选型：
 1 技术框架 springMvc + MyBatis + Jsp
 2 其他技术 tomcat maven  memcache
-3 jdk6.0以上 默认6.0
+3 jdk1.6以上 默认1.6 如需更改请查询pom.xml
 
 项目搭建过程
 1 下载项目
