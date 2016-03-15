@@ -18,6 +18,8 @@
 <link href="assets/admin/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 <link href="assets/admin/css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="assets/admin/js/jquery/1.8.2/jquery-min-1.8.2.js"></script>
+<script type="text/javascript" src="assets/admin/js/jqueryui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript" src="assets/admin/js/jqueryui/1.10.4/jquery-ui.css"></script>
 <!-- Theme style -->
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

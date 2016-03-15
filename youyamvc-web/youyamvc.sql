@@ -1,6 +1,6 @@
 /*
-SQLyog Enterprise - MySQL GUI v7.14 
-MySQL - 5.5.44-0+deb8u1 : Database - youyamvc
+SQLyog Ultimate v9.62 
+MySQL - 5.5.43-0+deb7u1-log : Database - youyamvc
 *********************************************************************
 */
 
@@ -8,9 +8,10 @@ MySQL - 5.5.44-0+deb8u1 : Database - youyamvc
 
 /*!40101 SET SQL_MODE=''*/;
 
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`youyamvc` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `youyamvc`;
@@ -39,7 +40,38 @@ CREATE TABLE `a_admin_user` (
 
 /*Data for the table `a_admin_user` */
 
-insert  into `a_admin_user`(`id`,`user_name`,`password`,`real_name`,`email`,`telephone`,`mobile_phone`,`address`,`create_time_ymd`,`create_time_hms`,`modified_time_ymd`,`modified_time_hms`,`super_admin`) values (1,'admin','admin','1','','','','',0,0,0,0,0);
+insert  into `a_admin_user`(`id`,`user_name`,`password`,`real_name`,`email`,`telephone`,`mobile_phone`,`address`,`create_time_ymd`,`create_time_hms`,`modified_time_ymd`,`modified_time_hms`,`super_admin`) values (1,'admin','admin','好的','','','','',0,0,0,0,0);
+
+/*Table structure for table `class_teacher` */
+
+DROP TABLE IF EXISTS `class_teacher`;
+
+CREATE TABLE `class_teacher` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '班级关联老师表主键',
+  `class_id` bigint(20) DEFAULT '0' COMMENT '班级表主键',
+  `teacher_id` bigint(20) DEFAULT '0' COMMENT '老师表主键',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_id` (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `class_teacher` */
+
+/*Table structure for table `classes` */
+
+DROP TABLE IF EXISTS `classes`;
+
+CREATE TABLE `classes` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '班级主键',
+  `class_name` varchar(50) DEFAULT '' COMMENT '班级名称',
+  `student_count` int(4) DEFAULT '0' COMMENT '班级学生人数',
+  `school_id` bigint(20) DEFAULT '0' COMMENT '学校id',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_id` (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `classes` */
 
 /*Table structure for table `dict` */
 
@@ -72,12 +104,11 @@ CREATE TABLE `school` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `school_desc` longtext COMMENT '学校描述',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `uniq_id` (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `school` */
-
-insert  into `school`(`id`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`) values (1,'哈佛','upload/school/20160305125732_516366.jpg',21,'美国',1,'1','2016-03-05 12:57:45','大学很好');
 
 /*Table structure for table `user_web` */
 
@@ -116,3 +147,5 @@ insert  into `user_web`(`id`,`user_name`,`user_password`,`real_name`,`score_amou
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
