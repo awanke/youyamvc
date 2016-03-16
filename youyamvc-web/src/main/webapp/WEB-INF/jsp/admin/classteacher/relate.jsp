@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
         <aside class="right-side">
             <section class="content-header">
                 <h1>
-                     关联列表
+                    教师 关联列表
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>

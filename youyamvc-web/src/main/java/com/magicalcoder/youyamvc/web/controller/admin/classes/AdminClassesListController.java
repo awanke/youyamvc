@@ -4,11 +4,11 @@ import com.magicalcoder.youyamvc.app.classes.constant.ClassesConstant;
 import com.magicalcoder.youyamvc.app.model.Classes;
 import com.magicalcoder.youyamvc.app.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
-import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
+import com.magicalcoder.youyamvc.app.dto.InputSelectShowDto;
 import com.magicalcoder.youyamvc.app.model.School;
 import com.magicalcoder.youyamvc.app.school.service.SchoolService;
 import java.io.File;
@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
 * Created by www.magicalcoder.com
+* 如果你改变了此类 read 请将此行删除
 * 799374340@qq.com
 */
 @RequestMapping({"/admin/classes"})
@@ -138,15 +139,11 @@ public class AdminClassesListController extends AdminLoginController
         Classes entity = new Classes();
         if (id != null) {
             entity = this.classesService.getClasses(id);
+            School school= schoolService.getSchool(entity.getSchoolId());
+            model.addAttribute("school",school);
         }
         model.addAttribute("classes", entity);
-        List<School> schoolList =
-            schoolService.getSchoolList(
-        ProjectUtil.buildMap(
-            "limitIndex",0,"limit",1000
-        ));
-        model.addAttribute("schoolList", schoolList);
-    }
+    }
     //保存
     @RequestMapping(value={"save"}, method={RequestMethod.POST})
     public String save(@ModelAttribute Classes classes) {
@@ -238,7 +235,7 @@ public class AdminClassesListController extends AdminLoginController
             pageList = this.classesService.getClassesList(query);
         }
 
-        String file = "admin_user";
+        String file = "classes";
         File tmpFile = null;
         try {
             tmpFile = File.createTempFile(file,".txt");
@@ -253,11 +250,56 @@ public class AdminClassesListController extends AdminLoginController
             }
         }
     }
-    //搜索下拉框 外键查询使用
-    @RequestMapping(value = "type_ahead_search/{keyword}",method = RequestMethod.GET)
-    public void typeAheadSearch(@PathVariable String keyword,HttpServletResponse response){
-        List<Classes> list = classesService.getClassesList(MapUtil.buildMap("classNameFirst",keyword,"limitIndex",0,"limit",20));
-        toSimpleJson(response,list);
+
+
+//===================搜索下拉框 外键查询使用begin=================================
+    @RequestMapping(value = "type_ahead_search",method = RequestMethod.GET)
+    public void typeAheadSearch(@RequestParam(value = "keyword",required = false) String keyword,
+        @RequestParam(value = "selectValue",required = false) String selectValue,
+        @RequestParam(value = "foreignJavaField",required = false) String foreignJavaField,
+        HttpServletResponse response){
+        List<Classes> list = new ArrayList<Classes>();
+        Map<String,Object> query = null;
+        if(StringUtils.isBlank(keyword)){
+            query = ProjectUtil.buildMap("limitIndex",0,"limit", 20);
+            list = this.classesService.getClassesList(query);
+            toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+
+        }else{
+            boolean stopSearch = false;//逐一尝试关键词匹配
+            boolean toSimpleJson = false;//如果最终没查询到数据 则输出默认数据
+            if(!stopSearch){
+                query = ProjectUtil.buildMap(
+                    "classNameFirst",keyword,"limitIndex",0,"limit", 20
+                );
+                list = this.classesService.getClassesList(query);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+            if(!toSimpleJson){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+            }
+        }
     }
+
+    private List<InputSelectShowDto> showList(List<Classes> list,String selectValue,String foreignJavaField){
+        if(ListUtils.isNotBlank(list)){
+            List<InputSelectShowDto> showList = new ArrayList<InputSelectShowDto>();
+            for(Classes entity:list){
+                String showValue = ProjectUtil.reflectShowValue(selectValue,entity);
+                Object hiddenId = ProjectUtil.reflectValue(foreignJavaField,entity);
+                InputSelectShowDto dto = new InputSelectShowDto(showValue,hiddenId);
+                showList.add(dto);
+            }
+            return showList;
+        }
+        return null;
+    }
+    //===================end=================================
 
 }

@@ -79,7 +79,7 @@ pageEncoding="UTF-8"%>
                                          <div class="col-sm-9">
                                             <input type="text" class="typeahead" id="schoolIdSearch"
                                                   name="schoolIdSearch"  placeholder="请输入关键词查询学校"
-                                                  value="${classes.className}">
+                 value="${ school.schoolName }">
                                             <input type="hidden" class="typeahead" id="schoolId"
                                                    name="schoolId"
                                                    value="${classes.schoolId}">

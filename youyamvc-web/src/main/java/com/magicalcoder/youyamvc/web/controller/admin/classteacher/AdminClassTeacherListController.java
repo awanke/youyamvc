@@ -8,6 +8,7 @@ import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
+import com.magicalcoder.youyamvc.app.dto.InputSelectShowDto;
 import com.magicalcoder.youyamvc.app.model.Classes;
 import com.magicalcoder.youyamvc.app.classes.service.ClassesService;
 import com.magicalcoder.youyamvc.app.model.Teacher;
@@ -129,8 +130,7 @@ public class AdminClassTeacherListController extends AdminLoginController
             model.addAttribute("teacher",teacher);
         }
         model.addAttribute("classTeacher", entity);
-
-    }
+    }
     //保存
     @RequestMapping(value={"save"}, method={RequestMethod.POST})
     public String save(@ModelAttribute ClassTeacher classTeacher) {
@@ -297,19 +297,41 @@ public class AdminClassTeacherListController extends AdminLoginController
         toJson(response, new AjaxData("ok", "", ""));
     }
 
-    //搜索下拉框 外键查询使用
+//===================搜索下拉框 外键查询使用begin=================================
     @RequestMapping(value = "type_ahead_search",method = RequestMethod.GET)
-    public void typeAheadSearch(@RequestParam(value = "keyword",required = false) String keyword,HttpServletResponse response){
-        if(StringUtils.isBlank(keyword)){
-            keyword=null;
-        }
+    public void typeAheadSearch(@RequestParam(value = "keyword",required = false) String keyword,
+        @RequestParam(value = "selectValue",required = false) String selectValue,
+        @RequestParam(value = "foreignJavaField",required = false) String foreignJavaField,
+        HttpServletResponse response){
         List<ClassTeacher> list = new ArrayList<ClassTeacher>();
         Map<String,Object> query = null;
-        boolean stopSearch = false;
-        boolean toSimpleJson = false;
-        if(!toSimpleJson){
-            toSimpleJson(response,list);
+        if(StringUtils.isBlank(keyword)){
+            query = ProjectUtil.buildMap("limitIndex",0,"limit", 20);
+            list = this.classTeacherService.getClassTeacherList(query);
+            toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+
+        }else{
+            boolean stopSearch = false;//逐一尝试关键词匹配
+            boolean toSimpleJson = false;//如果最终没查询到数据 则输出默认数据
+            if(!toSimpleJson){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+            }
         }
     }
+
+    private List<InputSelectShowDto> showList(List<ClassTeacher> list,String selectValue,String foreignJavaField){
+        if(ListUtils.isNotBlank(list)){
+            List<InputSelectShowDto> showList = new ArrayList<InputSelectShowDto>();
+            for(ClassTeacher entity:list){
+                String showValue = ProjectUtil.reflectShowValue(selectValue,entity);
+                Object hiddenId = ProjectUtil.reflectValue(foreignJavaField,entity);
+                InputSelectShowDto dto = new InputSelectShowDto(showValue,hiddenId);
+                showList.add(dto);
+            }
+            return showList;
+        }
+        return null;
+    }
+    //===================end=================================
 
 }

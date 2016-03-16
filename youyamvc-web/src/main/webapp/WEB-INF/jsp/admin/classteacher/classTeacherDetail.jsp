@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
         <aside class="right-side">
             <section class="content-header">
                 <h1>
-                    详情
+                    班级关联教师详情
                     <small></small>
                 </h1>
                 <ol class="breadcrumb">
@@ -50,10 +50,15 @@ pageEncoding="UTF-8"%>
                                         <label class="col-sm-1 control-label">
                                             班级表主键
                                         </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control " id="classId"
-                                                   name="classId" title="班级表主键"  placeholder="请输入班级表主键"
-                                                             value="${classTeacher.classId}">
+                                         <div class="col-sm-9">
+                                            <input type="text" class="typeahead" id="classIdSearch"
+                                                  name="classIdSearch"  placeholder="请输入关键词查询班级"
+                                            <c:if test="${ classes!=null }">
+                                                         value="${ classes.className }">
+                                            </c:if>
+                                            <input type="hidden" class="typeahead" id="classId"
+                                                   name="classId"
+                                                   value="${classTeacher.classId}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classTeacher.id!=null}">
@@ -66,10 +71,15 @@ pageEncoding="UTF-8"%>
                                         <label class="col-sm-1 control-label">
                                             老师表主键
                                         </label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control " id="teacherId"
-                                                   name="teacherId" title="老师表主键"  placeholder="请输入老师表主键"
-                                                             value="${classTeacher.teacherId}">
+                                         <div class="col-sm-9">
+                                            <input type="text" class="typeahead" id="teacherIdSearch"
+                                                  name="teacherIdSearch"  placeholder="请输入关键词查询教师"
+                                            <c:if test="${ teacher!=null }">
+                                                         value="${ teacher.teacherName }-${ teacher.age }">
+                                            </c:if>
+                                            <input type="hidden" class="typeahead" id="teacherId"
+                                                   name="teacherId"
+                                                   value="${classTeacher.teacherId}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classTeacher.id!=null}">
@@ -97,6 +107,10 @@ pageEncoding="UTF-8"%>
         $(function(){
             //base.js
             validateForm("#form")
+                    foreignSearch('classes','classId','className','id');
+
+                    foreignSearch('teacher','teacherId','teacherName,age','id');
+
         })
     </script>
 </body>
