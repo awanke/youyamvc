@@ -2,7 +2,7 @@
 function importJsonFile(url){
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址(可以传参数)
-        url:url+'?date='+new Date().getTime(),
+        url:CTX+url+'?date='+new Date().getTime(),
         secureuri:false,                       //是否启用安全提交,默认为false
         fileElementId:"importJsonFile",           //文件选择框的id属性
         dataType:'json',                       //服务器返回的格式,可以是json或xml等
@@ -22,7 +22,7 @@ function importJsonFile(url){
 function uploadFile(index,folder){
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址(可以传参数)
-        url:'admin/commonfile/fileupload/'+folder+'?date='+new Date().getTime(),
+        url:CTX+'admin/commonfile/fileupload/'+folder+'?date='+new Date().getTime(),
         secureuri:false,                       //是否启用安全提交,默认为false
         fileElementId:index+"File",           //文件选择框的id属性
         dataType:'json',                       //服务器返回的格式,可以是json或xml等
@@ -54,7 +54,7 @@ function createKindEditor(textName,itemArr){
         'anchor', 'link', 'unlink', '|', 'about'
         ]
     KindEditor.create('textarea[name="'+textName+'"]', {
-        uploadJson : 'admin/commonfile/ckfileupload/business?maxWidth=952',
+        uploadJson : CTX+'admin/commonfile/ckfileupload/business?maxWidth=952',
         allowFileManager : true,
         extraFileUploadParams : {sessionid : 'abcdef'},
         items : items,
@@ -283,3 +283,23 @@ function validate(_t){
     return null;
 }
 //====================================表单验证结束=======================================
+//====================================外键下来查询=======================================
+function foreignSearch(tableName,inputId,selectValue,foreignJavaField){
+    $('#'+inputId+'Search').typeahead({hint: true,highlight: true,minLength: 0},
+        {
+            name: inputId,
+            display: "selectValue",
+            source: new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('className'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: CTX+'admin/'+tableName+'/type_ahead_search?keyword=%QUERY&selectValue='+selectValue+'&foreignJavaField='+foreignJavaField,
+                    wildcard: '%QUERY'
+                }
+            }),
+            limit:20
+        });
+    $('#'+inputId+'Search').bind('typeahead:select', function(ev, suggestion) {
+        $('#'+inputId).val(suggestion.hiddenId)
+    });
+}

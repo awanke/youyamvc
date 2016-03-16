@@ -4,6 +4,7 @@ import com.magicalcoder.youyamvc.app.classes.constant.ClassesConstant;
 import com.magicalcoder.youyamvc.app.model.Classes;
 import com.magicalcoder.youyamvc.app.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
+import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
@@ -34,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
 * Created by www.magicalcoder.com
-* 如果你改变了此类 read 请将此行删除
 * 799374340@qq.com
 */
 @RequestMapping({"/admin/classes"})
@@ -252,6 +252,12 @@ public class AdminClassesListController extends AdminLoginController
                 tmpFile.delete();
             }
         }
+    }
+    //搜索下拉框 外键查询使用
+    @RequestMapping(value = "type_ahead_search/{keyword}",method = RequestMethod.GET)
+    public void typeAheadSearch(@PathVariable String keyword,HttpServletResponse response){
+        List<Classes> list = classesService.getClassesList(MapUtil.buildMap("classNameFirst",keyword,"limitIndex",0,"limit",20));
+        toSimpleJson(response,list);
     }
 
 }

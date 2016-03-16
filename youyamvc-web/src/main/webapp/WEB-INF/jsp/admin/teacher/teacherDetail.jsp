@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
         <aside class="right-side">
             <section class="content-header">
                 <h1>
-                    详情
+                    教师详情
                     <small></small>
                 </h1>
                 <ol class="breadcrumb">

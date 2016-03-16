@@ -22,9 +22,8 @@ function  getItemPage(pageIndex){
         '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
         '<td>{className}</td>' +
         '<td>{studentCount}</td>' +
-        '<td><a href="admin/classes/detail/{id}"> 编辑 </a>' +
-            '<a href="admin/class_teacher/relate/{id}"> 关联老师 </a>'+//本行人为后面加的代码
-        '<a href="javascript:{}" onclick="deleteItem(\'classes\',{id})"> 删除</a></td></tr>';
+        '<td><a href="admin/classes/detail/{id}">编辑</a>' +
+        '<a href="javascript:{}" onclick="deleteItem(\'classes\',{id})">删除</a></td></tr>';
 
     var pageSize = 20;//每页多少条记录
     var pageCount = parseInt($("#pageCount").val());//总共多少条记录

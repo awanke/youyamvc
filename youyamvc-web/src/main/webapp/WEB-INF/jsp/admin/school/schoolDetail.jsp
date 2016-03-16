@@ -108,7 +108,7 @@ pageEncoding="UTF-8"%>
                                         <label class="col-sm-1 control-label">
                                             学校类型
                                         </label>
-                                        <div class="col-sm-9">
+                                         <div class="col-sm-9">
                                              <select class="form-control" id="schoolType" name="schoolType" title="学校类型"  >
                                                          <option
                                                  <c:if test="${ school.schoolType == 0 }">selected</c:if>

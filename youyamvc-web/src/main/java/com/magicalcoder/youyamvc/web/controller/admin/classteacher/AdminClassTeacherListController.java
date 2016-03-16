@@ -8,6 +8,10 @@ import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
+import com.magicalcoder.youyamvc.app.model.Classes;
+import com.magicalcoder.youyamvc.app.classes.service.ClassesService;
+import com.magicalcoder.youyamvc.app.model.Teacher;
+import com.magicalcoder.youyamvc.app.teacher.service.TeacherService;
 import java.io.File;
 import java.io.IOException;
 import com.alibaba.fastjson.JSON;
@@ -40,6 +44,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminClassTeacherListController extends AdminLoginController
 {
 
+    @Resource
+    private ClassesService classesService;
+    @Resource
+    private TeacherService teacherService;
 
     @Resource
     private ClassTeacherService classTeacherService;
@@ -115,8 +123,13 @@ public class AdminClassTeacherListController extends AdminLoginController
         ClassTeacher entity = new ClassTeacher();
         if (id != null) {
             entity = this.classTeacherService.getClassTeacher(id);
+            Classes classes= classesService.getClasses(entity.getClassId());
+            model.addAttribute("classes",classes);
+            Teacher teacher= teacherService.getTeacher(entity.getTeacherId());
+            model.addAttribute("teacher",teacher);
         }
         model.addAttribute("classTeacher", entity);
+
     }
     //保存
     @RequestMapping(value={"save"}, method={RequestMethod.POST})
@@ -200,7 +213,7 @@ public class AdminClassTeacherListController extends AdminLoginController
         List pageList;
             pageList = this.classTeacherService.getClassTeacherList(query);
 
-        String file = "admin_user";
+        String file = "class_teacher";
         File tmpFile = null;
         try {
             tmpFile = File.createTempFile(file,".txt");
@@ -283,4 +296,20 @@ public class AdminClassTeacherListController extends AdminLoginController
         this.classTeacherService.deleteClassTeacherByWhereSql(whereSql.toString());
         toJson(response, new AjaxData("ok", "", ""));
     }
+
+    //搜索下拉框 外键查询使用
+    @RequestMapping(value = "type_ahead_search",method = RequestMethod.GET)
+    public void typeAheadSearch(@RequestParam(value = "keyword",required = false) String keyword,HttpServletResponse response){
+        if(StringUtils.isBlank(keyword)){
+            keyword=null;
+        }
+        List<ClassTeacher> list = new ArrayList<ClassTeacher>();
+        Map<String,Object> query = null;
+        boolean stopSearch = false;
+        boolean toSimpleJson = false;
+        if(!toSimpleJson){
+            toSimpleJson(response,list);
+        }
+    }
+
 }

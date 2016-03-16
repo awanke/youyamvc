@@ -8,6 +8,7 @@ import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
+import com.magicalcoder.youyamvc.app.dto.InputSelectShowDto;
 import java.io.File;
 import java.io.IOException;
 import com.alibaba.fastjson.JSON;
@@ -119,7 +120,7 @@ public class AdminTeacherListController extends AdminLoginController
             entity = this.teacherService.getTeacher(id);
         }
         model.addAttribute("teacher", entity);
-    }
+    }
     //保存
     @RequestMapping(value={"save"}, method={RequestMethod.POST})
     public String save(@ModelAttribute Teacher teacher) {
@@ -204,7 +205,7 @@ public class AdminTeacherListController extends AdminLoginController
         List pageList;
             pageList = this.teacherService.getTeacherList(query);
 
-        String file = "admin_user";
+        String file = "teacher";
         File tmpFile = null;
         try {
             tmpFile = File.createTempFile(file,".txt");
@@ -219,5 +220,56 @@ public class AdminTeacherListController extends AdminLoginController
             }
         }
     }
+
+
+//===================搜索下拉框 外键查询使用begin=================================
+    @RequestMapping(value = "type_ahead_search",method = RequestMethod.GET)
+    public void typeAheadSearch(@RequestParam(value = "keyword",required = false) String keyword,
+        @RequestParam(value = "selectValue",required = false) String selectValue,
+        @RequestParam(value = "foreignJavaField",required = false) String foreignJavaField,
+        HttpServletResponse response){
+        List<Teacher> list = new ArrayList<Teacher>();
+        Map<String,Object> query = null;
+        if(StringUtils.isBlank(keyword)){
+            query = ProjectUtil.buildMap("limitIndex",0,"limit", 20);
+            list = this.teacherService.getTeacherList(query);
+            toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+
+        }else{
+            boolean stopSearch = false;//逐一尝试关键词匹配
+            boolean toSimpleJson = false;//如果最终没查询到数据 则输出默认数据
+            if(!stopSearch){
+                query = ProjectUtil.buildMap(
+                    "teacherNameFirst",keyword,"limitIndex",0,"limit", 20
+                );
+                list = this.teacherService.getTeacherList(query);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+            if(!toSimpleJson){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+            }
+        }
+    }
+
+    private List<InputSelectShowDto> showList(List<Teacher> list,String selectValue,String foreignJavaField){
+        if(ListUtils.isNotBlank(list)){
+            List<InputSelectShowDto> showList = new ArrayList<InputSelectShowDto>();
+            for(Teacher entity:list){
+                String showValue = ProjectUtil.reflectShowValue(selectValue,entity);
+                Object hiddenId = ProjectUtil.reflectValue(foreignJavaField,entity);
+                InputSelectShowDto dto = new InputSelectShowDto(showValue,hiddenId);
+                showList.add(dto);
+            }
+            return showList;
+        }
+        return null;
+    }
+    //===================end=================================
 
 }

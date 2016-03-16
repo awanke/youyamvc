@@ -76,14 +76,13 @@ pageEncoding="UTF-8"%>
                                         <label class="col-sm-1 control-label">
                                             学校id
                                         </label>
-                                        <div class="col-sm-9">
-                                             <select class="form-control" id="schoolId" name="schoolId" >
-                                                 <c:forEach items="${schoolList}" var="item">
-                                                     <option value="${ item.id }" <c:if test="${ item.id == classes.schoolId }">selected</c:if>  >
-                                                             ${ item.schoolName }
-                                                     </option>
-                                                 </c:forEach>
-                                              </select>
+                                         <div class="col-sm-9">
+                                            <input type="text" class="typeahead" id="schoolIdSearch"
+                                                  name="schoolIdSearch"  placeholder="请输入关键词查询学校"
+                                                  value="${classes.className}">
+                                            <input type="hidden" class="typeahead" id="schoolId"
+                                                   name="schoolId"
+                                                   value="${classes.schoolId}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classes.id!=null}">
@@ -111,6 +110,8 @@ pageEncoding="UTF-8"%>
         $(function(){
             //base.js
             validateForm("#form")
+                    foreignSearch('school','schoolId','schoolName','id');
+
         })
     </script>
 </body>
