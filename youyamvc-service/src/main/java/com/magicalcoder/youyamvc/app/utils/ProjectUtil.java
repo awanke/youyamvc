@@ -64,4 +64,8 @@ public class ProjectUtil {
         }
         return null;
     }
+
+    public static boolean isNum(String str){
+        return str.matches("[0-9\\.]+");
+    }
 }

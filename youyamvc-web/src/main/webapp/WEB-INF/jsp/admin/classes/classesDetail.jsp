@@ -76,11 +76,11 @@ pageEncoding="UTF-8"%>
                                         <label class="col-sm-1 control-label">
                                             学校id
                                         </label>
-                                         <div class="col-sm-9">
+                                         <div class="col-sm-3">
                                             <input type="hidden" id="schoolId"
                                                    name="schoolId"
                                                    value="${classes.schoolId}">
-                                            <input type="text" class="typeahead" id="schoolIdSearch"
+                                            <input type="text" class="form-control" id="schoolIdSearch"
                                                   name="schoolIdSearch"  placeholder="请输入关键词查询学校"
                                             <c:if test="${ school!=null }">
                                                          value="${ school.schoolName }"

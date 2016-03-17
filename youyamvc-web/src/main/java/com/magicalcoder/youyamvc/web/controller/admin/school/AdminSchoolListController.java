@@ -247,10 +247,7 @@ public class AdminSchoolListController extends AdminLoginController
             boolean stopSearch = false;//逐一尝试关键词匹配
             boolean toSimpleJson = false;//如果最终没查询到数据 则输出默认数据
             if(!stopSearch){
-                query = ProjectUtil.buildMap(
-                    "schoolNameFirst",keyword,"limitIndex",0,"limit", 20
-                );
-                list = this.schoolService.getSchoolList(query);
+                list = searchList("schoolNameFirst",keyword);
                 if(ListUtils.isNotBlank(list)){
                     stopSearch = true;
                 }
@@ -259,10 +256,60 @@ public class AdminSchoolListController extends AdminLoginController
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
                 toSimpleJson = true;
             }
+
+            if(ProjectUtil.isNum(keyword)){
+            if(!stopSearch){
+                list = searchList("schoolTypeFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+            }
+
+            if(!stopSearch){
+                list = searchList("openFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+
+            if(!stopSearch){
+                list = searchList("createTimeFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+
             if(!toSimpleJson){
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
             }
         }
+    }
+    private List<School> searchList(String field,String keyword){
+        List<School> list = this.schoolService.getSchoolList(ProjectUtil.buildMap(field,keyword,"limitIndex",0,"limit", 20));
+        if(ListUtils.isNotBlank(list)){
+            return list;
+        }
+        String[] keys = keyword.split("-");
+        for(String key:keys){
+            list = this.schoolService.getSchoolList(ProjectUtil.buildMap(field,key,"limitIndex",0,"limit", 20));
+            if(ListUtils.isNotBlank(list)){
+                return list;
+            }
+        }
+        return null;
     }
 
     private List<InputSelectShowDto> showList(List<School> list,String selectValue,String foreignJavaField){

@@ -36,3 +36,7 @@ src/main/resources/xmemcached.properties
 10 youyamvc只是一个框架，真正能帮助您的 请访问 http://www.magicalcoder.com/admin 注册您的专属账号
     使用在线编程工具，生成代码后，覆盖到youyamvc 然后重启您的工程，看看MagicalCoder为您编写的代码是否能正常运行吧
     还是亲自来尝试一下吧
+
+更新日志
+2016-3-17
+    新增关联表方式：搜索下拉方式解决多表关联外键功能

@@ -239,10 +239,7 @@ public class AdminTeacherListController extends AdminLoginController
             boolean stopSearch = false;//逐一尝试关键词匹配
             boolean toSimpleJson = false;//如果最终没查询到数据 则输出默认数据
             if(!stopSearch){
-                query = ProjectUtil.buildMap(
-                    "teacherNameFirst",keyword,"limitIndex",0,"limit", 20
-                );
-                list = this.teacherService.getTeacherList(query);
+                list = searchList("teacherNameFirst",keyword);
                 if(ListUtils.isNotBlank(list)){
                     stopSearch = true;
                 }
@@ -251,10 +248,38 @@ public class AdminTeacherListController extends AdminLoginController
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
                 toSimpleJson = true;
             }
+
+            if(ProjectUtil.isNum(keyword)){
+            if(!stopSearch){
+                list = searchList("ageFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+            }
+
             if(!toSimpleJson){
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
             }
         }
+    }
+    private List<Teacher> searchList(String field,String keyword){
+        List<Teacher> list = this.teacherService.getTeacherList(ProjectUtil.buildMap(field,keyword,"limitIndex",0,"limit", 20));
+        if(ListUtils.isNotBlank(list)){
+            return list;
+        }
+        String[] keys = keyword.split("-");
+        for(String key:keys){
+            list = this.teacherService.getTeacherList(ProjectUtil.buildMap(field,key,"limitIndex",0,"limit", 20));
+            if(ListUtils.isNotBlank(list)){
+                return list;
+            }
+        }
+        return null;
     }
 
     private List<InputSelectShowDto> showList(List<Teacher> list,String selectValue,String foreignJavaField){

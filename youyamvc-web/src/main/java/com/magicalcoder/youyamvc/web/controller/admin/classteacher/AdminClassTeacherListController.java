@@ -313,10 +313,50 @@ public class AdminClassTeacherListController extends AdminLoginController
         }else{
             boolean stopSearch = false;//逐一尝试关键词匹配
             boolean toSimpleJson = false;//如果最终没查询到数据 则输出默认数据
+            if(ProjectUtil.isNum(keyword)){
+            if(!stopSearch){
+                list = searchList("classIdFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+            }
+
+            if(ProjectUtil.isNum(keyword)){
+            if(!stopSearch){
+                list = searchList("teacherIdFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+            }
+
             if(!toSimpleJson){
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
             }
         }
+    }
+    private List<ClassTeacher> searchList(String field,String keyword){
+        List<ClassTeacher> list = this.classTeacherService.getClassTeacherList(ProjectUtil.buildMap(field,keyword,"limitIndex",0,"limit", 20));
+        if(ListUtils.isNotBlank(list)){
+            return list;
+        }
+        String[] keys = keyword.split("-");
+        for(String key:keys){
+            list = this.classTeacherService.getClassTeacherList(ProjectUtil.buildMap(field,key,"limitIndex",0,"limit", 20));
+            if(ListUtils.isNotBlank(list)){
+                return list;
+            }
+        }
+        return null;
     }
 
     private List<InputSelectShowDto> showList(List<ClassTeacher> list,String selectValue,String foreignJavaField){

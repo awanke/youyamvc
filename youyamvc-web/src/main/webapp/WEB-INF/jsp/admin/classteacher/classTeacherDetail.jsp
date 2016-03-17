@@ -50,11 +50,11 @@ pageEncoding="UTF-8"%>
                                         <label class="col-sm-1 control-label">
                                             班级表主键
                                         </label>
-                                         <div class="col-sm-9">
+                                         <div class="col-sm-3">
                                             <input type="hidden" id="classId"
                                                    name="classId"
                                                    value="${classTeacher.classId}">
-                                            <input type="text" class="typeahead" id="classIdSearch"
+                                            <input type="text" class="form-control" id="classIdSearch"
                                                   name="classIdSearch"  placeholder="请输入关键词查询班级"
                                             <c:if test="${ classes!=null }">
                                                          value="${ classes.className }"
@@ -72,11 +72,11 @@ pageEncoding="UTF-8"%>
                                         <label class="col-sm-1 control-label">
                                             老师表主键
                                         </label>
-                                         <div class="col-sm-9">
+                                         <div class="col-sm-3">
                                             <input type="hidden" id="teacherId"
                                                    name="teacherId"
                                                    value="${classTeacher.teacherId}">
-                                            <input type="text" class="typeahead" id="teacherIdSearch"
+                                            <input type="text" class="form-control" id="teacherIdSearch"
                                                   name="teacherIdSearch"  placeholder="请输入关键词查询教师"
                                             <c:if test="${ teacher!=null }">
                                                          value="${ teacher.teacherName }-${ teacher.age }"
