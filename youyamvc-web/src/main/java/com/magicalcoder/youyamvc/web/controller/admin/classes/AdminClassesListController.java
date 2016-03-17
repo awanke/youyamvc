@@ -290,6 +290,7 @@ public class AdminClassesListController extends AdminLoginController
     private List<InputSelectShowDto> showList(List<Classes> list,String selectValue,String foreignJavaField){
         if(ListUtils.isNotBlank(list)){
             List<InputSelectShowDto> showList = new ArrayList<InputSelectShowDto>();
+            showList.add(new InputSelectShowDto("全部",null));
             for(Classes entity:list){
                 String showValue = ProjectUtil.reflectShowValue(selectValue,entity);
                 Object hiddenId = ProjectUtil.reflectValue(foreignJavaField,entity);
@@ -298,7 +299,7 @@ public class AdminClassesListController extends AdminLoginController
             }
             return showList;
         }
-        return null;
+        return new ArrayList<InputSelectShowDto>();
     }
     //===================end=================================
 

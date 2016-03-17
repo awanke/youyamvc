@@ -158,14 +158,54 @@
 
     <update id="updateSchool" parameterType="School">
         update school school set
-                <choose><when test="schoolName!=null">school.school_name=#{schoolName},</when></choose>
-                <choose><when test="headImg!=null">school.head_img=#{headImg},</when></choose>
-                <choose><when test="classCount!=null">school.class_count=#{classCount},</when></choose>
-                <choose><when test="adress!=null">school.adress=#{adress},</when></choose>
-                <choose><when test="schoolType!=null">school.school_type=#{schoolType},</when></choose>
-                <choose><when test="open!=null">school.open=#{open},</when></choose>
-                <choose><when test="createTime!=null">school.create_time=#{createTime,jdbcType=TIMESTAMP},</when></choose>
-                <choose><when test="schoolDesc!=null">school.school_desc=#{schoolDesc},</when></choose>
+                <choose>
+                    <when test="schoolName!=null">school.school_name=#{schoolName},</when>
+                    <otherwise>
+                        school.school_name=''
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="headImg!=null">school.head_img=#{headImg},</when>
+                    <otherwise>
+                        school.head_img=''
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="classCount!=null">school.class_count=#{classCount},</when>
+                    <otherwise>
+                        school.class_count=0
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="adress!=null">school.adress=#{adress},</when>
+                    <otherwise>
+                        school.adress=NULL
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="schoolType!=null">school.school_type=#{schoolType},</when>
+                    <otherwise>
+                        school.school_type=0
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="open!=null">school.open=#{open},</when>
+                    <otherwise>
+                        school.open='0'
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="createTime!=null">school.create_time=#{createTime,jdbcType=TIMESTAMP},</when>
+                    <otherwise>
+                        school.create_time=NULL
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="schoolDesc!=null">school.school_desc=#{schoolDesc},</when>
+                    <otherwise>
+                        school.school_desc=NULL
+                    </otherwise>
+                </choose>
         school.id = #{id}
         where  school.id = #{id}
     </update>

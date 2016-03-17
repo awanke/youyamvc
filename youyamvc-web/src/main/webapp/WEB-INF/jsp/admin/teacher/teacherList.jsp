@@ -157,5 +157,10 @@ pageEncoding="UTF-8"%>
         src="${CTX}assets/admin/js/My97DatePicker/WdatePicker.js"></script>
 <script src="assets/admin/app/list_page.js" type="text/javascript"></script>
 <script src="assets/admin/app/teacher/teacherPaging.js" type="text/javascript"></script>
+<script type="text/javascript" >
+    $(function(){
+        //base.js
+    })
+</script>
 </body>
 </html>

@@ -49,18 +49,15 @@ pageEncoding="UTF-8"%>
                                                    required  minLength="0"                                                   id="classNameFirst" name="classNameFirst">
                                                  </div>
                                              </div>
-                                             <div class="col-xs-2">
+                                              <div class="col-xs-2">
                                                  <div class="form-group">
-                                                 <label for="schoolIdFirst">学校id</label>
-                                                     <select class="form-control"
-                                                       id="schoolIdFirst" name="schoolIdFirst">
-                                                               <option value="">全部</option>
-                                                         <c:forEach items="${schoolList}" var="item">
-                                                             <option value="${ item.id }" <c:if test="${ item.id == classes.schoolId }">selected</c:if>  >
-                                                                     ${ item.schoolName }
-                                                             </option>
-                                                         </c:forEach>
-                                                     </select>
+                                             <label for="schoolIdFirst">学校id</label>
+                                            <input type="hidden" id="schoolIdFirst"
+                                                   name="schoolIdFirst"
+                                                   value="">
+                                            <input type="text" class="form-control" id="schoolIdFirstSearch"
+                                                  name="schoolIdFirstSearch"  placeholder="请输入关键词查询学校"
+                                                         value="">
                                                  </div>
                                              </div>                                                 <div class="col-xs-2">
                                                  <div class="form-group">
@@ -162,5 +159,11 @@ pageEncoding="UTF-8"%>
         src="${CTX}assets/admin/js/My97DatePicker/WdatePicker.js"></script>
 <script src="assets/admin/app/list_page.js" type="text/javascript"></script>
 <script src="assets/admin/app/classes/classesPaging.js" type="text/javascript"></script>
+<script type="text/javascript" >
+    $(function(){
+        //base.js
+            foreignSearch('school','schoolIdFirst','schoolName','id');
+    })
+</script>
 </body>
 </html>

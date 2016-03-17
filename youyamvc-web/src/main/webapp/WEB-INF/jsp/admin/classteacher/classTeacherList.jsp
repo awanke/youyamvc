@@ -44,22 +44,22 @@ pageEncoding="UTF-8"%>
                                               <div class="col-xs-2">
                                                  <div class="form-group">
                                              <label for="classIdFirst">班级表主键</label>
-                                            <input type="text" class="typeahead" id="classIdSearch"
-                                                  name="classIdSearch"  placeholder="请输入关键词查询班级"
-                                                         value="">
-                                            <input type="hidden" class="typeahead" id="classId"
-                                                   name="classId"
+                                            <input type="hidden" id="classIdFirst"
+                                                   name="classIdFirst"
                                                    value="">
+                                            <input type="text" class="form-control" id="classIdFirstSearch"
+                                                  name="classIdFirstSearch"  placeholder="请输入关键词查询班级"
+                                                         value="">
                                                  </div>
                                              </div>                                              <div class="col-xs-2">
                                                  <div class="form-group">
                                              <label for="teacherIdFirst">老师表主键</label>
-                                            <input type="text" class="typeahead" id="teacherIdSearch"
-                                                  name="teacherIdSearch"  placeholder="请输入关键词查询教师"
-                                                         value="">
-                                            <input type="hidden" class="typeahead" id="teacherId"
-                                                   name="teacherId"
+                                            <input type="hidden" id="teacherIdFirst"
+                                                   name="teacherIdFirst"
                                                    value="">
+                                            <input type="text" class="form-control" id="teacherIdFirstSearch"
+                                                  name="teacherIdFirstSearch"  placeholder="请输入关键词查询教师"
+                                                         value="">
                                                  </div>
                                              </div>
                                             <div class="col-xs-2">
@@ -156,8 +156,8 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript" >
     $(function(){
         //base.js
-            foreignSearch('classes','classId','className','id');
-            foreignSearch('teacher','teacherId','teacherName,age','id');
+            foreignSearch('classes','classIdFirst','className','id');
+            foreignSearch('teacher','teacherIdFirst','teacherName,age','id');
     })
 </script>
 </body>

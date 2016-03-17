@@ -51,14 +51,15 @@ pageEncoding="UTF-8"%>
                                             班级表主键
                                         </label>
                                          <div class="col-sm-9">
+                                            <input type="hidden" id="classId"
+                                                   name="classId"
+                                                   value="${classTeacher.classId}">
                                             <input type="text" class="typeahead" id="classIdSearch"
                                                   name="classIdSearch"  placeholder="请输入关键词查询班级"
                                             <c:if test="${ classes!=null }">
-                                                         value="${ classes.className }">
+                                                         value="${ classes.className }"
                                             </c:if>
-                                            <input type="hidden" class="typeahead" id="classId"
-                                                   name="classId"
-                                                   value="${classTeacher.classId}">
+                                                   >
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classTeacher.id!=null}">
@@ -72,14 +73,15 @@ pageEncoding="UTF-8"%>
                                             老师表主键
                                         </label>
                                          <div class="col-sm-9">
+                                            <input type="hidden" id="teacherId"
+                                                   name="teacherId"
+                                                   value="${classTeacher.teacherId}">
                                             <input type="text" class="typeahead" id="teacherIdSearch"
                                                   name="teacherIdSearch"  placeholder="请输入关键词查询教师"
                                             <c:if test="${ teacher!=null }">
-                                                         value="${ teacher.teacherName }-${ teacher.age }">
+                                                         value="${ teacher.teacherName }-${ teacher.age }"
                                             </c:if>
-                                            <input type="hidden" class="typeahead" id="teacherId"
-                                                   name="teacherId"
-                                                   value="${classTeacher.teacherId}">
+                                                   >
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classTeacher.id!=null}">

@@ -52,8 +52,7 @@ pageEncoding="UTF-8"%>
                                              <div class="col-xs-2">
                                                  <div class="form-group">
                                                  <label for="schoolTypeFirst">学校类型</label>
-                                                     <select class="form-control"
-                                                       id="schoolTypeFirst" name="schoolTypeFirst">
+                                                     <select class="form-control" id="schoolTypeFirst" name="schoolTypeFirst">
                                                                  <option value="">全部</option>
                                                                  <option value="0"
                                                                      <c:if test="${ schoolType == 0 }">selected</c:if>
@@ -190,5 +189,10 @@ pageEncoding="UTF-8"%>
         src="${CTX}assets/admin/js/My97DatePicker/WdatePicker.js"></script>
 <script src="assets/admin/app/list_page.js" type="text/javascript"></script>
 <script src="assets/admin/app/school/schoolPaging.js" type="text/javascript"></script>
+<script type="text/javascript" >
+    $(function(){
+        //base.js
+    })
+</script>
 </body>
 </html>

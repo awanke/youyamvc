@@ -83,8 +83,18 @@
 
     <update id="updateClassTeacher" parameterType="ClassTeacher">
         update class_teacher classTeacher set
-                <choose><when test="classId!=null">classTeacher.class_id=#{classId},</when></choose>
-                <choose><when test="teacherId!=null">classTeacher.teacher_id=#{teacherId},</when></choose>
+                <choose>
+                    <when test="classId!=null">classTeacher.class_id=#{classId},</when>
+                    <otherwise>
+                        classTeacher.class_id=0
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="teacherId!=null">classTeacher.teacher_id=#{teacherId},</when>
+                    <otherwise>
+                        classTeacher.teacher_id=0
+                    </otherwise>
+                </choose>
         classTeacher.id = #{id}
         where  classTeacher.id = #{id}
     </update>

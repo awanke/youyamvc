@@ -77,12 +77,15 @@ pageEncoding="UTF-8"%>
                                             学校id
                                         </label>
                                          <div class="col-sm-9">
-                                            <input type="text" class="typeahead" id="schoolIdSearch"
-                                                  name="schoolIdSearch"  placeholder="请输入关键词查询学校"
-                 value="${ school.schoolName }">
-                                            <input type="hidden" class="typeahead" id="schoolId"
+                                            <input type="hidden" id="schoolId"
                                                    name="schoolId"
                                                    value="${classes.schoolId}">
+                                            <input type="text" class="typeahead" id="schoolIdSearch"
+                                                  name="schoolIdSearch"  placeholder="请输入关键词查询学校"
+                                            <c:if test="${ school!=null }">
+                                                         value="${ school.schoolName }"
+                                            </c:if>
+                                                   >
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classes.id!=null}">
