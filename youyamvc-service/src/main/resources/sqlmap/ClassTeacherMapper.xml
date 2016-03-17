@@ -86,13 +86,13 @@
                 <choose>
                     <when test="classId!=null">classTeacher.class_id=#{classId},</when>
                     <otherwise>
-                        classTeacher.class_id=0
+                        classTeacher.class_id=0,
                     </otherwise>
                 </choose>
                 <choose>
                     <when test="teacherId!=null">classTeacher.teacher_id=#{teacherId},</when>
                     <otherwise>
-                        classTeacher.teacher_id=0
+                        classTeacher.teacher_id=0,
                     </otherwise>
                 </choose>
         classTeacher.id = #{id}

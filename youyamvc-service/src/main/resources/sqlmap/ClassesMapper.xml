@@ -97,19 +97,19 @@
                 <choose>
                     <when test="className!=null">classes.class_name=#{className},</when>
                     <otherwise>
-                        classes.class_name=''
+                        classes.class_name='',
                     </otherwise>
                 </choose>
                 <choose>
                     <when test="studentCount!=null">classes.student_count=#{studentCount},</when>
                     <otherwise>
-                        classes.student_count=0
+                        classes.student_count=0,
                     </otherwise>
                 </choose>
                 <choose>
                     <when test="schoolId!=null">classes.school_id=#{schoolId},</when>
                     <otherwise>
-                        classes.school_id=0
+                        classes.school_id=0,
                     </otherwise>
                 </choose>
         classes.id = #{id}

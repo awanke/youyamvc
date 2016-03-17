@@ -89,13 +89,13 @@
                 <choose>
                     <when test="teacherName!=null">teacher.teacher_name=#{teacherName},</when>
                     <otherwise>
-                        teacher.teacher_name=''
+                        teacher.teacher_name='',
                     </otherwise>
                 </choose>
                 <choose>
                     <when test="age!=null">teacher.age=#{age},</when>
                     <otherwise>
-                        teacher.age=0
+                        teacher.age=0,
                     </otherwise>
                 </choose>
         teacher.id = #{id}
