@@ -24,6 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.*;
 import java.math.*;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -126,24 +127,31 @@ public class AdminClassesListController extends AdminLoginController
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {
-        detailDeal(null, model);
+        model.addAttribute("classes", new Classes());
         return "admin/classes/classesDetail";
     }
-    //编辑
+    //编辑主键
     @RequestMapping({"/detail/{id}"})
     public String detailId(@PathVariable Long id, ModelMap model) {
-        detailDeal(id, model);
+        Classes entity = this.classesService.getClasses(id);
+        model.addAttribute("classes", entity);
+        foreignModel(entity,model);
         return "admin/classes/classesDetail";
     }
-    private void detailDeal(Long id, ModelMap model) {
-        Classes entity = new Classes();
-        if (id != null) {
-            entity = this.classesService.getClasses(id);
-            School school= schoolService.getSchool(entity.getSchoolId());
-            model.addAttribute("school",school);
-        }
-        model.addAttribute("classes", entity);
-    }
+    //自定义参数到编辑页面
+    @RequestMapping({"/detail_param"})
+    public String detailId(HttpServletRequest request,ModelMap model) {
+        Map<String,Object> reqMap = request.getParameterMap();
+        Classes entity = classesService.selectOneClassesWillThrowException(reqMap);
+        foreignModel(entity,model);
+        return "admin/classes/classesDetail";
+    }
+
+    private void foreignModel(Classes entity,ModelMap model){
+        School school= schoolService.getSchool(entity.getSchoolId());
+        model.addAttribute("school",school);
+    }
+
     //保存
     @RequestMapping(value={"save"}, method={RequestMethod.POST})
     public String save(@ModelAttribute Classes classes) {

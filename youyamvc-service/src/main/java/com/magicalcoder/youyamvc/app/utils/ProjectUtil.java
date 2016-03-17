@@ -3,7 +3,9 @@ package com.magicalcoder.youyamvc.app.utils;
 import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -67,5 +69,15 @@ public class ProjectUtil {
 
     public static boolean isNum(String str){
         return str.matches("[0-9\\.]+");
+    }
+
+    public static Map<String, Object> getParams(HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        @SuppressWarnings("unchecked")
+        Map<String, String[]> reqMap = req.getParameterMap();
+        for (Map.Entry<String, String[]> e : reqMap.entrySet()) {
+            result.put(e.getKey(), e.getValue()[0]);
+        }
+        return result;
     }
 }
