@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -109,24 +110,32 @@ public class AdminSchoolListController extends AdminLoginController
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {
-        detailDeal(null, model);
+        model.addAttribute("school", new School());
         return "admin/school/schoolDetail";
     }
-    //编辑
+    //根据主键到编辑
     @RequestMapping({"/detail/{id}"})
     public String detailId(@PathVariable Long id, ModelMap model) {
-        detailDeal(id, model);
+        School entity = this.schoolService.getSchool(id);
+        model.addAttribute("school", entity);
+        foreignModel(entity,model);
         return "admin/school/schoolDetail";
     }
-    private void detailDeal(Long id, ModelMap model) {
-        School entity = new School();
-        if (id != null) {
-            entity = this.schoolService.getSchool(id);
-        }
+    //根据自定义查询条件到编辑
+    @RequestMapping({"/detail_param"})
+    public String detailId(HttpServletRequest request,ModelMap model) {
+        Map<String,Object> reqMap = ProjectUtil.getParams(request);
+        School entity = this.schoolService.selectOneSchoolWillThrowException(reqMap);
         model.addAttribute("school", entity);
-    }
+        foreignModel(entity,model);
+        return "admin/school/schoolDetail";
+    }
+    private void foreignModel(School entity,ModelMap model){
+        Map<String,Object> map = null;
+    }
+
     //保存
-    @RequestMapping(value={"save"}, method={RequestMethod.POST})
+    @RequestMapping(value="save", method={RequestMethod.POST})
     public String save(@ModelAttribute School school) {
         saveEntity(school);
         return "redirect:/admin/school/list";
