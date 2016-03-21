@@ -24,12 +24,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.*;
 import java.math.*;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -120,17 +120,34 @@ public class AdminClassesListController extends AdminLoginController
         }
 
         Map ajaxData = new HashMap();
-        ajaxData.put("pageList", pageList);
+        ajaxData.put("pageList", dealForeignField(pageList));
         ajaxData.put("pageCount", pageCount);
         toJson(response, new AjaxData("ok", "success", ajaxData));
     }
+
+//处理外键显示字段 而不是难读懂的关联字段
+    private List<Map<String,Object>> dealForeignField(List<Classes> pageList){
+        List<Map<String,Object>> newPageList = new ArrayList<Map<String, Object>>(pageList.size());
+        if(ListUtils.isNotBlank(pageList)){
+        //step1 转化map快速索引
+
+            //使用索引替换外键展示值
+            for(Classes item:pageList){
+                String json = JSON.toJSONString(item);
+                Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                newPageList.add(obj);
+            }
+        }
+        return newPageList;
+    }
+
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {
         model.addAttribute("classes", new Classes());
         return "admin/classes/classesDetail";
     }
-    //编辑主键
+    //根据主键到编辑
     @RequestMapping({"/detail/{id}"})
     public String detailId(@PathVariable Long id, ModelMap model) {
         Classes entity = this.classesService.getClasses(id);
@@ -138,22 +155,24 @@ public class AdminClassesListController extends AdminLoginController
         foreignModel(entity,model);
         return "admin/classes/classesDetail";
     }
-    //自定义参数到编辑页面
+    //根据自定义查询条件到编辑
     @RequestMapping({"/detail_param"})
     public String detailId(HttpServletRequest request,ModelMap model) {
-        Map<String,Object> reqMap = request.getParameterMap();
-        Classes entity = classesService.selectOneClassesWillThrowException(reqMap);
+        Map<String,Object> reqMap = ProjectUtil.getParams(request);
+        Classes entity = this.classesService.selectOneClassesWillThrowException(reqMap);
+        model.addAttribute("classes", entity);
         foreignModel(entity,model);
         return "admin/classes/classesDetail";
     }
-
     private void foreignModel(Classes entity,ModelMap model){
-        School school= schoolService.getSchool(entity.getSchoolId());
-        model.addAttribute("school",school);
+        Map<String,Object> map = null;
+            map = ProjectUtil.buildMap("id",entity.getSchoolId());
+                School school= schoolService.selectOneSchoolWillThrowException(map);
+            model.addAttribute("school",school);
     }
 
     //保存
-    @RequestMapping(value={"save"}, method={RequestMethod.POST})
+    @RequestMapping(value="save", method={RequestMethod.POST})
     public String save(@ModelAttribute Classes classes) {
         saveEntity(classes);
         return "redirect:/admin/classes/list";

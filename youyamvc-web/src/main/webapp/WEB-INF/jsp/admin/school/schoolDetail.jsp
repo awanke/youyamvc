@@ -155,7 +155,7 @@ pageEncoding="UTF-8"%>
                                         </label>
                                         <div class="col-sm-9">
                                             <textarea cols="100" rows="20"                                                   class="form-control " id="schoolDesc"
-                                                  style="width:1350px;height:600px;visibility:hidden;"
+                                                  style="width:1038px;height:600px;visibility:hidden;"
                                                   name="schoolDesc" title="学校描述"  placeholder="请输入学校描述"
                                                 >${school.schoolDesc}</textarea>
                                         </div>

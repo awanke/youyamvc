@@ -89,7 +89,7 @@ pageEncoding="UTF-8"%>
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classes.id!=null}">
-                                                    <a target="_blank" onclick="openUrl(this,'admin/school/detail/${classes.schoolId}')"> 查看详情</a>
+                                                    <a target="_blank" onclick="openUrl(this,'admin/school/detail_param?id=${classes.schoolId}')"> 查看详情</a>
                                                 </c:if>
                                             <span class="validateMsg"></span>
                                         </label>

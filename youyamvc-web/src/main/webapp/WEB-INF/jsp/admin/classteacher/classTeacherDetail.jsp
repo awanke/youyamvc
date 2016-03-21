@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classTeacher.id!=null}">
-                                                    <a target="_blank" onclick="openUrl(this,'admin/classes/detail/${classTeacher.classId}')"> 查看详情</a>
+                                                    <a target="_blank" onclick="openUrl(this,'admin/classes/detail_param?id=${classTeacher.classId}')"> 查看详情</a>
                                                 </c:if>
                                             <span class="validateMsg"></span>
                                         </label>
@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                                 <c:if test="${classTeacher.id!=null}">
-                                                    <a target="_blank" onclick="openUrl(this,'admin/teacher/detail/${classTeacher.teacherId}')"> 查看详情</a>
+                                                    <a target="_blank" onclick="openUrl(this,'admin/teacher/detail_param?id=${classTeacher.teacherId}')"> 查看详情</a>
                                                 </c:if>
                                             <span class="validateMsg"></span>
                                         </label>

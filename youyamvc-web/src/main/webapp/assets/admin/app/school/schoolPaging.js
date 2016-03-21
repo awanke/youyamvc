@@ -22,11 +22,11 @@ function buildReqParam(){
 function  getItemPage(pageIndex){
     var template =
         '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
-        '<td>{schoolName}</td>' +
-        '<td>{schoolType}</td>' +
-        '<td>{open}</td>' +
-        '<td>{classCount}</td>' +
-        '<td>{createTime}</td>' +
+            '<td>{schoolName}</td>' +
+            '<td>{schoolType}</td>' +
+            '<td>{open}</td>' +
+            '<td>{classCount}</td>' +
+            '<td>{createTime}</td>' +
         '<td><a href="admin/school/detail/{id}">编辑</a>' +
         '<a href="javascript:{}" onclick="deleteItem(\'school\',{id})">删除</a></td></tr>';
 

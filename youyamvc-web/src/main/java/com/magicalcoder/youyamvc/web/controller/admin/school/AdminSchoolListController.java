@@ -103,10 +103,27 @@ public class AdminSchoolListController extends AdminLoginController
         }
 
         Map ajaxData = new HashMap();
-        ajaxData.put("pageList", pageList);
+        ajaxData.put("pageList", dealForeignField(pageList));
         ajaxData.put("pageCount", pageCount);
         toJson(response, new AjaxData("ok", "success", ajaxData));
     }
+
+//处理外键显示字段 而不是难读懂的关联字段
+    private List<Map<String,Object>> dealForeignField(List<School> pageList){
+        List<Map<String,Object>> newPageList = new ArrayList<Map<String, Object>>(pageList.size());
+        if(ListUtils.isNotBlank(pageList)){
+        //step1 转化map快速索引
+
+            //使用索引替换外键展示值
+            for(School item:pageList){
+                String json = JSON.toJSONString(item);
+                Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                newPageList.add(obj);
+            }
+        }
+        return newPageList;
+    }
+
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {

@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,31 +99,56 @@ public class AdminTeacherListController extends AdminLoginController
         }
 
         Map ajaxData = new HashMap();
-        ajaxData.put("pageList", pageList);
+        ajaxData.put("pageList", dealForeignField(pageList));
         ajaxData.put("pageCount", pageCount);
         toJson(response, new AjaxData("ok", "success", ajaxData));
     }
+
+//处理外键显示字段 而不是难读懂的关联字段
+    private List<Map<String,Object>> dealForeignField(List<Teacher> pageList){
+        List<Map<String,Object>> newPageList = new ArrayList<Map<String, Object>>(pageList.size());
+        if(ListUtils.isNotBlank(pageList)){
+        //step1 转化map快速索引
+
+            //使用索引替换外键展示值
+            for(Teacher item:pageList){
+                String json = JSON.toJSONString(item);
+                Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                newPageList.add(obj);
+            }
+        }
+        return newPageList;
+    }
+
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {
-        detailDeal(null, model);
+        model.addAttribute("teacher", new Teacher());
         return "admin/teacher/teacherDetail";
     }
-    //编辑
+    //根据主键到编辑
     @RequestMapping({"/detail/{id}"})
     public String detailId(@PathVariable Long id, ModelMap model) {
-        detailDeal(id, model);
+        Teacher entity = this.teacherService.getTeacher(id);
+        model.addAttribute("teacher", entity);
+        foreignModel(entity,model);
         return "admin/teacher/teacherDetail";
     }
-    private void detailDeal(Long id, ModelMap model) {
-        Teacher entity = new Teacher();
-        if (id != null) {
-            entity = this.teacherService.getTeacher(id);
-        }
+    //根据自定义查询条件到编辑
+    @RequestMapping({"/detail_param"})
+    public String detailId(HttpServletRequest request,ModelMap model) {
+        Map<String,Object> reqMap = ProjectUtil.getParams(request);
+        Teacher entity = this.teacherService.selectOneTeacherWillThrowException(reqMap);
         model.addAttribute("teacher", entity);
-    }
+        foreignModel(entity,model);
+        return "admin/teacher/teacherDetail";
+    }
+    private void foreignModel(Teacher entity,ModelMap model){
+        Map<String,Object> map = null;
+    }
+
     //保存
-    @RequestMapping(value={"save"}, method={RequestMethod.POST})
+    @RequestMapping(value="save", method={RequestMethod.POST})
     public String save(@ModelAttribute Teacher teacher) {
         saveEntity(teacher);
         return "redirect:/admin/teacher/list";

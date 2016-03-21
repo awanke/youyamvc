@@ -31,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -104,35 +105,102 @@ public class AdminClassTeacherListController extends AdminLoginController
         }
 
         Map ajaxData = new HashMap();
-        ajaxData.put("pageList", pageList);
+        ajaxData.put("pageList", dealForeignField(pageList));
         ajaxData.put("pageCount", pageCount);
         toJson(response, new AjaxData("ok", "success", ajaxData));
     }
+
+//处理外键显示字段 而不是难读懂的关联字段
+    private List<Map<String,Object>> dealForeignField(List<ClassTeacher> pageList){
+        List<Map<String,Object>> newPageList = new ArrayList<Map<String, Object>>(pageList.size());
+        if(ListUtils.isNotBlank(pageList)){
+        //step1 转化map快速索引
+            //处理classId外键
+            StringBuffer classIds = new StringBuffer();
+            for(ClassTeacher item : pageList){
+                if(!classIds.toString().contains(","+item.getClassId()+",")){
+                         classIds.append(item.getClassId()).append(",");
+                }
+            }
+
+            List<Classes> classesList = classesService.getClassesList(
+                ProjectUtil.buildMap("whereSql","and id in ("+StringUtils.deleteLastChar(classIds.toString())+")"));
+            Map<Long,Classes> classesMap = new HashMap<Long, Classes>();
+            if(ListUtils.isNotBlank(classesList)){
+                for(Classes entity:classesList){
+                    classesMap.put(entity.getId(),entity);
+                }
+            }
+            //处理teacherId外键
+            StringBuffer teacherIds = new StringBuffer();
+            for(ClassTeacher item : pageList){
+                if(!teacherIds.toString().contains(","+item.getTeacherId()+",")){
+                         teacherIds.append(item.getTeacherId()).append(",");
+                }
+            }
+
+            List<Teacher> teacherList = teacherService.getTeacherList(
+                ProjectUtil.buildMap("whereSql","and id in ("+StringUtils.deleteLastChar(teacherIds.toString())+")"));
+            Map<Long,Teacher> teacherMap = new HashMap<Long, Teacher>();
+            if(ListUtils.isNotBlank(teacherList)){
+                for(Teacher entity:teacherList){
+                    teacherMap.put(entity.getId(),entity);
+                }
+            }
+
+            //使用索引替换外键展示值
+            for(ClassTeacher item:pageList){
+                String json = JSON.toJSONString(item);
+                Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                Long classId = item.getClassId();
+                Classes classes = classesMap.get(classId);
+                String classIdForeignShowValue = classes.getClassName();
+                obj.put("classIdForeignShowValue",classIdForeignShowValue);
+                Long teacherId = item.getTeacherId();
+                Teacher teacher = teacherMap.get(teacherId);
+                String teacherIdForeignShowValue = teacher.getTeacherName()+teacher.getAge();
+                obj.put("teacherIdForeignShowValue",teacherIdForeignShowValue);
+                newPageList.add(obj);
+            }
+        }
+        return newPageList;
+    }
+
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {
-        detailDeal(null, model);
+        model.addAttribute("classTeacher", new ClassTeacher());
         return "admin/classteacher/classTeacherDetail";
     }
-    //编辑
+    //根据主键到编辑
     @RequestMapping({"/detail/{id}"})
     public String detailId(@PathVariable Long id, ModelMap model) {
-        detailDeal(id, model);
+        ClassTeacher entity = this.classTeacherService.getClassTeacher(id);
+        model.addAttribute("classTeacher", entity);
+        foreignModel(entity,model);
         return "admin/classteacher/classTeacherDetail";
     }
-    private void detailDeal(Long id, ModelMap model) {
-        ClassTeacher entity = new ClassTeacher();
-        if (id != null) {
-            entity = this.classTeacherService.getClassTeacher(id);
-            Classes classes= classesService.getClasses(entity.getClassId());
-            model.addAttribute("classes",classes);
-            Teacher teacher= teacherService.getTeacher(entity.getTeacherId());
-            model.addAttribute("teacher",teacher);
-        }
+    //根据自定义查询条件到编辑
+    @RequestMapping({"/detail_param"})
+    public String detailId(HttpServletRequest request,ModelMap model) {
+        Map<String,Object> reqMap = ProjectUtil.getParams(request);
+        ClassTeacher entity = this.classTeacherService.selectOneClassTeacherWillThrowException(reqMap);
         model.addAttribute("classTeacher", entity);
-    }
+        foreignModel(entity,model);
+        return "admin/classteacher/classTeacherDetail";
+    }
+    private void foreignModel(ClassTeacher entity,ModelMap model){
+        Map<String,Object> map = null;
+            map = ProjectUtil.buildMap("id",entity.getClassId());
+                Classes classes= classesService.selectOneClassesWillThrowException(map);
+            model.addAttribute("classes",classes);
+            map = ProjectUtil.buildMap("id",entity.getTeacherId());
+                Teacher teacher= teacherService.selectOneTeacherWillThrowException(map);
+            model.addAttribute("teacher",teacher);
+    }
+
     //保存
-    @RequestMapping(value={"save"}, method={RequestMethod.POST})
+    @RequestMapping(value="save", method={RequestMethod.POST})
     public String save(@ModelAttribute ClassTeacher classTeacher) {
         saveEntity(classTeacher);
         return "redirect:/admin/class_teacher/list";
