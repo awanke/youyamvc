@@ -122,6 +122,8 @@ pageEncoding="UTF-8"%>
                                                   </th>
                                                  <th  class="sorting" orderField="student_count">                                                      班级学生人数
                                                   </th>
+                                                 <th  class="sorting" orderField="school_id">                                                      学校id
+                                                  </th>
                                                   <th>操作</th>
                                               </tr>
                                 </thead>

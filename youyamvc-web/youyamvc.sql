@@ -53,9 +53,11 @@ CREATE TABLE `class_teacher` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_id` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `class_teacher` */
+
+insert  into `class_teacher`(`id`,`class_id`,`teacher_id`) values (1,14,1),(2,3,1),(3,1,1),(5,1,2),(6,1,1),(7,1,1),(8,1,1),(9,2,1);
 
 /*Table structure for table `classes` */
 
@@ -69,9 +71,11 @@ CREATE TABLE `classes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_id` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 /*Data for the table `classes` */
+
+insert  into `classes`(`id`,`class_name`,`student_count`,`school_id`) values (1,'高中1班',11,2),(2,'初中2班',12,1),(3,'初三1班',13,1),(4,'4班',1,1),(5,'5班',1,3),(6,'6班',12,3),(7,'7班',12,1),(8,'8班',12,2),(9,'9班',11,3),(10,'10班',11,2),(11,'11班',12,2),(12,'12班',12,1),(13,'13班',13,1),(14,'14班',14,1),(15,'15班',15,1),(16,'16班',16,1),(17,'17班',17,1),(18,'18班',18,3),(19,'19班',19,1),(20,'20班',20,1),(21,'21班',21,1);
 
 /*Table structure for table `dict` */
 
@@ -106,9 +110,28 @@ CREATE TABLE `school` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_id` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `school` */
+
+insert  into `school`(`id`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`) values (1,'安徽大学','',0,'',0,'0','2016-03-17 14:14:28',''),(2,'合肥工业大学','',0,'',0,'0','2016-03-17 13:15:03',''),(3,'清华大学','',0,'',0,'0',NULL,'');
+
+/*Table structure for table `teacher` */
+
+DROP TABLE IF EXISTS `teacher`;
+
+CREATE TABLE `teacher` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '老师主键',
+  `teacher_name` varchar(50) DEFAULT '' COMMENT '老师名称',
+  `age` int(4) DEFAULT '0' COMMENT '老师年龄',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_id` (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `teacher` */
+
+insert  into `teacher`(`id`,`teacher_name`,`age`) values (1,'何老师',31),(2,'王老师',30);
 
 /*Table structure for table `user_web` */
 

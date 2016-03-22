@@ -118,6 +118,7 @@ public class AdminSchoolListController extends AdminLoginController
             for(School item:pageList){
                 String json = JSON.toJSONString(item);
                 Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                obj.put("createTime",item.getCreateTime());
                 newPageList.add(obj);
             }
         }

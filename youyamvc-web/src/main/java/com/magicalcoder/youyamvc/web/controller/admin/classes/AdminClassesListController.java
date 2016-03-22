@@ -70,7 +70,7 @@ public class AdminClassesListController extends AdminLoginController
             orderBySqlField = orderBySqlField.toLowerCase().trim();
             descAsc=descAsc.toLowerCase().trim();
             if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",class_name,student_count,";
+                String orderBySqlFieldStr = ",class_name,student_count,school_id,";
                 if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
                     orderBy = orderBySqlField+" "+descAsc;
                 }
@@ -130,11 +130,31 @@ public class AdminClassesListController extends AdminLoginController
         List<Map<String,Object>> newPageList = new ArrayList<Map<String, Object>>(pageList.size());
         if(ListUtils.isNotBlank(pageList)){
         //step1 转化map快速索引
+            //处理schoolId外键
+            StringBuffer schoolIds = new StringBuffer();
+            for(Classes item : pageList){
+                if(!schoolIds.toString().contains(","+item.getSchoolId()+",")){
+                         schoolIds.append(item.getSchoolId()).append(",");
+                }
+            }
+
+            List<School> schoolList = schoolService.getSchoolList(
+                ProjectUtil.buildMap("whereSql","and id in ("+StringUtils.deleteLastChar(schoolIds.toString())+")"));
+            Map<Long,School> schoolMap = new HashMap<Long, School>();
+            if(ListUtils.isNotBlank(schoolList)){
+                for(School entity:schoolList){
+                    schoolMap.put(entity.getId(),entity);
+                }
+            }
 
             //使用索引替换外键展示值
             for(Classes item:pageList){
                 String json = JSON.toJSONString(item);
                 Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                Long schoolId = item.getSchoolId();
+                School school = schoolMap.get(schoolId);
+                String schoolIdForeignShowValue = school.getSchoolName();
+                obj.put("schoolIdForeignShowValue",schoolIdForeignShowValue);
                 newPageList.add(obj);
             }
         }

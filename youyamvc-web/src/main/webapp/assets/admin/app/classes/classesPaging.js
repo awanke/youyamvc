@@ -6,9 +6,9 @@
 //构造入参
 function buildReqParam(){
     var requestParam = {date:new Date().getTime()}
+    setRequestParamById(requestParam,'classNameFirst')
     setRequestParamById(requestParam,'schoolIdFirst')
     setRequestParamById(requestParam,'schoolNameSchoolFirst')
-    setRequestParamById(requestParam,'classNameFirst')
     //排序
     var orderBy = buildOrderByObj()
     requestParam.orderBySqlField = orderBy.orderBySqlField;
@@ -22,6 +22,7 @@ function  getItemPage(pageIndex){
         '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
             '<td>{className}</td>' +
             '<td>{studentCount}</td>' +
+            '<td><a title="点击查看详情" target="_blank" onclick="openUrl(this,\'admin/school/detail_param?id={schoolId}\')"> {schoolIdForeignShowValue}</a></td>' +
         '<td><a href="admin/classes/detail/{id}">编辑</a>' +
         '<a href="javascript:{}" onclick="deleteItem(\'classes\',{id})">删除</a></td></tr>';
 
