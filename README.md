@@ -1,6 +1,8 @@
 # youyamvc
 优雅MVC 网站地址：http://www.magicalcoder.com
 
+声明 此项目中的所有demo代码全是MagicalCoder自动生成 如有疑问 请加QQ群323237052
+
 简介：
 youyamvc 由MagicalCoder网站开发的一款基于SpringMvc搭建的javaWeb框架，
 配合MagicalCoder提供的在线编程工具，通过拖拽快速完成您的业务功能，为我们开发者节省大量的时间，
