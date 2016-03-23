@@ -153,7 +153,7 @@ public class AdminClassesListController extends AdminLoginController
                 Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
                 Long schoolId = item.getSchoolId();
                 School school = schoolMap.get(schoolId);
-                String schoolIdForeignShowValue = school.getSchoolName();
+                String schoolIdForeignShowValue = ""+school.getSchoolName()+"-"+school.getClassCount();
                 obj.put("schoolIdForeignShowValue",schoolIdForeignShowValue);
                 newPageList.add(obj);
             }
@@ -302,9 +302,15 @@ public class AdminClassesListController extends AdminLoginController
 //===================搜索下拉框 外键查询使用begin=================================
     @RequestMapping(value = "type_ahead_search",method = RequestMethod.GET)
     public void typeAheadSearch(@RequestParam(value = "keyword",required = false) String keyword,
-        @RequestParam(value = "selectValue",required = false) String selectValue,
         @RequestParam(value = "foreignJavaField",required = false) String foreignJavaField,
+        @RequestParam(value = "selectValue",required = false) String selectValue,
         HttpServletResponse response){
+
+        if(StringUtils.isBlank(selectValue)){
+            StringBuffer sb = new StringBuffer();
+            sb.append("className").append(",");
+            selectValue = StringUtils.deleteLastChar(sb.toString());
+        }
         List<Classes> list = new ArrayList<Classes>();
         Map<String,Object> query = null;
         if(StringUtils.isBlank(keyword)){

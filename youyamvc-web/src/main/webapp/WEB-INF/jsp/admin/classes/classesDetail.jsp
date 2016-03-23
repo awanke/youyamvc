@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
                                             <input type="text" class="form-control" id="schoolIdSearch"
                                                   name="schoolIdSearch"  placeholder="请输入关键词查询学校"
                                             <c:if test="${ school!=null }">
-                                                         value="${ school.schoolName }"
+                                                         value=""
                                             </c:if>
                                                    >
                                         </div>
@@ -113,7 +113,7 @@ pageEncoding="UTF-8"%>
         $(function(){
             //base.js
             validateForm("#form")
-                    foreignSearch('school','schoolId','schoolName','id');
+                    foreignSearch('school','schoolId','','id');
 
         })
     </script>

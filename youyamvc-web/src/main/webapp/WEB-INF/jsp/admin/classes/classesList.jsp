@@ -164,7 +164,7 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript" >
     $(function(){
         //base.js
-            foreignSearch('school','schoolIdFirst','schoolName','id');
+            foreignSearch('school','schoolIdFirst','','id');
     })
 </script>
 </body>

@@ -156,8 +156,8 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript" >
     $(function(){
         //base.js
-            foreignSearch('classes','classIdFirst','className','id');
-            foreignSearch('teacher','teacherIdFirst','teacherName,age','id');
+            foreignSearch('classes','classIdFirst','','id');
+            foreignSearch('teacher','teacherIdFirst','','id');
     })
 </script>
 </body>

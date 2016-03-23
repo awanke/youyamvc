@@ -9,6 +9,7 @@ function buildReqParam(){
     setRequestParamById(requestParam,'schoolNameFirst')
     setRequestParamById(requestParam,'schoolTypeFirst')
     setRequestParamByName(requestParam,'openFirst')
+    setRequestParamById(requestParam,'classCountFirst')
     setRequestParamById(requestParam,'createTimeFirst')
     setRequestParamById(requestParam,'createTimeSecond')
     //排序
@@ -27,6 +28,7 @@ function  getItemPage(pageIndex){
             '<td>{open}</td>' +
             '<td>{classCount}</td>' +
             '<td>{createTime}</td>' +
+            '<td>{updateTime}</td>' +
         '<td><a href="admin/school/detail/{id}">编辑</a>' +
         '<a href="javascript:{}" onclick="deleteItem(\'school\',{id})">删除</a></td></tr>';
 

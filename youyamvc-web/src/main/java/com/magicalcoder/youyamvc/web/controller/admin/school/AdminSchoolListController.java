@@ -60,7 +60,7 @@ public class AdminSchoolListController extends AdminLoginController
             orderBySqlField = orderBySqlField.toLowerCase().trim();
             descAsc=descAsc.toLowerCase().trim();
             if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",school_name,class_count,school_type,open,create_time,";
+                String orderBySqlFieldStr = ",update_time,school_name,class_count,school_type,open,create_time,";
                 if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
                     orderBy = orderBySqlField+" "+descAsc;
                 }
@@ -74,6 +74,7 @@ public class AdminSchoolListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="schoolNameFirst")                        String schoolNameFirst ,
+                @RequestParam(required = false,value ="classCountFirst")                        Integer classCountFirst ,
                 @RequestParam(required = false,value ="schoolTypeFirst")                        Integer schoolTypeFirst ,
                 @RequestParam(required = false,value ="openFirst")                        Boolean openFirst ,
                 @RequestParam(required = false,value ="createTimeFirst")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeFirst ,
@@ -86,6 +87,7 @@ public class AdminSchoolListController extends AdminLoginController
 
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "schoolNameFirst",schoolNameFirst ,
+                "classCountFirst",classCountFirst ,
                 "schoolTypeFirst",schoolTypeFirst ,
                 "openFirst",openFirst ,
                 "createTimeFirst",createTimeFirst ,
@@ -118,6 +120,7 @@ public class AdminSchoolListController extends AdminLoginController
             for(School item:pageList){
                 String json = JSON.toJSONString(item);
                 Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                obj.put("updateTime",item.getUpdateTime());
                 obj.put("createTime",item.getCreateTime());
                 newPageList.add(obj);
             }
@@ -222,6 +225,7 @@ public class AdminSchoolListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="schoolNameFirst")                        String schoolNameFirst ,
+                @RequestParam(required = false,value ="classCountFirst")                        Integer classCountFirst ,
                 @RequestParam(required = false,value ="schoolTypeFirst")                        Integer schoolTypeFirst ,
                 @RequestParam(required = false,value ="openFirst")                        Boolean openFirst ,
                 @RequestParam(required = false,value ="createTimeFirst")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeFirst ,
@@ -230,6 +234,7 @@ public class AdminSchoolListController extends AdminLoginController
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "schoolNameFirst",schoolNameFirst ,
+                "classCountFirst",classCountFirst ,
                 "schoolTypeFirst",schoolTypeFirst ,
                 "openFirst",openFirst ,
                 "createTimeFirst",createTimeFirst ,
@@ -260,9 +265,16 @@ public class AdminSchoolListController extends AdminLoginController
 //===================搜索下拉框 外键查询使用begin=================================
     @RequestMapping(value = "type_ahead_search",method = RequestMethod.GET)
     public void typeAheadSearch(@RequestParam(value = "keyword",required = false) String keyword,
-        @RequestParam(value = "selectValue",required = false) String selectValue,
         @RequestParam(value = "foreignJavaField",required = false) String foreignJavaField,
+        @RequestParam(value = "selectValue",required = false) String selectValue,
         HttpServletResponse response){
+
+        if(StringUtils.isBlank(selectValue)){
+            StringBuffer sb = new StringBuffer();
+            sb.append("schoolName").append(",");
+            sb.append("classCount").append(",");
+            selectValue = StringUtils.deleteLastChar(sb.toString());
+        }
         List<School> list = new ArrayList<School>();
         Map<String,Object> query = null;
         if(StringUtils.isBlank(keyword)){
@@ -282,6 +294,19 @@ public class AdminSchoolListController extends AdminLoginController
             if(stopSearch){
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
                 toSimpleJson = true;
+            }
+
+            if(ProjectUtil.isNum(keyword)){
+            if(!stopSearch){
+                list = searchList("classCountFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
             }
 
             if(ProjectUtil.isNum(keyword)){

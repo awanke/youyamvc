@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
                                         <div class="row">
                                              <div class="col-xs-2">
                                                  <div class="form-group">
-                                                     <label for="teacherNameFirst">老师名称 (=)</label>
+                                                     <label for="teacherNameFirst">老师名称 (like)</label>
                                                      <input type="text" class="form-control"
                                                       value="${ teacherNameFirst }"
                                                    required  minLength="0"  maxLength="6"                                                   id="teacherNameFirst" name="teacherNameFirst">

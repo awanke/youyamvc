@@ -53,11 +53,11 @@ CREATE TABLE `class_teacher` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_id` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `class_teacher` */
 
-insert  into `class_teacher`(`id`,`class_id`,`teacher_id`) values (1,14,1),(2,3,1),(3,1,1),(5,1,2),(6,1,1),(7,1,1),(8,1,1),(9,2,1);
+insert  into `class_teacher`(`id`,`class_id`,`teacher_id`) values (1,1,1),(2,19,2);
 
 /*Table structure for table `classes` */
 
@@ -107,6 +107,7 @@ CREATE TABLE `school` (
   `open` char(1) DEFAULT '0' COMMENT '是否开学',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `school_desc` longtext COMMENT '学校描述',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_id` (`id`),
   KEY `id` (`id`)
@@ -114,7 +115,7 @@ CREATE TABLE `school` (
 
 /*Data for the table `school` */
 
-insert  into `school`(`id`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`) values (1,'安徽大学','',0,'',0,'0','2016-03-17 14:14:28',''),(2,'合肥工业大学','',0,'',0,'0','2016-03-17 13:15:03',''),(3,'清华大学','',0,'',0,'0',NULL,'');
+insert  into `school`(`id`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`,`update_time`) values (1,'安徽大学','',10,'',0,'0','2016-03-17 14:14:28','','2016-03-23 11:32:30'),(2,'合肥工业大学','',20,'',0,'0','2016-03-17 13:15:03','',NULL),(3,'清华大学','',30,'',0,'0',NULL,'',NULL);
 
 /*Table structure for table `teacher` */
 

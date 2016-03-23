@@ -163,6 +163,19 @@ pageEncoding="UTF-8"%>
                                             <span class="validateMsg"></span>
                                         </label>
                                     </div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-1 control-label">
+                                            更新时间
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input id="updateTime" type="text" name="updateTime" class="Wdate form-control"                                                onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'%y-%M-%d %H:%m:%s'})"
+                                               value="<fmt:formatDate value="${ school.updateTime }"
+                                               pattern="yyyy-MM-dd HH:mm:ss"/>" style="width: 170px;">
+                                        </div>
+                                        <label class="col-sm-2 control-label" >
+                                            <span class="validateMsg"></span>
+                                        </label>
+                                    </div>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer">
                                     <button type="button" onclick="submitForm('#form')" class="btn btn-primary">保存</button>

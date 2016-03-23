@@ -112,7 +112,7 @@
                         classes.school_id=0,
                     </otherwise>
                 </choose>
-        classes.id = #{id}
+        classes.id = id
         where  classes.id = #{id}
     </update>
 

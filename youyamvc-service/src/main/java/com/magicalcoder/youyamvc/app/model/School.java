@@ -10,6 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 */
 public class School{
 
+    @DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss" )
+    private Date updateTime;//更新时间
     private Long id;//学校主键
     private String schoolName;//学校名称
     private String headImg;//学校头像
@@ -21,6 +23,12 @@ public class School{
     private Date createTime;//创建时间
     private String schoolDesc;//学校描述
 
+    public Date getUpdateTime(){
+        return updateTime;
+    }
+    public void setUpdateTime(Date updateTime){
+        this.updateTime = updateTime;
+    }
     public Long getId(){
         return id;
     }

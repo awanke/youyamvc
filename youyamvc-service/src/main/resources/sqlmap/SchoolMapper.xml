@@ -11,6 +11,8 @@
     <sql id="createTable">
     DROP TABLE `school`;
     CREATE TABLE `school` (
+
+        `update_time` datetime COMMENT '更新时间'  ,
         PRIMARY KEY (`id`) , KEY (`id`) , UNIQUE KEY `uniq_id` (`id`) ,
         `id` bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '学校主键' ,
 
@@ -32,6 +34,7 @@
     )
     </sql>
     <sql id="selectSqlSchool">
+        school.update_time updateTime,
         school.id ,
         school.school_name schoolName,
         school.head_img headImg,
@@ -45,6 +48,7 @@
 
    <sql id="whereSqlSchool">
         1=1
+        <if test="updateTime!=null "> and school.update_time = #{updateTime}</if>
         <if test="id!=null "> and school.id = #{id}</if>
         <if test="schoolName!=null "> and school.school_name = #{schoolName}</if>
         <if test="headImg!=null "> and school.head_img = #{headImg}</if>
@@ -56,6 +60,9 @@
         <if test="schoolDesc!=null "> and school.school_desc = #{schoolDesc}</if>
                 <if test="schoolNameFirst!=null "> and school.school_name <![CDATA[like]]>
                             concat('%',#{schoolNameFirst},'%')
+                </if>
+                <if test="classCountFirst!=null "> and school.class_count <![CDATA[=]]>
+                            #{classCountFirst}
                 </if>
                 <if test="schoolTypeFirst!=null "> and school.school_type <![CDATA[=]]>
                             #{schoolTypeFirst}
@@ -82,6 +89,7 @@
             </choose>
         </selectKey>
         insert into school (<if test="id!=null">`id`,</if>
+                `update_time` ,
                 `school_name` ,
                 `head_img` ,
                 `class_count` ,
@@ -92,6 +100,12 @@
                 `school_desc` 
         )
         values(<if test="id!=null">#{ id },</if>
+                <choose>
+                    <when test="updateTime==null">
+                            NULL
+                    </when>
+                    <otherwise>#{updateTime,jdbcType=TIMESTAMP}</otherwise>
+                </choose>,
                 <choose>
                     <when test="schoolName==null">
                              ''
@@ -159,6 +173,12 @@
     <update id="updateSchool" parameterType="School">
         update school school set
                 <choose>
+                    <when test="updateTime!=null">school.update_time=#{updateTime,jdbcType=TIMESTAMP},</when>
+                    <otherwise>
+                        school.update_time=NULL,
+                    </otherwise>
+                </choose>
+                <choose>
                     <when test="schoolName!=null">school.school_name=#{schoolName},</when>
                     <otherwise>
                         school.school_name='',
@@ -206,12 +226,13 @@
                         school.school_desc=NULL,
                     </otherwise>
                 </choose>
-        school.id = #{id}
+        school.id = id
         where  school.id = #{id}
     </update>
 
     <update id="updateSchoolByWhereSql" parameterType="hashmap">
         update school school set
+                <choose><when test="updateTime!=null">school.update_time=#{updateTime,jdbcType=TIMESTAMP},</when></choose>
                 <choose><when test="schoolName!=null">school.school_name=#{schoolName},</when></choose>
                 <choose><when test="headImg!=null">school.head_img=#{headImg},</when></choose>
                 <choose><when test="classCount!=null">school.class_count=#{classCount},</when></choose>
@@ -242,10 +263,11 @@
     </delete>
 
     <insert id="batchInsertSchool" parameterType="java.util.List">
-        insert into school (`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`)
+        insert into school (`update_time`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`)
         values
         <foreach collection="list" item= "item" index ="index" separator=",">
             (
+                    <choose><when test="item.updateTime==null">NULL</when><otherwise>#{item.updateTime,jdbcType=TIMESTAMP}</otherwise></choose> ,
                     <choose><when test="item.schoolName==null">  ''  </when><otherwise>#{item.schoolName}</otherwise></choose> ,
                     <choose><when test="item.headImg==null">  ''  </when><otherwise>#{item.headImg}</otherwise></choose> ,
                     <choose><when test="item.classCount==null">  '0'  </when><otherwise>#{item.classCount}</otherwise></choose> ,
@@ -262,6 +284,7 @@
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update school school
             <set>
+                    <choose><when test="item.updateTime!=null">school.update_time=#{item.updateTime,jdbcType=TIMESTAMP},</when></choose>
                     <choose><when test="item.schoolName!=null">school.school_name=#{item.schoolName},</when></choose>
                     <choose><when test="item.headImg!=null">school.head_img=#{item.headImg},</when></choose>
                     <choose><when test="item.classCount!=null">school.class_count=#{item.classCount},</when></choose>

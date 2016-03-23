@@ -95,7 +95,7 @@
                         classTeacher.teacher_id=0,
                     </otherwise>
                 </choose>
-        classTeacher.id = #{id}
+        classTeacher.id = id
         where  classTeacher.id = #{id}
     </update>
 
@@ -175,8 +175,8 @@
                 <if test="id !=null "> and teacher.id = #{id }</if>
                 <if test="teacherName !=null "> and teacher.teacher_name = #{teacherName }</if>
                 <if test="age !=null "> and teacher.age = #{age }</if>
-                            <if test="teacherNameFirst!=null "> and teacher.teacher_name <![CDATA[=]]>
-                                        #{teacherNameFirst}
+                            <if test="teacherNameFirst!=null "> and teacher.teacher_name <![CDATA[like]]>
+                                        concat('%',#{teacherNameFirst},'%')
                             </if>
                             <if test="ageFirst!=null "> and teacher.age <![CDATA[>=]]>
                                         #{ageFirst}

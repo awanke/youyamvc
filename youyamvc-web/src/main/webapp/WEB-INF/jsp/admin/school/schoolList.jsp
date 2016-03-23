@@ -51,6 +51,14 @@ pageEncoding="UTF-8"%>
                                              </div>
                                              <div class="col-xs-2">
                                                  <div class="form-group">
+                                                     <label for="classCountFirst">班级个数 (=)</label>
+                                                     <input type="text" class="form-control"
+                                                      value="${ classCountFirst }"
+                                                                                                    id="classCountFirst" name="classCountFirst">
+                                                 </div>
+                                             </div>
+                                             <div class="col-xs-2">
+                                                 <div class="form-group">
                                                  <label for="schoolTypeFirst">学校类型</label>
                                                      <select class="form-control" id="schoolTypeFirst" name="schoolTypeFirst">
                                                                  <option value="">全部</option>
@@ -151,6 +159,8 @@ pageEncoding="UTF-8"%>
                                                  <th  class="sorting" orderField="class_count">                                                      班级个数
                                                   </th>
                                                  <th  class="sorting" orderField="create_time">                                                      创建时间
+                                                  </th>
+                                                 <th  class="sorting" orderField="update_time">                                                      更新时间
                                                   </th>
                                                   <th>操作</th>
                                               </tr>
