@@ -1,3 +1,4 @@
+//version 2016-03-23
 $(function(){
     getItemPage(1);
     //绑定排序事件

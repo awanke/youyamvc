@@ -1,3 +1,4 @@
+//version 2016-03-23
 //pIdx：当前页
 //pSumCnt：总记录数
 //pSize：每页数量

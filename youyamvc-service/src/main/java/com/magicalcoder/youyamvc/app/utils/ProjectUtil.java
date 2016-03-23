@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Created by www.magicalcoder.com on 2015/5/22.
  * 799374340@qq.com
+ * version 2016-03-23
  */
 public class ProjectUtil {
     public static Map<String,Object> buildMap(String key,Object value ,Object... args){
