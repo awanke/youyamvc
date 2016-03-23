@@ -46,7 +46,7 @@ pageEncoding="UTF-8"%>
                                                      <label for="schoolNameFirst">学校名称 (like)</label>
                                                      <input type="text" class="form-control"
                                                       value="${ schoolNameFirst }"
-                                                                                                    id="schoolNameFirst" name="schoolNameFirst">
+                                                   required  minLength="0"                                                   id="schoolNameFirst" name="schoolNameFirst">
                                                  </div>
                                              </div>
                                              <div class="col-xs-2">
@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
                                                      <label for="classCountFirst">班级个数 (=)</label>
                                                      <input type="text" class="form-control"
                                                       value="${ classCountFirst }"
-                                                                                                    id="classCountFirst" name="classCountFirst">
+                                                   digits  minLength="0"                                                   id="classCountFirst" name="classCountFirst">
                                                  </div>
                                              </div>
                                              <div class="col-xs-2">

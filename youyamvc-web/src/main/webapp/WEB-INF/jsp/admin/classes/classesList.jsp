@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%>
                                                  <label for="schoolNameSchoolFirst">学校-学校名称 (like)</label>
                                                          <input type="text" class="form-control"
                                                           value="${ schoolNameSchoolFirst }"
-                                                                                                            id="schoolNameSchoolFirst" name="schoolNameSchoolFirst">
+                                                   required  minLength="0"                                                           id="schoolNameSchoolFirst" name="schoolNameSchoolFirst">
                                                  </div>
                                                  </div>
 
