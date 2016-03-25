@@ -1,7 +1,7 @@
 package com.magicalcoder.youyamvc.app.teacher.dao.impl;
 
-import com.magicalcoder.youyamvc.app.model.Teacher;
 import com.magicalcoder.youyamvc.app.teacher.dao.TeacherDao;
+import com.magicalcoder.youyamvc.app.model.Teacher;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 

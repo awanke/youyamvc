@@ -1,13 +1,13 @@
 
 package com.magicalcoder.youyamvc.app.teacher.service.impl;
 
-import com.magicalcoder.youyamvc.app.model.Teacher;
 import com.magicalcoder.youyamvc.app.teacher.dao.TeacherDao;
 import com.magicalcoder.youyamvc.app.teacher.service.TeacherService;
-import com.magicalcoder.youyamvc.core.common.utils.copy.CopyerSpringUtil;
-import org.apache.commons.lang.StringUtils;
+import com.magicalcoder.youyamvc.app.model.Teacher;
 import org.springframework.stereotype.Component;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
+import com.magicalcoder.youyamvc.core.common.utils.copy.CopyerSpringUtil;
 
 import javax.annotation.Resource;
 import java.util.HashMap;

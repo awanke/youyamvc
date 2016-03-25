@@ -57,7 +57,7 @@ pageEncoding="UTF-8"%>
                                             <input type="text" class="form-control" id="classIdSearch"
                                                   name="classIdSearch"  placeholder="请输入关键词查询班级"
                                             <c:if test="${ classes!=null }">
-                                                         value=""
+                                                         value="${classes.className}"
                                             </c:if>
                                                    >
                                         </div>
@@ -79,7 +79,7 @@ pageEncoding="UTF-8"%>
                                             <input type="text" class="form-control" id="teacherIdSearch"
                                                   name="teacherIdSearch"  placeholder="请输入关键词查询教师"
                                             <c:if test="${ teacher!=null }">
-                                                         value=""
+                                                         value="${teacher.teacherName}-${teacher.age}"
                                             </c:if>
                                                    >
                                         </div>

@@ -1,8 +1,7 @@
 package com.magicalcoder.youyamvc.app.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
 * Created by www.magicalcoder.com

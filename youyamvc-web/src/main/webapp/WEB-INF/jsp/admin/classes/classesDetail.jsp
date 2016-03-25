@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
                                             <input type="text" class="form-control" id="schoolIdSearch"
                                                   name="schoolIdSearch"  placeholder="请输入关键词查询学校"
                                             <c:if test="${ school!=null }">
-                                                         value=""
+                                                         value="${school.schoolName}-${school.classCount}"
                                             </c:if>
                                                    >
                                         </div>

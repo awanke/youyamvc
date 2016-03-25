@@ -5,10 +5,10 @@ import com.magicalcoder.youyamvc.app.classteacher.dao.ClassTeacherDao;
 import com.magicalcoder.youyamvc.app.classteacher.service.ClassTeacherService;
 import com.magicalcoder.youyamvc.app.model.ClassTeacher;
 import com.magicalcoder.youyamvc.app.model.defined.ClassTeacherMany;
-import com.magicalcoder.youyamvc.core.common.utils.copy.CopyerSpringUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
+import com.magicalcoder.youyamvc.core.common.utils.copy.CopyerSpringUtil;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
