@@ -45,6 +45,7 @@ pageEncoding="UTF-8"%>
                                     <h3 class="box-title">
                                         <c:choose><c:when test="${school.id==null}">新增</c:when><c:otherwise>编辑</c:otherwise></c:choose>
                                     </h3>
+                                    <h3 class="box-title alert-danger">${exceptionMsg}</h3>
                                 </div>
                                 <input type="hidden" name="id" value="${school.id}">
                                 <div class="box-body">

@@ -201,8 +201,16 @@ public class AdminClassTeacherListController extends AdminLoginController
 
     //保存
     @RequestMapping(value="save", method={RequestMethod.POST})
-    public String save(@ModelAttribute ClassTeacher classTeacher) {
-        saveEntity(classTeacher);
+    public String save(@ModelAttribute ClassTeacher classTeacher,ModelMap model) {
+        try{
+            model.addAttribute("classTeacher",classTeacher);
+            foreignModel(classTeacher,model);
+            saveEntity(classTeacher);
+        }catch (Exception e){
+            String exceptionMsg = ProjectUtil.buildExceptionMsg(e.getMessage());
+            model.addAttribute("exceptionMsg","保存失败："+exceptionMsg);
+            return "admin/classteacher/classTeacherDetail";
+        }
         return "redirect:/admin/class_teacher/list";
     }
 

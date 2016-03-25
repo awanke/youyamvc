@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by www.magicalcoder.com on 2015/5/22.
@@ -77,5 +79,24 @@ public class ProjectUtil {
             result.put(e.getKey(), e.getValue()[0]);
         }
         return result;
+    }
+
+    //异常处理
+    public static String buildExceptionMsg(String message){
+        String msg = null;
+        //找重复唯一约束
+        String reg = "Duplicate entry '(.*?)' for key";
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(message);
+        while (matcher.find()){
+            msg = "请保证("+matcher.group(1)+")的唯一性";
+            break;
+        }
+        //找不为空约束
+        if(StringUtils.isBlank(msg)){
+            return message;
+        }else {
+            return msg;
+        }
     }
 }

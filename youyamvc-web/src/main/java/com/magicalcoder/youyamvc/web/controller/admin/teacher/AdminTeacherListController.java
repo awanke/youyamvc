@@ -82,10 +82,11 @@ public class AdminTeacherListController extends AdminLoginController
         pageSize = Math.min(TeacherConstant.PAGE_MAX_SIZE,pageSize);
         int idx = (pageIndex.intValue() - 1) * pageSize;
 
-        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, "teacherNameFirst",teacherNameFirst,
-                "ageFirst",ageFirst,
-                "ageSecond",ageSecond,
-                "limitIndex",idx,"limit", pageSize);
+        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
+                "teacherNameFirst",teacherNameFirst ,
+                "ageFirst",ageFirst ,
+                "ageSecond",ageSecond ,
+        "limitIndex",idx,"limit", pageSize });
 
         boolean useRelateQuery = false;
         List pageList;
@@ -119,9 +120,6 @@ public class AdminTeacherListController extends AdminLoginController
         return newPageList;
     }
 
-
-
-
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {
@@ -151,8 +149,16 @@ public class AdminTeacherListController extends AdminLoginController
 
     //保存
     @RequestMapping(value="save", method={RequestMethod.POST})
-    public String save(@ModelAttribute Teacher teacher) {
-        saveEntity(teacher);
+    public String save(@ModelAttribute Teacher teacher,ModelMap model) {
+        try{
+            model.addAttribute("teacher",teacher);
+            foreignModel(teacher,model);
+            saveEntity(teacher);
+        }catch (Exception e){
+            String exceptionMsg = ProjectUtil.buildExceptionMsg(e.getMessage());
+            model.addAttribute("exceptionMsg","保存失败："+exceptionMsg);
+            return "admin/teacher/teacherDetail";
+        }
         return "redirect:/admin/teacher/list";
     }
 
@@ -223,10 +229,11 @@ public class AdminTeacherListController extends AdminLoginController
                 @RequestParam(required = false,value ="ageSecond")                        Integer ageSecond ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
-        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, "teacherNameFirst",teacherNameFirst,
-                "ageFirst",ageFirst,
-                "ageSecond",ageSecond,
-                "limitIndex",start,"limit", limit);
+        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
+                "teacherNameFirst",teacherNameFirst ,
+                "ageFirst",ageFirst ,
+                "ageSecond",ageSecond ,
+        "limitIndex",start,"limit", limit });
 
         boolean useRelateQuery = false;
         List pageList;
