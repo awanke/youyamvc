@@ -32,7 +32,7 @@ function build_bar(pIdx, pSumCnt, pSize, show) {
     //是否隐藏首页
     //    var isChiefPageHide=pIdx<=begin
     var isChiefPageHide = find(show, "f")
-    var chiefPage = cond(isChiefPageHide, "", "<li class=''><a  pf='1' href='javascript:{}'>首页</a></li>")
+    var chiefPage = cond(isChiefPageHide, "", "<li class=''><a  pg='1' href='javascript:{}'>首页</a></li>")
     //是否隐藏上一页
     var isUpPageHide = pIdx <= begin
     var upPage = cond(isUpPageHide, "", concat(["<li class='prev'><a  pg='"+(pIdx - 1)+"' href='javascript:{}'><上一页</a></li>"]))
