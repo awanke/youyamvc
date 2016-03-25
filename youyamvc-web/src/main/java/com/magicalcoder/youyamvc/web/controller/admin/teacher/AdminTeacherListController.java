@@ -119,6 +119,9 @@ public class AdminTeacherListController extends AdminLoginController
         return newPageList;
     }
 
+
+
+
     //新增
     @RequestMapping({"/detail"})
     public String detail(ModelMap model) {
