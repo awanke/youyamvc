@@ -1,11 +1,8 @@
 package com.magicalcoder.youyamvc.core.common.file;
 
-import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
-
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 
 /**
  * Created by www.magicalcoder.com on 2015/6/25.

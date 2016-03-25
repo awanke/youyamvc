@@ -2,7 +2,7 @@ package com.magicalcoder.youyamvc.web.interceptor;
 
 import com.magicalcoder.youyamvc.app.adminuser.dto.AdminUserDto;
 import com.magicalcoder.youyamvc.app.adminuser.utils.AdminUserContextUtil;
-import com.magicalcoder.youyamvc.core.cache.xmemcached.utils.MemcachedClientUtils;
+import com.magicalcoder.youyamvc.core.cache.common.CacheUtil;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginPagingController;
@@ -41,7 +41,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
                 dispatcher .forward(req, res);
                 return false;
             }
-            AdminUserDto adminUserDto = MemcachedClientUtils.get().get(sessionId);
+            AdminUserDto adminUserDto = CacheUtil.get(sessionId);
             if(adminUserDto==null){//未登录
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/admin/login.jsp");
                 dispatcher .forward(req, res);

@@ -1,7 +1,9 @@
 package com.magicalcoder.youyamvc.app.adminuser.dao;
+
+import com.magicalcoder.youyamvc.app.model.AdminUser;
+
 import java.util.List;
 import java.util.Map;
-import com.magicalcoder.youyamvc.app.model.AdminUser;
 public interface AdminUserDao {
 	AdminUser getAdminUser(Map<String, Object> query);
 	Long insertAdminUser(AdminUser entity);

@@ -1,9 +1,8 @@
 package com.magicalcoder.youyamvc.core.cache.xmemcached.utils;
 
 import com.alibaba.fastjson.JSON;
-import net.rubyeye.xmemcached.MemcachedClient;
-
 import com.magicalcoder.youyamvc.core.spring.SpringContainer;
+import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 
 import java.util.concurrent.TimeoutException;

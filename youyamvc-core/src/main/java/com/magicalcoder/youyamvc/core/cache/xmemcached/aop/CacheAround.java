@@ -1,18 +1,15 @@
 package com.magicalcoder.youyamvc.core.cache.xmemcached.aop;
 
-import java.lang.reflect.Method;
-
-import net.rubyeye.xmemcached.MemcachedClient;
-
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-
 import com.magicalcoder.youyamvc.core.cache.xmemcached.anotation.XMemcachedParam;
 import com.magicalcoder.youyamvc.core.cache.xmemcached.utils.MemcachedClientUtils;
 import com.magicalcoder.youyamvc.core.common.utils.log.Log4jUtils;
+import net.rubyeye.xmemcached.MemcachedClient;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 
 /*

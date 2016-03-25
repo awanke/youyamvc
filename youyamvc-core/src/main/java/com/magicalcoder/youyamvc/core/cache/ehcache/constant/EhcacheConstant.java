@@ -5,6 +5,4 @@ package com.magicalcoder.youyamvc.core.cache.ehcache.constant;
  * 799374340@qq.com
  */
 public interface EhcacheConstant {
-    //默认缓存配置
-    String DEFAULT_CACHE = "MagicalCoderDefaultCache";
 }

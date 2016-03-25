@@ -1,6 +1,5 @@
 package com.magicalcoder.youyamvc.core.common.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.magicalcoder.youyamvc.core.common.exception.BusinessException;
 import com.magicalcoder.youyamvc.core.common.utils.log.Log4jUtils;
 

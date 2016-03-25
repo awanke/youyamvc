@@ -8,7 +8,6 @@ import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.spring.PagingController;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.OutputStream;
 import java.sql.Date;
 

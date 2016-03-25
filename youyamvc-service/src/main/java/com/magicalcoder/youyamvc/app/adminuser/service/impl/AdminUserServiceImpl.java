@@ -1,14 +1,14 @@
 package com.magicalcoder.youyamvc.app.adminuser.service.impl;
+
+import com.magicalcoder.youyamvc.app.adminuser.dao.AdminUserDao;
+import com.magicalcoder.youyamvc.app.adminuser.service.AdminUserService;
+import com.magicalcoder.youyamvc.app.model.AdminUser;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import javax.annotation.Resource;
-
-import com.magicalcoder.youyamvc.core.cache.xmemcached.anotation.XMemcachedParam;
-import org.springframework.stereotype.Component;
-import com.magicalcoder.youyamvc.app.adminuser.dao.AdminUserDao;
-import com.magicalcoder.youyamvc.app.model.AdminUser;
-import com.magicalcoder.youyamvc.app.adminuser.service.AdminUserService;
 @Component("adminUserService")
 public class AdminUserServiceImpl implements AdminUserService {
 	@Resource(name="adminUserDao")

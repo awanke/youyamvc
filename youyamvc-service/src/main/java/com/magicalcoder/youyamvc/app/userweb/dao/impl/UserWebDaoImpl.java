@@ -1,7 +1,7 @@
 package com.magicalcoder.youyamvc.app.userweb.dao.impl;
 
-import com.magicalcoder.youyamvc.app.userweb.dao.UserWebDao;
 import com.magicalcoder.youyamvc.app.model.UserWeb;
+import com.magicalcoder.youyamvc.app.userweb.dao.UserWebDao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 

@@ -1,20 +1,17 @@
 package com.magicalcoder.youyamvc.core.cache.ehcache.aop;
 
-import java.lang.reflect.Method;
-
-import com.alibaba.fastjson.JSON;
+import com.magicalcoder.youyamvc.core.cache.ehcache.anotation.EhcacheParam;
 import com.magicalcoder.youyamvc.core.cache.ehcache.constant.EhcacheConstant;
+import com.magicalcoder.youyamvc.core.cache.ehcache.factory.EhcacheFactory;
 import com.magicalcoder.youyamvc.core.cache.ehcache.utils.EhcacheUtils;
+import com.magicalcoder.youyamvc.core.common.utils.SysPropertiesUtil;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
-import com.magicalcoder.youyamvc.core.cache.ehcache.anotation.EhcacheParam;
-import com.magicalcoder.youyamvc.core.cache.ehcache.factory.EhcacheFactory;
-import com.magicalcoder.youyamvc.core.common.utils.log.Log4jUtils;
+import java.lang.reflect.Method;
 
 
 /*
@@ -69,7 +66,8 @@ public class EhcacheAround {
 			{
 		//下面的逻辑是在缓存中查询是否存在此key值的缓存
 		Object cacheObj=null;
-		Cache defaultCache = EhcacheFactory.get().getCache(EhcacheConstant.DEFAULT_CACHE);//使用配置默认的缓存
+		String cacheConfigName = SysPropertiesUtil.getProperty("EHCACHE_TYPE");
+		Cache defaultCache = EhcacheFactory.get().getCache(cacheConfigName);//使用配置默认的缓存
 		synchronized (EhcacheAround.class) {//解决多并发时缓存某些线程无效
 			Element cacheElement = defaultCache.get(ehcacheKey);
 			if(cacheElement!=null){

@@ -1,11 +1,11 @@
 
 package com.magicalcoder.youyamvc.app.userweb.service.impl;
 
+import com.magicalcoder.youyamvc.app.model.UserWeb;
 import com.magicalcoder.youyamvc.app.userweb.dao.UserWebDao;
 import com.magicalcoder.youyamvc.app.userweb.service.UserWebService;
-import com.magicalcoder.youyamvc.app.model.UserWeb;
-import org.springframework.stereotype.Component;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.HashMap;

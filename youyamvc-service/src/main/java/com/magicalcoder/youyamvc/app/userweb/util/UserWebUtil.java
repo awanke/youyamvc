@@ -1,8 +1,7 @@
 package com.magicalcoder.youyamvc.app.userweb.util;
 
-import com.magicalcoder.youyamvc.app.model.UserWeb;
 import com.magicalcoder.youyamvc.app.userweb.dto.UserWebDto;
-import com.magicalcoder.youyamvc.core.cache.xmemcached.utils.MemcachedClientUtils;
+import com.magicalcoder.youyamvc.core.cache.common.CacheUtil;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 
 import javax.servlet.http.Cookie;
@@ -55,7 +54,7 @@ public class UserWebUtil {
         }
         try {
             String cacheKey = userCacheKey(sessionId);
-            Object obj = MemcachedClientUtils.get().get(cacheKey);
+            Object obj = CacheUtil.get(cacheKey);
             return (UserWebDto)obj;
         }catch (Exception e) {
             e.printStackTrace();

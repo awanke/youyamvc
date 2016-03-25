@@ -1,8 +1,9 @@
 package com.magicalcoder.youyamvc.app.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
 * Created by hdy.

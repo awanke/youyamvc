@@ -1,10 +1,5 @@
 package com.magicalcoder.youyamvc.core.common.utils;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.magicalcoder.youyamvc.core.common.utils.log.Log4jUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,6 +13,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HttpClientUtil {
     static Logger logger = Log4jUtils.getLog(HttpClientUtil.class);

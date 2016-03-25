@@ -1,6 +1,5 @@
 package com.magicalcoder.youyamvc.app.userweb.dto;
 
-import com.magicalcoder.youyamvc.app.model.UserWeb;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;

@@ -1,11 +1,13 @@
 package com.magicalcoder.youyamvc.app.adminuser.dao.impl;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Component;
-import org.mybatis.spring.SqlSessionTemplate;
+
 import com.magicalcoder.youyamvc.app.adminuser.dao.AdminUserDao;
 import com.magicalcoder.youyamvc.app.model.AdminUser;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 @Component("adminUserDao")
 public class AdminUserDaoImpl implements AdminUserDao {
 	

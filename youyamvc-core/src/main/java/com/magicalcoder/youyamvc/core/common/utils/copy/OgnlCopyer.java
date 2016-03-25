@@ -1,5 +1,12 @@
 package com.magicalcoder.youyamvc.core.common.utils.copy;
 
+import com.opensymphony.xwork.util.OgnlUtil;
+import com.opensymphony.xwork.util.XWorkConverter;
+import ognl.Ognl;
+import ognl.OgnlException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -7,15 +14,6 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-import ognl.Ognl;
-import ognl.OgnlException;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.opensymphony.xwork.util.OgnlUtil;
-import com.opensymphony.xwork.util.XWorkConverter;
 @Deprecated
 public class OgnlCopyer {
 

@@ -2,8 +2,6 @@ package com.magicalcoder.youyamvc.core.common.dto;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * qq:799374340
  * @author hdy

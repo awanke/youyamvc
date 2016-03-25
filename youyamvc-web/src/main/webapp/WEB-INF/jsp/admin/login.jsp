@@ -8,15 +8,7 @@
     <%@include file="../common/head.jsp"%>
     <title>AdminLTE | Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-  <%--  <!-- bootstrap 3.0.2 -->
-    <link href="assets/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- font Awesome -->
-    <link href="assets/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="assets/admin/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->--%>
     <%@include file="include/head.jsp"%>
 
 </head>
@@ -27,16 +19,17 @@
     <form action="admin" method="post">
         <div class="body bg-gray">
             <div class="form-group">
-                <input type="text" name="userName" class="form-control" placeholder="用户名" value="admin"/>
+                <input type="text" name="userName" class="form-control" placeholder="用户名" value="${userName}"/>
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="密码" value="admin"/>
+                <input type="password" name="password" class="form-control" placeholder="密码" value="${password}"/>
             </div>
             <div class="form-group">
                 <input type="text" name="checkCode" class="form-control" placeholder="验证码" value=""/>
             </div>
             <div class="form-group">
                 <img alt="验证码看不清，换一张" src="admin/checkCode" id="checkCode" onclick="changeImg(this)">
+                <span class="alert-danger">${alertMsg}</span>
             </div>
         </div>
         <div class="footer">

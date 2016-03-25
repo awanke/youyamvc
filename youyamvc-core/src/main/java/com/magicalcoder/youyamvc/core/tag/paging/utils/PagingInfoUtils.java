@@ -1,13 +1,9 @@
 package com.magicalcoder.youyamvc.core.tag.paging.utils;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
+
+import java.math.BigDecimal;
+import java.util.*;
 public class PagingInfoUtils {
 
 	private static PagingInfoUtils instance;

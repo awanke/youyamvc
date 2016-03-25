@@ -1,25 +1,24 @@
 package com.magicalcoder.youyamvc.web.controller.admin.userweb;
-import com.magicalcoder.youyamvc.app.userweb.service.UserWebService;
-import com.magicalcoder.youyamvc.app.userweb.constant.UserWebConstant;
+
 import com.magicalcoder.youyamvc.app.model.UserWeb;
+import com.magicalcoder.youyamvc.app.userweb.constant.UserWebConstant;
+import com.magicalcoder.youyamvc.app.userweb.service.UserWebService;
 import com.magicalcoder.youyamvc.app.utils.ProjectUtil;
+import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
-import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.util.*;
-import java.math.*;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 * Created by hdy.

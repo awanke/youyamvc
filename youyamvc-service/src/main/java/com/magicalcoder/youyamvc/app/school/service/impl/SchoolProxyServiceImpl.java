@@ -1,15 +1,11 @@
 package com.magicalcoder.youyamvc.app.school.service.impl;
 
 import com.magicalcoder.youyamvc.app.school.dao.SchoolProxyDao;
-import com.magicalcoder.youyamvc.app.school.service.SchoolService;
 import com.magicalcoder.youyamvc.app.school.service.SchoolProxyService;
-import com.magicalcoder.youyamvc.app.model.School;
+import com.magicalcoder.youyamvc.app.school.service.SchoolService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 /**
     代理类 保证了service dao的自动生成 有改动业务 直接写在此类处
 */

@@ -2,11 +2,6 @@ package com.magicalcoder.youyamvc.web.interceptor;
 
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.utils.SysPropertiesUtil;
-import com.magicalcoder.youyamvc.core.spring.ControllerContext;
-import com.magicalcoder.youyamvc.core.spring.PagingController;
-import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
-import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginPagingController;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

@@ -1,5 +1,4 @@
 package com.magicalcoder.youyamvc.core.htmlparse;
-import java.io.*;
 
 import com.magicalcoder.youyamvc.core.common.file.FileHelper;
 import org.apache.http.HttpEntity;
@@ -10,6 +9,8 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
 
 /**
  * 静态页面引擎技术

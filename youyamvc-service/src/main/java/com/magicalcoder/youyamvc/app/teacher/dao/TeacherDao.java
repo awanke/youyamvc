@@ -1,6 +1,7 @@
 package com.magicalcoder.youyamvc.app.teacher.dao;
 
 import com.magicalcoder.youyamvc.app.model.Teacher;
+
 import java.util.List;
 import java.util.Map;
 

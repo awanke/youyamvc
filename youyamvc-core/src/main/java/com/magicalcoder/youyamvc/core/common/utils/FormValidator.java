@@ -1,10 +1,9 @@
 package com.magicalcoder.youyamvc.core.common.utils;
 
-import java.util.Map;
-
 import com.magicalcoder.youyamvc.core.common.exception.BusinessException;
-import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.common.utils.log.Log4jUtils;
+
+import java.util.Map;
 
 /**
  * qq:799374340

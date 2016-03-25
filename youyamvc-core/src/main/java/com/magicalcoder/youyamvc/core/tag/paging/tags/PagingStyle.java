@@ -2,18 +2,18 @@ package com.magicalcoder.youyamvc.core.tag.paging.tags;
 /**
  * 处理<h:paging-style type="1"/>
  */
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import com.magicalcoder.youyamvc.core.spring.SpringContainer;
 import com.magicalcoder.youyamvc.core.tag.paging.dto.PagingDto;
 import com.magicalcoder.youyamvc.core.tag.paging.style.IStyleExcuter;
 import com.magicalcoder.youyamvc.core.tag.paging.utils.PagingConstant;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PagingStyle extends BodyTagSupport{
 	/**

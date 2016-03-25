@@ -4,11 +4,11 @@ import com.magicalcoder.youyamvc.app.adminuser.AdminUserConstant;
 import com.magicalcoder.youyamvc.app.adminuser.dto.AdminUserDto;
 import com.magicalcoder.youyamvc.app.adminuser.service.AdminUserService;
 import com.magicalcoder.youyamvc.app.model.AdminUser;
-import com.magicalcoder.youyamvc.core.cache.xmemcached.utils.MemcachedClientUtils;
+import com.magicalcoder.youyamvc.core.cache.common.CacheUtil;
 import com.magicalcoder.youyamvc.core.common.safe.SqlInjectFilter;
 import com.magicalcoder.youyamvc.core.common.safe.XssHtmlFilter;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
-import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
+import com.magicalcoder.youyamvc.core.common.utils.copy.CopyerSpringUtil;
 import com.magicalcoder.youyamvc.core.identifyingcode.CreateIdentifyingCode;
 import com.magicalcoder.youyamvc.core.identifyingcode.IdentifyingCodeConstant;
 import org.springframework.stereotype.Controller;
@@ -47,30 +47,33 @@ public class AdminLoginAction {
 
     @RequestMapping(value="/admin")
 	public String execute(HttpServletRequest request,HttpServletResponse response,ModelMap model) {
+        //验证登陆
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
         //验证码
         String checkCode = request.getParameter("checkCode");
         String sessionId = request.getSession().getId();
+        model.addAttribute("userName",userName);
+        model.addAttribute("password",password);
         try {
             CreateIdentifyingCode code = new CreateIdentifyingCode();
             String cookieKey = code.getCookieKey(request);
-            //System.out.println("key2="+IdentifyingCodeConstant.CHECK_CODE_SESSION_KEY+cookieKey);
-            String sesionCheckCode = MemcachedClientUtils.get().get(IdentifyingCodeConstant.CHECK_CODE_SESSION_KEY+cookieKey);
-            //System.out.println("c="+checkCode+";s"+sesionCheckCode);
+            String sesionCheckCode = CacheUtil.get(IdentifyingCodeConstant.CHECK_CODE_SESSION_KEY+cookieKey);
             if(checkCode==null || sesionCheckCode==null || !checkCode.toLowerCase().equals(sesionCheckCode.toLowerCase())){
                 setCheckCodeCookie(request, response);
+                model.addAttribute("alertMsg","验证码错误");
                 return "admin/login";
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //验证登陆
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
+
         XssHtmlFilter xss1 = new XssHtmlFilter();
         if(!xss1.isContainXss(userName) && !SqlInjectFilter.isContainSqlInject(userName) &&
                 !xss1.isContainXss(password) && !SqlInjectFilter.isContainSqlInject(password)){
         }else{
             setCheckCodeCookie(request, response);
+            model.addAttribute("alertMsg","非法参数");
             return "admin/login";
         }
 		//查询库 验证此用户是否合法
@@ -78,7 +81,7 @@ public class AdminLoginAction {
         query.put("userName", userName);
         List<AdminUser> userList = adminUserService.getAdminUserList(query);
         if(ListUtils.isBlank(userList)){
-            model.addAttribute("alert","用户名不存在");
+            model.addAttribute("alertMsg","用户名不存在");
             setCheckCodeCookie(request, response);
             return "admin/login";
         }
@@ -86,7 +89,7 @@ public class AdminLoginAction {
         AdminUser adminUser = userList.get(0);
         String passwd = adminUser.getPassword();
         if(!passwd.equals(password)){
-            model.addAttribute("alert","用户名密码不正确");
+            model.addAttribute("alertMsg","密码不正确");
             setCheckCodeCookie(request, response);
             return "admin/login";
         }
@@ -98,9 +101,9 @@ public class AdminLoginAction {
         sessionCookie.setPath("/");
         response.addCookie(sessionCookie);
         AdminUserDto adminUserDto = new AdminUserDto();
-        Copyer.copy(adminUser, adminUserDto);
+        CopyerSpringUtil.copyProperties(adminUser, adminUserDto);
         //存储到缓存
-        MemcachedClientUtils.resetCache(sessionId, AdminUserConstant.ADMIN_LOGIN_TIMEOUT, adminUserDto);
+        CacheUtil.resetCache(sessionId, AdminUserConstant.ADMIN_LOGIN_TIMEOUT, adminUserDto);
         return "redirect:admin/index";//index.jsp 后台主页
 	}
 

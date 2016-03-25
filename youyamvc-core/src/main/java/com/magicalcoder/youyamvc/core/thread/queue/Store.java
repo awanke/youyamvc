@@ -2,7 +2,6 @@ package com.magicalcoder.youyamvc.core.thread.queue;
 
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hedy on 14-5-11.

@@ -2,6 +2,7 @@ package com.magicalcoder.youyamvc.app.classteacher.dao;
 
 import com.magicalcoder.youyamvc.app.model.ClassTeacher;
 import com.magicalcoder.youyamvc.app.model.defined.ClassTeacherMany;
+
 import java.util.List;
 import java.util.Map;
 

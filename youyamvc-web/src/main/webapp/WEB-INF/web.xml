@@ -25,10 +25,10 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 
-<!--	<listener>
+	<listener>
 		<description>EhcacheCloseServlet监控容器关闭同时关闭shutdown ehcache</description>
 		<listener-class>com.magicalcoder.youyamvc.core.cache.ehcache.listener.EhcacheCloseListener</listener-class>
-	</listener>-->
+	</listener>
 
 
 	<!-- 配置字符编码过滤器 post有效 get请求需要修改tomcat server.xml -->

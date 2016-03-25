@@ -1,13 +1,12 @@
 package com.magicalcoder.youyamvc.core.tag.paging.style.impl;
 
-import java.util.Map;
-
-import org.springframework.stereotype.Component;
-
 import com.magicalcoder.youyamvc.core.tag.paging.dto.PagingDto;
 import com.magicalcoder.youyamvc.core.tag.paging.style.IStyleExcuter;
 import com.magicalcoder.youyamvc.core.tag.paging.utils.PagingConstant;
 import com.magicalcoder.youyamvc.core.tag.paging.utils.PagingInfoUtils;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * 当没有countMethod配置时使用这种方式

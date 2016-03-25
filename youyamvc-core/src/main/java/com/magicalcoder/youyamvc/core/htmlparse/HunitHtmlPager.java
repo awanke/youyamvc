@@ -1,6 +1,5 @@
 package com.magicalcoder.youyamvc.core.htmlparse;
 
-import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 

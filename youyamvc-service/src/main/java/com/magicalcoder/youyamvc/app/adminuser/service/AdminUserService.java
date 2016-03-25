@@ -1,7 +1,9 @@
 package com.magicalcoder.youyamvc.app.adminuser.service;
+
+import com.magicalcoder.youyamvc.app.model.AdminUser;
+
 import java.util.List;
 import java.util.Map;
-import com.magicalcoder.youyamvc.app.model.AdminUser;
 public interface AdminUserService {
 	AdminUser getAdminUser(Long id);
 	Long insertAdminUser(AdminUser entity);

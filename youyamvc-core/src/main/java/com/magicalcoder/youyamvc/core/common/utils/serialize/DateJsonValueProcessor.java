@@ -1,11 +1,11 @@
 package com.magicalcoder.youyamvc.core.common.utils.serialize;
 
+import net.sf.json.JsonConfig;
+import net.sf.json.processors.JsonValueProcessor;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import net.sf.json.JsonConfig;
-import net.sf.json.processors.JsonValueProcessor;
 
 /**
  * qq:799374340

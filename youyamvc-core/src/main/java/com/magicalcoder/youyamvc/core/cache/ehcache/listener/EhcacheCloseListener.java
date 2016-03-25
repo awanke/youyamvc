@@ -1,9 +1,9 @@
 package com.magicalcoder.youyamvc.core.cache.ehcache.listener;
 
+import com.magicalcoder.youyamvc.core.cache.ehcache.factory.EhcacheFactory;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import com.magicalcoder.youyamvc.core.cache.ehcache.factory.EhcacheFactory;
 
 
 /**

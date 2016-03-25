@@ -15,8 +15,8 @@ public interface IdentifyingCodeConstant {
     String NUMBER_ENGLISH = "nl";
 
     //使用类型 session memcache方式
-    int STORE_TYPE_SESSION  = 0;
-    int STORE_TYPE_MEMCACHE  = 1;
+    int STORE_TYPE_SESSION  = 0;//session
+    int STORE_TYPE_CACHE_SERVER  = 1;//系统默认缓存服务器
 
 
 }

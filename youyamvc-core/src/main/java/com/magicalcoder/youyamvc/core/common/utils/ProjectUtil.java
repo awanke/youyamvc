@@ -1,7 +1,4 @@
-package com.magicalcoder.youyamvc.app.utils;
-
-import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
-import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
+package com.magicalcoder.youyamvc.core.common.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
@@ -12,11 +9,9 @@ import java.util.Map;
  * Created by www.magicalcoder.com on 2015/5/22.
  * 799374340@qq.com
  * version 2016-03-23
- * 已迁移至核心包
  */
-@Deprecated
 public class ProjectUtil {
-    public static Map<String,Object> buildMap(String key,Object value ,Object... args){
+    public static Map<String,Object> buildMap(String key, Object value , Object... args){
         return MapUtil.buildMap(key, value, args);
     }
 
@@ -39,7 +34,7 @@ public class ProjectUtil {
                     field.setAccessible(true);//修改访问权限
                     for (int j = 0; j < attr.length; j++) {
                         if (attr[j].equals(field.getName())) {
-                                sb.append(field.get(clazz)).append("-");
+                            sb.append(field.get(clazz)).append("-");
                         }
                     }
                 }

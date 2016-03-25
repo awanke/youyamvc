@@ -1,36 +1,30 @@
 package com.magicalcoder.youyamvc.web.controller.admin.school;
-import com.magicalcoder.youyamvc.app.school.service.SchoolService;
-import com.magicalcoder.youyamvc.app.school.constant.SchoolConstant;
+
+import com.alibaba.fastjson.JSON;
+import com.magicalcoder.youyamvc.app.dto.InputSelectShowDto;
 import com.magicalcoder.youyamvc.app.model.School;
+import com.magicalcoder.youyamvc.app.school.constant.SchoolConstant;
+import com.magicalcoder.youyamvc.app.school.service.SchoolService;
 import com.magicalcoder.youyamvc.app.utils.ProjectUtil;
+import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
+import com.magicalcoder.youyamvc.core.common.file.FileHelper;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
 import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
-import com.magicalcoder.youyamvc.core.common.dto.AjaxData;
-import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
-import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
-import com.magicalcoder.youyamvc.app.dto.InputSelectShowDto;
-import java.io.File;
-import java.io.IOException;
-import com.alibaba.fastjson.JSON;
-import com.magicalcoder.youyamvc.core.common.file.FileHelper;
 import com.magicalcoder.youyamvc.core.common.utils.copy.Copyer;
 import com.magicalcoder.youyamvc.core.common.utils.serialize.SerializerFastJsonUtil;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
-import org.springframework.web.multipart.MultipartFile;
-
 import org.springframework.format.annotation.DateTimeFormat;
-import java.util.*;
-import java.math.*;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMethod;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 /**
 * Created by www.magicalcoder.com

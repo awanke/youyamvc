@@ -22,7 +22,7 @@ public class AdminCheckCodeController {
     public void checkCode(HttpServletRequest request,HttpServletResponse response,ModelMap model){
         CreateIdentifyingCode create = new CreateIdentifyingCode();
         try {
-            create.create(IdentifyingCodeConstant.STORE_TYPE_MEMCACHE,IdentifyingCodeConstant.NUMBER_ENGLISH,request,response);
+            create.create(IdentifyingCodeConstant.STORE_TYPE_CACHE_SERVER,IdentifyingCodeConstant.NUMBER_ENGLISH,request,response);
         } catch (IOException e) {
             e.printStackTrace();
         }

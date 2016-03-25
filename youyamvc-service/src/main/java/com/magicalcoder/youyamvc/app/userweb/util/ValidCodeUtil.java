@@ -1,6 +1,6 @@
 package com.magicalcoder.youyamvc.app.userweb.util;
 
-import com.magicalcoder.youyamvc.core.cache.xmemcached.utils.MemcachedClientUtils;
+import com.magicalcoder.youyamvc.core.cache.common.CacheUtil;
 
 /**
 * Created by hdy.
@@ -28,7 +28,7 @@ public class ValidCodeUtil {
      * @param code
      */
     public static void setValidCodeToCache(String useType,String sessionId,String code){
-        MemcachedClientUtils.resetCache(validCodeCacheKey(useType,sessionId),10*60,code);
+        CacheUtil.resetCache(validCodeCacheKey(useType,sessionId),10*60,code);
     }
 
     /**
@@ -37,7 +37,7 @@ public class ValidCodeUtil {
      * @return
      */
     public static String getValidCodeFromCache(String useType,String sessionId){
-        return MemcachedClientUtils.get(validCodeCacheKey(useType,sessionId));
+        return CacheUtil.get(validCodeCacheKey(useType,sessionId));
     }
 
 }

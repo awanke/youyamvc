@@ -3,13 +3,15 @@ package com.magicalcoder.youyamvc.core.common.utils.serialize;
 	by 何栋宇
 	2013-1-28
  */
-import java.sql.Date;
-import java.util.List;
-
-import com.alibaba.fastjson.serializer.*;
-import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializeConfig;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
+import org.apache.commons.lang3.StringUtils;
+
+import java.sql.Date;
+import java.util.List;
 
 
 public class SerializerFastJsonUtil {

@@ -1,7 +1,5 @@
 package com.magicalcoder.youyamvc.app.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 /**
 * Created by www.magicalcoder.com
 * 如果你改变了此类 read 请将此行删除

@@ -1,9 +1,9 @@
 package com.magicalcoder.youyamvc.core.spring;
 
+import com.magicalcoder.youyamvc.core.tag.paging.IPaging;
+
 import java.util.List;
 import java.util.Map;
-
-import com.magicalcoder.youyamvc.core.tag.paging.IPaging;
 
 /**
  * qq:799374340

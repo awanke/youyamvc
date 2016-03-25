@@ -4,7 +4,6 @@ import com.magicalcoder.youyamvc.app.userweb.util.ValidCodeUtil;
 import com.magicalcoder.youyamvc.core.common.dto.JsonData;
 import com.magicalcoder.youyamvc.core.common.file.FileHelper;
 import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
-import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
 import com.magicalcoder.youyamvc.web.common.BaseController;
 import com.magicalcoder.youyamvc.web.common.StatusConstant;
 import org.apache.commons.io.FileUtils;

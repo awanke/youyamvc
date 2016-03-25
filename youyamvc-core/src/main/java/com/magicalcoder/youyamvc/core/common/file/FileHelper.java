@@ -1,7 +1,6 @@
 package com.magicalcoder.youyamvc.core.common.file;
 
 import java.io.*;
-import java.util.List;
 
 /**
  * Created by www.magicalcoder.com on 14-3-27.

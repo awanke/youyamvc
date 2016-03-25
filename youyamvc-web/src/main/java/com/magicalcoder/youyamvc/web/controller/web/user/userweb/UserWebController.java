@@ -6,7 +6,7 @@ import com.magicalcoder.youyamvc.app.userweb.dto.UserWebDto;
 import com.magicalcoder.youyamvc.app.userweb.service.UserWebService;
 import com.magicalcoder.youyamvc.app.userweb.util.UserWebUtil;
 import com.magicalcoder.youyamvc.app.userweb.util.ValidCodeUtil;
-import com.magicalcoder.youyamvc.core.cache.xmemcached.utils.MemcachedClientUtils;
+import com.magicalcoder.youyamvc.core.cache.common.CacheUtil;
 import com.magicalcoder.youyamvc.core.common.dto.JsonData;
 import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
 import com.magicalcoder.youyamvc.core.common.utils.SysPropertiesUtil;
@@ -98,7 +98,7 @@ public class UserWebController extends BaseController{
             CopyerSpringUtil.copyProperties(userWeb, dto, UserWebDto.class);
             dto.setUserPassword(null);
             String cacheKey = UserWebUtil.userCacheKey(sessionId);
-            MemcachedClientUtils.resetCache(cacheKey,3600*30,dto);
+            CacheUtil.resetCache(cacheKey,3600*30,dto);
 /*            Object o = MemcachedClientUtils.get(cacheKey);
             System.out.println(o==null);*/
             //设置cookie
