@@ -82,11 +82,10 @@ public class AdminTeacherListController extends AdminLoginController
         pageSize = Math.min(TeacherConstant.PAGE_MAX_SIZE,pageSize);
         int idx = (pageIndex.intValue() - 1) * pageSize;
 
-        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
-                "teacherNameFirst",teacherNameFirst ,
-                "ageFirst",ageFirst ,
-                "ageSecond",ageSecond ,
-        "limitIndex",idx,"limit", pageSize });
+        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, "teacherNameFirst",teacherNameFirst,
+                "ageFirst",ageFirst,
+                "ageSecond",ageSecond,
+                "limitIndex",idx,"limit", pageSize);
 
         boolean useRelateQuery = false;
         List pageList;
@@ -221,11 +220,10 @@ public class AdminTeacherListController extends AdminLoginController
                 @RequestParam(required = false,value ="ageSecond")                        Integer ageSecond ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
-        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
-                "teacherNameFirst",teacherNameFirst ,
-                "ageFirst",ageFirst ,
-                "ageSecond",ageSecond ,
-        "limitIndex",start,"limit", limit });
+        Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, "teacherNameFirst",teacherNameFirst,
+                "ageFirst",ageFirst,
+                "ageSecond",ageSecond,
+                "limitIndex",start,"limit", limit);
 
         boolean useRelateQuery = false;
         List pageList;
