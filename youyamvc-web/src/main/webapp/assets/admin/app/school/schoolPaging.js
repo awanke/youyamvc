@@ -23,12 +23,13 @@ function buildReqParam(){
 function  getItemPage(pageIndex){
     var template =
         '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
-            '<td>{schoolName}</td>' +
-            '<td>{schoolType}</td>' +
-            '<td>{open}</td>' +
-            '<td>{classCount}</td>' +
-            '<td>{createTime}</td>' +
-            '<td>{updateTime}</td>' +
+                '<td><img style="width:80px" src="{CTX}{headImg}"/></td>' +
+                    '<td>{schoolName}</td>' +
+                    '<td>{schoolType}</td>' +
+                    '<td>{open}</td>' +
+                    '<td>{classCount}</td>' +
+                    '<td>{createTime}</td>' +
+                    '<td>{updateTime}</td>' +
         '<td><a href="admin/school/detail/{id}">编辑</a>' +
         '<a href="javascript:{}" onclick="deleteItem(\'school\',{id})">删除</a></td></tr>';
 
@@ -56,6 +57,7 @@ function  getItemPage(pageIndex){
                     $.each(val, function(index1, value){
                         //排名
                         value.rankNum = ++rankNum;
+                        value.CTX = CTX;
                         //自定义输出
                         var schoolTypeMap = {"":"全部","0":"普通","1":"重点"}
                         value.schoolType = schoolTypeMap[value.schoolType+""]

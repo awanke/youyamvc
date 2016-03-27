@@ -150,6 +150,8 @@ pageEncoding="UTF-8"%>
                                               <tr>
                                                   <th><input type="checkbox" id="checkAll"></th>
                                                   <th>序号</th>
+                                                 <th  class="sorting" orderField="head_img">                                                      学校头像
+                                                  </th>
                                                  <th  class="sorting" orderField="school_name">                                                      学校名称
                                                   </th>
                                                  <th   orderField="school_type">                                                      学校类型

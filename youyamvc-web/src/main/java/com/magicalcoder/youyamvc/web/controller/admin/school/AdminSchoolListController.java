@@ -60,7 +60,7 @@ public class AdminSchoolListController extends AdminLoginController
             orderBySqlField = orderBySqlField.toLowerCase().trim();
             descAsc=descAsc.toLowerCase().trim();
             if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",update_time,school_name,class_count,school_type,open,create_time,";
+                String orderBySqlFieldStr = ",update_time,school_name,head_img,class_count,school_type,open,create_time,";
                 if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
                     orderBy = orderBySqlField+" "+descAsc;
                 }

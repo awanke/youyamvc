@@ -20,8 +20,8 @@ function buildReqParam(){
 function  getItemPage(pageIndex){
     var template =
         '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
-            '<td>{className}</td>' +
-            '<td>{studentCount}</td>' +
+                    '<td>{className}</td>' +
+                    '<td>{studentCount}</td>' +
             '<td><a title="点击查看详情" target="_blank" onclick="openUrl(this,\'admin/school/detail_param?id={schoolId}\')"> {schoolIdForeignShowValue}</a></td>' +
         '<td><a href="admin/classes/detail/{id}">编辑</a>' +
         '<a href="javascript:{}" onclick="deleteItem(\'classes\',{id})">删除</a></td></tr>';
@@ -50,6 +50,7 @@ function  getItemPage(pageIndex){
                     $.each(val, function(index1, value){
                         //排名
                         value.rankNum = ++rankNum;
+                        value.CTX = CTX;
                         //自定义输出
                         //赋值替换
                         var tm = template;
