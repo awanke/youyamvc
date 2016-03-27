@@ -107,7 +107,7 @@ public class ComminFileUploadController extends AdminLoginController {
                              HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String realPath = request.getRealPath("/upload/"+folder);
-        String url = "upload/"+folder+"/";
+        String url = "/upload/"+folder+"/";
 
         //如果文件夹不存在就新建一个文件夹
         File dirPath = new File(realPath);
