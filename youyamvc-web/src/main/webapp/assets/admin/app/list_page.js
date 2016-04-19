@@ -94,6 +94,9 @@ function deleteItem(lowerEntity,id){
     $.getJSON("admin/"+lowerEntity+"/delete/"+id,{date:new Date().getTime()},function(data){
         if(data.code =='ok'){
             alert("删除成功")
+            id = id+'';
+            if(id.indexOf("/")!=-1)
+            id = id.replace("/","_");
             $("#tr"+id).remove()
         }else{
             alert("删除失败")

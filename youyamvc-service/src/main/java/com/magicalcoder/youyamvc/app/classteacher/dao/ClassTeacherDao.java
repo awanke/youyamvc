@@ -12,21 +12,20 @@ import java.util.Map;
 */
 public interface ClassTeacherDao{
     ClassTeacher getClassTeacher(Map<String, Object> query);
-    Long insertClassTeacher(ClassTeacher entity);
-    void batchInsertClassTeacher(List<ClassTeacher> list);
+    List<ClassTeacher> getClassTeacherList(Map<String, Object> query);
+    Integer getClassTeacherListCount(Map<String, Object> query);
+
+    Long  insertClassTeacher(ClassTeacher entity);    void batchInsertClassTeacher(List<ClassTeacher> list);
     void batchUpdateClassTeacher(List<ClassTeacher> list);
     void updateClassTeacher(ClassTeacher entity);
     void updateClassTeacherByWhereSql(Map<String,Object> entity);
-    List<ClassTeacher> getClassTeacherList(Map<String, Object> query);
-    Integer getClassTeacherListCount(Map<String, Object> query);
+
     void truncateClassTeacher();
     void deleteClassTeacher(Map<String, Object> query);
     void deleteClassTeacherByWhereSql(Map<String, Object> query);
-    //id list
     void batchDeleteClassTeacher(List<Long> list);
+    void batchDeleteClassTeacherList(List<ClassTeacher> entityList);
     //relate
     List<ClassTeacherMany> getManyList(Map<String, Object> query);
     Integer getManyListCount(Map<String, Object> query);
-
-
 }

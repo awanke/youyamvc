@@ -47,8 +47,7 @@ public class SchoolServiceImpl implements SchoolService{
     }
 
     @Override
-    public Long insertSchool(School entity) {
-        //校验
+    public     Long  insertSchool(School entity) {
         return schoolDao.insertSchool(entity);
     }
 
@@ -76,6 +75,10 @@ public class SchoolServiceImpl implements SchoolService{
         Map<String,Object> query = new HashMap<String,Object>();
         query.put("id", id);
         schoolDao.deleteSchool(query);
+    }
+    @Override
+    public void deleteSchoolList(Map<String,Object> entity){
+        schoolDao.deleteSchool(entity);
     }
 
     @Override
@@ -105,12 +108,15 @@ public class SchoolServiceImpl implements SchoolService{
         //校验
         schoolDao.batchUpdateSchool(list);
     }
-
     @Override
     public void batchDeleteSchool(List<Long> idList) {
         schoolDao.batchDeleteSchool(idList);
     }
 
+    @Override
+    public void batchDeleteSchoolList(List<School> entityList){
+        schoolDao.batchDeleteSchoolList(entityList);
+    }
 
     @Transactional
     @Override
@@ -132,4 +138,10 @@ public class SchoolServiceImpl implements SchoolService{
         }
     }
 
+    @Transactional
+    @Override
+    public void transactionSaveEntity(School entity,Long idOldValue ) {
+        deleteSchool(idOldValue );
+        insertSchool(entity);
+    }
 }

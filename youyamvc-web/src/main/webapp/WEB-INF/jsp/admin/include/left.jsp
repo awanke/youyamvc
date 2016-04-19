@@ -43,6 +43,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
+                <li><a id="3-10" href="admin/student/list"><i class="fa fa-circle-o"></i> 学生列表</a></li>
                 <li><a id="3-1" href="admin/school/list"><i class="fa fa-circle-o"></i> 学校列表</a></li>
                 <li><a id="3-2" href="admin/classes/list"><i class="fa fa-circle-o"></i> 班级列表</a></li>
                 <li><a id="3-3" href="admin/teacher/list"><i class="fa fa-circle-o"></i> 老师列表</a></li>

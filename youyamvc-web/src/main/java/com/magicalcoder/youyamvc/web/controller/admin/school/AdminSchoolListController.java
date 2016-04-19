@@ -1,6 +1,7 @@
 package com.magicalcoder.youyamvc.web.controller.admin.school;
 import com.magicalcoder.youyamvc.app.school.service.SchoolService;
 import com.magicalcoder.youyamvc.app.school.constant.SchoolConstant;
+import com.magicalcoder.youyamvc.app.school.dto.SchoolDto;
 import com.magicalcoder.youyamvc.app.model.School;
 import com.magicalcoder.youyamvc.core.common.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
@@ -60,7 +61,7 @@ public class AdminSchoolListController extends AdminLoginController
             orderBySqlField = orderBySqlField.toLowerCase().trim();
             descAsc=descAsc.toLowerCase().trim();
             if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",update_time,school_name,head_img,class_count,school_type,open,create_time,";
+                String orderBySqlFieldStr = ",school_name,class_count,school_type,";
                 if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
                     orderBy = orderBySqlField+" "+descAsc;
                 }
@@ -74,11 +75,7 @@ public class AdminSchoolListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="schoolNameFirst")                        String schoolNameFirst ,
-                @RequestParam(required = false,value ="classCountFirst")                        Integer classCountFirst ,
-                @RequestParam(required = false,value ="schoolTypeFirst")                        Integer schoolTypeFirst ,
                 @RequestParam(required = false,value ="openFirst")                        Boolean openFirst ,
-                @RequestParam(required = false,value ="createTimeFirst")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeFirst ,
-                @RequestParam(required = false,value ="createTimeSecond")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeSecond ,
           HttpServletResponse response)
     {
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
@@ -87,11 +84,7 @@ public class AdminSchoolListController extends AdminLoginController
 
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "schoolNameFirst",schoolNameFirst ,
-                "classCountFirst",classCountFirst ,
-                "schoolTypeFirst",schoolTypeFirst ,
                 "openFirst",openFirst ,
-                "createTimeFirst",createTimeFirst ,
-                "createTimeSecond",createTimeSecond ,
         "limitIndex",idx,"limit", pageSize });
 
         boolean useRelateQuery = false;
@@ -120,8 +113,6 @@ public class AdminSchoolListController extends AdminLoginController
             for(School item:pageList){
                 String json = JSON.toJSONString(item);
                 Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
-                obj.put("updateTime",item.getUpdateTime());
-                obj.put("createTime",item.getCreateTime());
                 newPageList.add(obj);
             }
         }
@@ -134,14 +125,7 @@ public class AdminSchoolListController extends AdminLoginController
         model.addAttribute("school", new School());
         return "admin/school/schoolDetail";
     }
-    //根据主键到编辑
-    @RequestMapping({"/detail/{id}"})
-    public String detailId(@PathVariable Long id, ModelMap model) {
-        School entity = this.schoolService.getSchool(id);
-        model.addAttribute("school", entity);
-        foreignModel(entity,model);
-        return "admin/school/schoolDetail";
-    }
+
     //根据自定义查询条件到编辑
     @RequestMapping({"/detail_param"})
     public String detailId(HttpServletRequest request,ModelMap model) {
@@ -155,9 +139,21 @@ public class AdminSchoolListController extends AdminLoginController
         Map<String,Object> map = null;
     }
 
+
+    //根据主键到编辑
+    @RequestMapping({"/detail/{id}"})
+        public String detailId(@PathVariable Long id, ModelMap model) {
+        School entity = this.schoolService.getSchool(id);
+        model.addAttribute("school", entity);
+        foreignModel(entity,model);
+        return "admin/school/schoolDetail";
+    }
+
+
     //保存
     @RequestMapping(value="save", method={RequestMethod.POST})
-    public String save(@ModelAttribute School school,ModelMap model) {
+    public String save(@ModelAttribute School school,
+        HttpServletRequest request,ModelMap model) {
         try{
             model.addAttribute("school",school);
             foreignModel(school,model);
@@ -233,20 +229,12 @@ public class AdminSchoolListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="schoolNameFirst")                        String schoolNameFirst ,
-                @RequestParam(required = false,value ="classCountFirst")                        Integer classCountFirst ,
-                @RequestParam(required = false,value ="schoolTypeFirst")                        Integer schoolTypeFirst ,
                 @RequestParam(required = false,value ="openFirst")                        Boolean openFirst ,
-                @RequestParam(required = false,value ="createTimeFirst")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeFirst ,
-                @RequestParam(required = false,value ="createTimeSecond")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeSecond ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "schoolNameFirst",schoolNameFirst ,
-                "classCountFirst",classCountFirst ,
-                "schoolTypeFirst",schoolTypeFirst ,
                 "openFirst",openFirst ,
-                "createTimeFirst",createTimeFirst ,
-                "createTimeSecond",createTimeSecond ,
         "limitIndex",start,"limit", limit });
 
         boolean useRelateQuery = false;
@@ -280,7 +268,6 @@ public class AdminSchoolListController extends AdminLoginController
         if(StringUtils.isBlank(selectValue)){
             StringBuffer sb = new StringBuffer();
             sb.append("schoolName").append(",");
-            sb.append("classCount").append(",");
             selectValue = StringUtils.deleteLastChar(sb.toString());
         }
         List<School> list = new ArrayList<School>();
@@ -304,45 +291,8 @@ public class AdminSchoolListController extends AdminLoginController
                 toSimpleJson = true;
             }
 
-            if(ProjectUtil.isNum(keyword)){
-            if(!stopSearch){
-                list = searchList("classCountFirst",keyword);
-                if(ListUtils.isNotBlank(list)){
-                    stopSearch = true;
-                }
-            }
-            if(stopSearch){
-                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
-                toSimpleJson = true;
-            }
-            }
-
-            if(ProjectUtil.isNum(keyword)){
-            if(!stopSearch){
-                list = searchList("schoolTypeFirst",keyword);
-                if(ListUtils.isNotBlank(list)){
-                    stopSearch = true;
-                }
-            }
-            if(stopSearch){
-                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
-                toSimpleJson = true;
-            }
-            }
-
             if(!stopSearch){
                 list = searchList("openFirst",keyword);
-                if(ListUtils.isNotBlank(list)){
-                    stopSearch = true;
-                }
-            }
-            if(stopSearch){
-                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
-                toSimpleJson = true;
-            }
-
-            if(!stopSearch){
-                list = searchList("createTimeFirst",keyword);
                 if(ListUtils.isNotBlank(list)){
                     stopSearch = true;
                 }

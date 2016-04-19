@@ -1,6 +1,7 @@
 package com.magicalcoder.youyamvc.web.controller.admin.teacher;
 import com.magicalcoder.youyamvc.app.teacher.service.TeacherService;
 import com.magicalcoder.youyamvc.app.teacher.constant.TeacherConstant;
+import com.magicalcoder.youyamvc.app.teacher.dto.TeacherDto;
 import com.magicalcoder.youyamvc.app.model.Teacher;
 import com.magicalcoder.youyamvc.core.common.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
@@ -74,8 +75,6 @@ public class AdminTeacherListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="teacherNameFirst")                        String teacherNameFirst ,
-                @RequestParam(required = false,value ="ageFirst")                        Integer ageFirst ,
-                @RequestParam(required = false,value ="ageSecond")                        Integer ageSecond ,
           HttpServletResponse response)
     {
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
@@ -84,8 +83,6 @@ public class AdminTeacherListController extends AdminLoginController
 
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "teacherNameFirst",teacherNameFirst ,
-                "ageFirst",ageFirst ,
-                "ageSecond",ageSecond ,
         "limitIndex",idx,"limit", pageSize });
 
         boolean useRelateQuery = false;
@@ -126,14 +123,7 @@ public class AdminTeacherListController extends AdminLoginController
         model.addAttribute("teacher", new Teacher());
         return "admin/teacher/teacherDetail";
     }
-    //根据主键到编辑
-    @RequestMapping({"/detail/{id}"})
-    public String detailId(@PathVariable Long id, ModelMap model) {
-        Teacher entity = this.teacherService.getTeacher(id);
-        model.addAttribute("teacher", entity);
-        foreignModel(entity,model);
-        return "admin/teacher/teacherDetail";
-    }
+
     //根据自定义查询条件到编辑
     @RequestMapping({"/detail_param"})
     public String detailId(HttpServletRequest request,ModelMap model) {
@@ -147,9 +137,21 @@ public class AdminTeacherListController extends AdminLoginController
         Map<String,Object> map = null;
     }
 
+
+    //根据主键到编辑
+    @RequestMapping({"/detail/{id}"})
+        public String detailId(@PathVariable Long id, ModelMap model) {
+        Teacher entity = this.teacherService.getTeacher(id);
+        model.addAttribute("teacher", entity);
+        foreignModel(entity,model);
+        return "admin/teacher/teacherDetail";
+    }
+
+
     //保存
     @RequestMapping(value="save", method={RequestMethod.POST})
-    public String save(@ModelAttribute Teacher teacher,ModelMap model) {
+    public String save(@ModelAttribute Teacher teacher,
+        HttpServletRequest request,ModelMap model) {
         try{
             model.addAttribute("teacher",teacher);
             foreignModel(teacher,model);
@@ -225,14 +227,10 @@ public class AdminTeacherListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="teacherNameFirst")                        String teacherNameFirst ,
-                @RequestParam(required = false,value ="ageFirst")                        Integer ageFirst ,
-                @RequestParam(required = false,value ="ageSecond")                        Integer ageSecond ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "teacherNameFirst",teacherNameFirst ,
-                "ageFirst",ageFirst ,
-                "ageSecond",ageSecond ,
         "limitIndex",start,"limit", limit });
 
         boolean useRelateQuery = false;
@@ -266,7 +264,6 @@ public class AdminTeacherListController extends AdminLoginController
         if(StringUtils.isBlank(selectValue)){
             StringBuffer sb = new StringBuffer();
             sb.append("teacherName").append(",");
-            sb.append("age").append(",");
             selectValue = StringUtils.deleteLastChar(sb.toString());
         }
         List<Teacher> list = new ArrayList<Teacher>();
@@ -288,19 +285,6 @@ public class AdminTeacherListController extends AdminLoginController
             if(stopSearch){
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
                 toSimpleJson = true;
-            }
-
-            if(ProjectUtil.isNum(keyword)){
-            if(!stopSearch){
-                list = searchList("ageFirst",keyword);
-                if(ListUtils.isNotBlank(list)){
-                    stopSearch = true;
-                }
-            }
-            if(stopSearch){
-                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
-                toSimpleJson = true;
-            }
             }
 
             if(!toSimpleJson){

@@ -7,11 +7,7 @@
 function buildReqParam(){
     var requestParam = {date:new Date().getTime()}
     setRequestParamById(requestParam,'schoolNameFirst')
-    setRequestParamById(requestParam,'schoolTypeFirst')
     setRequestParamByName(requestParam,'openFirst')
-    setRequestParamById(requestParam,'classCountFirst')
-    setRequestParamById(requestParam,'createTimeFirst')
-    setRequestParamById(requestParam,'createTimeSecond')
     //排序
     var orderBy = buildOrderByObj()
     requestParam.orderBySqlField = orderBy.orderBySqlField;
@@ -22,17 +18,13 @@ function buildReqParam(){
 /*pageIndex 当前是第几页 1:第一页*/
 function  getItemPage(pageIndex){
     var template =
-        '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
-                '<td><img style="width:80px" src="{CTX}{headImg}"/></td>' +
-                    '<td>{schoolName}</td>' +
-                    '<td>{schoolType}</td>' +
-                    '<td>{open}</td>' +
-                    '<td>{classCount}</td>' +
-                    '<td>{createTime}</td>' +
-                    '<td>{updateTime}</td>' +
-        '<td><a href="admin/school/detail/{id}">编辑</a>' +
-        '<a href="javascript:{}" onclick="deleteItem(\'school\',{id})">删除</a></td></tr>';
+            '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
 
+                    '<td>{schoolName}</td>' +
+                    '<td>{classCount}</td>' +
+                    '<td>{schoolType}</td>' +
+        '<td><a href="admin/school/detail/{id}">编辑</a>' +
+        '<a href="javascript:{}" onclick="deleteItem(\'school\',{id})">删除</a></td></trid>';
     var pageSize = 20;//每页多少条记录
     var pageCount = parseInt($("#pageCount").val());//总共多少条记录
     var url ='admin/school/page/'+pageIndex+'/'+pageSize+'/'+pageCount;
@@ -59,10 +51,8 @@ function  getItemPage(pageIndex){
                         value.rankNum = ++rankNum;
                         value.CTX = CTX;
                         //自定义输出
-                        var schoolTypeMap = {"":"全部","0":"普通","1":"重点"}
+                        var schoolTypeMap = {"":"全部","0":"类型一","1":"类型二"}
                         value.schoolType = schoolTypeMap[value.schoolType+""]
-                        var openMap = {"":"全部","false":"否","true":"是"}
-                        value.open = openMap[value.open+""]
                         //赋值替换
                         var tm = template;
                         for(var key in value){

@@ -61,13 +61,13 @@ pageEncoding="UTF-8"%>
                                                   name="teacherIdFirstSearch"  placeholder="请输入关键词查询教师"
                                                          value="">
                                                  </div>
-                                             </div>
-                                            <div class="col-xs-2">
-                                                <div class="form-group">
-                                                    <label for="querySubmit">&nbsp;</label>
-                                                    <button class="btn btn-primary form-control" id="querySubmit">查询</button>
+                                             </div>                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label for="querySubmit">&nbsp;</label>
+                                                        <button class="btn btn-primary form-control" id="querySubmit">查询</button>
+                                                    </div>
                                                 </div>
-                                            </div>
+
                                             <input type="hidden" id="pageCount" value="0">
                                         </div>
                                     </div>

@@ -10,6 +10,7 @@ import java.util.Map;
 * 799374340@qq.com
 */
 public interface SchoolService{
+
     /**
     * 根据主键获取实体
     * @param id 主键
@@ -43,8 +44,7 @@ public interface SchoolService{
     * @param entity
     * @return
     */
-    Long insertSchool(School entity);
-
+    Long  insertSchool(School entity);
     /**
     * 更新实体 保证实体中的主键不为空
     * @param entity
@@ -63,11 +63,16 @@ public interface SchoolService{
     * @param id
     */
     void deleteSchool(Long id);
+    /**
+    * 删除实体
+    * @param entity 如果字段值不为空 将作为查询条件
+    */
+    void deleteSchoolList(Map<String,Object> entity);
 
     /**
     * 根据自定义条件删除实体
     * @param whereSql not blank  有sql注入风险 请开发人员自行保证安全性
-*/
+    */
     void deleteSchoolByWhereSql(String whereSql);
 
 
@@ -87,13 +92,16 @@ public interface SchoolService{
     * @param list
     */
     void batchUpdateSchool(List<School> list);
-
     /**
     * 根据主键list 批量删除实体
     * @param idList
     */
     void batchDeleteSchool(List<Long> idList);
-
+    /**
+    * 根据主键list 批量删除实体
+    * @param entityList 如果字段值不为空 将作为查询条件
+    */
+    void batchDeleteSchoolList(List<School> entityList);
 
     /**
     * 事务保证 导入json文件成功
@@ -101,4 +109,11 @@ public interface SchoolService{
     * @return
     */
     void transactionImportJsonList(List<School> list);
+
+    /**
+    * 事务保证 保存实体 无自增主键的情况时 先删除 后插入
+    * @param entity
+    * @return
+    */
+    void transactionSaveEntity(School entity,Long idOldValue );
 }

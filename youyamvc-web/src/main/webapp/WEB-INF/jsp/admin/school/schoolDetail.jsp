@@ -47,7 +47,8 @@ pageEncoding="UTF-8"%>
                                     </h3>
                                     <h3 class="box-title alert-danger">${exceptionMsg}</h3>
                                 </div>
-                                <input type="hidden" name="id" value="${school.id}">
+                                    <input type="hidden" name="id" value="${school.id}">
+
                                 <div class="box-body">
                                     <div class="form-group ">
                                         <label class="col-sm-1 control-label">
@@ -56,7 +57,7 @@ pageEncoding="UTF-8"%>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="schoolName"
                                                    name="schoolName" title="学校名称"  placeholder="请输入学校名称"
-                                                   required  minLength="0"            value="${school.schoolName}">
+                                                             value="${school.schoolName}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>
@@ -85,7 +86,7 @@ pageEncoding="UTF-8"%>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="classCount"
                                                    name="classCount" title="班级个数"  placeholder="请输入班级个数"
-                                                   digits  minLength="0"            value="${school.classCount}">
+                                                             value="${school.classCount}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>
@@ -113,10 +114,10 @@ pageEncoding="UTF-8"%>
                                              <select class="form-control" id="schoolType" name="schoolType" title="学校类型"  >
                                                          <option
                                                  <c:if test="${ school.schoolType == 0 }">selected</c:if>
-                                                 value="0" >普通</option>
+                                                 value="0" >类型一</option>
                                                          <option
                                                  <c:if test="${ school.schoolType == 1 }">selected</c:if>
-                                                 value="1" >重点</option>
+                                                 value="1" >类型二</option>
                                              </select>
                                         </div>
                                         <label class="col-sm-2 control-label" >
@@ -128,10 +129,10 @@ pageEncoding="UTF-8"%>
                                             是否开学
                                         </label>
                                         <div class="col-sm-9">
-                                            <input type="radio" class="form-control " name="open" title="是否开学"                                                  <c:if test="${school.open }">checked</c:if>
-                                               value="true" >是
                                             <input type="radio" class="form-control " name="open" title="是否开学"                                                  <c:if test="${!school.open }">checked</c:if>
                                                value="false" >否
+                                            <input type="radio" class="form-control " name="open" title="是否开学"                                                  <c:if test="${school.open }">checked</c:if>
+                                               value="true" >是
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>

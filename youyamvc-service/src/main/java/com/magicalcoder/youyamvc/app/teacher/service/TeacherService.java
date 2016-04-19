@@ -10,6 +10,7 @@ import java.util.Map;
 * 799374340@qq.com
 */
 public interface TeacherService{
+
     /**
     * 根据主键获取实体
     * @param id 主键
@@ -43,8 +44,7 @@ public interface TeacherService{
     * @param entity
     * @return
     */
-    Long insertTeacher(Teacher entity);
-
+    Long  insertTeacher(Teacher entity);
     /**
     * 更新实体 保证实体中的主键不为空
     * @param entity
@@ -63,11 +63,16 @@ public interface TeacherService{
     * @param id
     */
     void deleteTeacher(Long id);
+    /**
+    * 删除实体
+    * @param entity 如果字段值不为空 将作为查询条件
+    */
+    void deleteTeacherList(Map<String,Object> entity);
 
     /**
     * 根据自定义条件删除实体
     * @param whereSql not blank  有sql注入风险 请开发人员自行保证安全性
-*/
+    */
     void deleteTeacherByWhereSql(String whereSql);
 
 
@@ -87,13 +92,16 @@ public interface TeacherService{
     * @param list
     */
     void batchUpdateTeacher(List<Teacher> list);
-
     /**
     * 根据主键list 批量删除实体
     * @param idList
     */
     void batchDeleteTeacher(List<Long> idList);
-
+    /**
+    * 根据主键list 批量删除实体
+    * @param entityList 如果字段值不为空 将作为查询条件
+    */
+    void batchDeleteTeacherList(List<Teacher> entityList);
 
     /**
     * 事务保证 导入json文件成功
@@ -101,4 +109,11 @@ public interface TeacherService{
     * @return
     */
     void transactionImportJsonList(List<Teacher> list);
+
+    /**
+    * 事务保证 保存实体 无自增主键的情况时 先删除 后插入
+    * @param entity
+    * @return
+    */
+    void transactionSaveEntity(Teacher entity,Long idOldValue );
 }

@@ -23,6 +23,14 @@ public class TeacherDaoImpl   implements TeacherDao {
     public Teacher getTeacher(Map<String, Object> query) {
         return sqlSessionTemplate.selectOne("TeacherMapper.getTeacher",query);
     }
+    @Override
+    public List<Teacher> getTeacherList(Map<String, Object> query) {
+        return sqlSessionTemplate.selectList("TeacherMapper.getTeacherList", query);
+    }
+    @Override
+    public Integer getTeacherListCount(Map<String, Object> query) {
+        return sqlSessionTemplate.selectOne("TeacherMapper.getTeacherListCount", query);
+    }
 
     @Override
     public void batchInsertTeacher(List<Teacher> list) {
@@ -35,10 +43,9 @@ public class TeacherDaoImpl   implements TeacherDao {
     }
 
     @Override
-    public Long insertTeacher(Teacher entity) {
+    public     Long  insertTeacher(Teacher entity) {
         sqlSessionTemplate.insert("TeacherMapper.insertTeacher",entity);
-        return entity.getId();
-    }
+  return entity.getId();    }
     @Override
     public void updateTeacher(Teacher entity) {
         sqlSessionTemplate.update("TeacherMapper.updateTeacher", entity);
@@ -47,14 +54,7 @@ public class TeacherDaoImpl   implements TeacherDao {
     public void updateTeacherByWhereSql(Map<String,Object> entity) {
         sqlSessionTemplate.update("TeacherMapper.updateTeacherByWhereSql", entity);
     }
-    @Override
-    public List<Teacher> getTeacherList(Map<String, Object> query) {
-        return sqlSessionTemplate.selectList("TeacherMapper.getTeacherList", query);
-    }
-    @Override
-    public Integer getTeacherListCount(Map<String, Object> query) {
-        return sqlSessionTemplate.selectOne("TeacherMapper.getTeacherListCount", query);
-    }
+
     @Override
     public void truncateTeacher() {
         sqlSessionTemplate.delete("TeacherMapper.truncateTeacher");
@@ -71,4 +71,9 @@ public class TeacherDaoImpl   implements TeacherDao {
     public void batchDeleteTeacher(List<Long> list) {
         sqlSessionTemplate.delete("TeacherMapper.batchDeleteTeacher",list);
     }
+    @Override
+    public void batchDeleteTeacherList(List<Teacher> list) {
+        sqlSessionTemplate.delete("TeacherMapper.batchDeleteTeacherList",list);
+    }
+
 }

@@ -47,8 +47,7 @@ public class ClassesServiceImpl implements ClassesService{
     }
 
     @Override
-    public Long insertClasses(Classes entity) {
-        //校验
+    public     Long  insertClasses(Classes entity) {
         return classesDao.insertClasses(entity);
     }
 
@@ -76,6 +75,10 @@ public class ClassesServiceImpl implements ClassesService{
         Map<String,Object> query = new HashMap<String,Object>();
         query.put("id", id);
         classesDao.deleteClasses(query);
+    }
+    @Override
+    public void deleteClassesList(Map<String,Object> entity){
+        classesDao.deleteClasses(entity);
     }
 
     @Override
@@ -113,12 +116,15 @@ public class ClassesServiceImpl implements ClassesService{
         //校验
         classesDao.batchUpdateClasses(list);
     }
-
     @Override
     public void batchDeleteClasses(List<Long> idList) {
         classesDao.batchDeleteClasses(idList);
     }
 
+    @Override
+    public void batchDeleteClassesList(List<Classes> entityList){
+        classesDao.batchDeleteClassesList(entityList);
+    }
 
     @Transactional
     @Override
@@ -140,4 +146,10 @@ public class ClassesServiceImpl implements ClassesService{
         }
     }
 
+    @Transactional
+    @Override
+    public void transactionSaveEntity(Classes entity,Long idOldValue ) {
+        deleteClasses(idOldValue );
+        insertClasses(entity);
+    }
 }

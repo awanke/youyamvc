@@ -1,6 +1,7 @@
 package com.magicalcoder.youyamvc.web.controller.admin.classes;
 import com.magicalcoder.youyamvc.app.classes.service.ClassesService;
 import com.magicalcoder.youyamvc.app.classes.constant.ClassesConstant;
+import com.magicalcoder.youyamvc.app.classes.dto.ClassesDto;
 import com.magicalcoder.youyamvc.app.model.Classes;
 import com.magicalcoder.youyamvc.core.common.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
@@ -70,7 +71,7 @@ public class AdminClassesListController extends AdminLoginController
             orderBySqlField = orderBySqlField.toLowerCase().trim();
             descAsc=descAsc.toLowerCase().trim();
             if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",class_name,student_count,school_id,";
+                String orderBySqlFieldStr = ",class_name,school_id,";
                 if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
                     orderBy = orderBySqlField+" "+descAsc;
                 }
@@ -85,7 +86,6 @@ public class AdminClassesListController extends AdminLoginController
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="classNameFirst")                        String classNameFirst ,
                 @RequestParam(required = false,value ="schoolIdFirst")                        Long schoolIdFirst ,
-                @RequestParam(required = false,value ="schoolNameSchoolFirst")                        String schoolNameSchoolFirst ,
           HttpServletResponse response)
     {
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
@@ -95,28 +95,16 @@ public class AdminClassesListController extends AdminLoginController
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "classNameFirst",classNameFirst ,
                 "schoolIdFirst",schoolIdFirst ,
-                    "schoolNameSchoolFirst" ,schoolNameSchoolFirst ,
         "limitIndex",idx,"limit", pageSize });
 
         boolean useRelateQuery = false;
-        if(schoolNameSchoolFirst != null){
-            useRelateQuery = true;
-        }
         List pageList;
-        if(useRelateQuery){
-            pageList =this.classesService.getClassesOneToOneRelateList(query);
-        }else{
-            pageList = this.classesService.getClassesList(query);
-        }
+        pageList = this.classesService.getClassesList(query);
         query.remove("orderBy");
         query.remove("limitIndex");
         query.remove("limit");
         if (pageCount == null || pageCount.intValue() == 0) {
-            if(useRelateQuery){
-                pageCount = this.classesService.getClassesOneToOneRelateListCount(query);
-            }else{
                 pageCount = this.classesService.getClassesListCount(query);
-            }
         }
 
         Map ajaxData = new HashMap();
@@ -153,7 +141,7 @@ public class AdminClassesListController extends AdminLoginController
                 Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
                 Long schoolId = item.getSchoolId();
                 School school = schoolMap.get(schoolId);
-                String schoolIdForeignShowValue = school==null?"":""+school.getSchoolName()+"-"+school.getClassCount();
+                String schoolIdForeignShowValue = school==null?"":""+school.getSchoolName();
                 obj.put("schoolIdForeignShowValue",schoolIdForeignShowValue);
                 newPageList.add(obj);
             }
@@ -167,14 +155,7 @@ public class AdminClassesListController extends AdminLoginController
         model.addAttribute("classes", new Classes());
         return "admin/classes/classesDetail";
     }
-    //根据主键到编辑
-    @RequestMapping({"/detail/{id}"})
-    public String detailId(@PathVariable Long id, ModelMap model) {
-        Classes entity = this.classesService.getClasses(id);
-        model.addAttribute("classes", entity);
-        foreignModel(entity,model);
-        return "admin/classes/classesDetail";
-    }
+
     //根据自定义查询条件到编辑
     @RequestMapping({"/detail_param"})
     public String detailId(HttpServletRequest request,ModelMap model) {
@@ -191,9 +172,21 @@ public class AdminClassesListController extends AdminLoginController
             model.addAttribute("school",school);
     }
 
+
+    //根据主键到编辑
+    @RequestMapping({"/detail/{id}"})
+        public String detailId(@PathVariable Long id, ModelMap model) {
+        Classes entity = this.classesService.getClasses(id);
+        model.addAttribute("classes", entity);
+        foreignModel(entity,model);
+        return "admin/classes/classesDetail";
+    }
+
+
     //保存
     @RequestMapping(value="save", method={RequestMethod.POST})
-    public String save(@ModelAttribute Classes classes,ModelMap model) {
+    public String save(@ModelAttribute Classes classes,
+        HttpServletRequest request,ModelMap model) {
         try{
             model.addAttribute("classes",classes);
             foreignModel(classes,model);
@@ -270,25 +263,16 @@ public class AdminClassesListController extends AdminLoginController
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="classNameFirst")                        String classNameFirst ,
                 @RequestParam(required = false,value ="schoolIdFirst")                        Long schoolIdFirst ,
-                @RequestParam(required = false,value ="schoolNameSchoolFirst")                        String schoolNameSchoolFirst ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "classNameFirst",classNameFirst ,
                 "schoolIdFirst",schoolIdFirst ,
-                    "schoolNameSchoolFirst" ,schoolNameSchoolFirst ,
         "limitIndex",start,"limit", limit });
 
         boolean useRelateQuery = false;
-        if(schoolNameSchoolFirst != null){
-            useRelateQuery = true;
-        }
         List pageList;
-        if(useRelateQuery){
-            pageList =this.classesService.getClassesOneToOneRelateList(query);
-        }else{
             pageList = this.classesService.getClassesList(query);
-        }
 
         String file = "classes";
         File tmpFile = null;

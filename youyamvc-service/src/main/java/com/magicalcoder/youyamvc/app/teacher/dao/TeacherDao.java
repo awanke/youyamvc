@@ -11,18 +11,17 @@ import java.util.Map;
 */
 public interface TeacherDao{
     Teacher getTeacher(Map<String, Object> query);
-    Long insertTeacher(Teacher entity);
-    void batchInsertTeacher(List<Teacher> list);
+    List<Teacher> getTeacherList(Map<String, Object> query);
+    Integer getTeacherListCount(Map<String, Object> query);
+
+    Long  insertTeacher(Teacher entity);    void batchInsertTeacher(List<Teacher> list);
     void batchUpdateTeacher(List<Teacher> list);
     void updateTeacher(Teacher entity);
     void updateTeacherByWhereSql(Map<String,Object> entity);
-    List<Teacher> getTeacherList(Map<String, Object> query);
-    Integer getTeacherListCount(Map<String, Object> query);
+
     void truncateTeacher();
     void deleteTeacher(Map<String, Object> query);
     void deleteTeacherByWhereSql(Map<String, Object> query);
-    //id list
     void batchDeleteTeacher(List<Long> list);
-
-
+    void batchDeleteTeacherList(List<Teacher> entityList);
 }

@@ -1,6 +1,7 @@
 package com.magicalcoder.youyamvc.web.controller.admin.classteacher;
 import com.magicalcoder.youyamvc.app.classteacher.service.ClassTeacherService;
 import com.magicalcoder.youyamvc.app.classteacher.constant.ClassTeacherConstant;
+import com.magicalcoder.youyamvc.app.classteacher.dto.ClassTeacherDto;
 import com.magicalcoder.youyamvc.app.model.ClassTeacher;
 import com.magicalcoder.youyamvc.core.common.utils.ProjectUtil;
 import com.magicalcoder.youyamvc.core.common.utils.ListUtils;
@@ -158,7 +159,7 @@ public class AdminClassTeacherListController extends AdminLoginController
                 obj.put("classIdForeignShowValue",classIdForeignShowValue);
                 Long teacherId = item.getTeacherId();
                 Teacher teacher = teacherMap.get(teacherId);
-                String teacherIdForeignShowValue = teacher==null?"":""+teacher.getTeacherName()+"-"+teacher.getAge();
+                String teacherIdForeignShowValue = teacher==null?"":""+teacher.getTeacherName();
                 obj.put("teacherIdForeignShowValue",teacherIdForeignShowValue);
                 newPageList.add(obj);
             }
@@ -172,14 +173,7 @@ public class AdminClassTeacherListController extends AdminLoginController
         model.addAttribute("classTeacher", new ClassTeacher());
         return "admin/classteacher/classTeacherDetail";
     }
-    //根据主键到编辑
-    @RequestMapping({"/detail/{id}"})
-    public String detailId(@PathVariable Long id, ModelMap model) {
-        ClassTeacher entity = this.classTeacherService.getClassTeacher(id);
-        model.addAttribute("classTeacher", entity);
-        foreignModel(entity,model);
-        return "admin/classteacher/classTeacherDetail";
-    }
+
     //根据自定义查询条件到编辑
     @RequestMapping({"/detail_param"})
     public String detailId(HttpServletRequest request,ModelMap model) {
@@ -199,9 +193,21 @@ public class AdminClassTeacherListController extends AdminLoginController
             model.addAttribute("teacher",teacher);
     }
 
+
+    //根据主键到编辑
+    @RequestMapping({"/detail/{id}"})
+        public String detailId(@PathVariable Long id, ModelMap model) {
+        ClassTeacher entity = this.classTeacherService.getClassTeacher(id);
+        model.addAttribute("classTeacher", entity);
+        foreignModel(entity,model);
+        return "admin/classteacher/classTeacherDetail";
+    }
+
+
     //保存
     @RequestMapping(value="save", method={RequestMethod.POST})
-    public String save(@ModelAttribute ClassTeacher classTeacher,ModelMap model) {
+    public String save(@ModelAttribute ClassTeacher classTeacher,
+        HttpServletRequest request,ModelMap model) {
         try{
             model.addAttribute("classTeacher",classTeacher);
             foreignModel(classTeacher,model);
@@ -317,10 +323,6 @@ public class AdminClassTeacherListController extends AdminLoginController
     @RequestParam(required=false, value="orderBy") String orderBy,
                 @RequestParam(required = false,value ="teacherNameFirst")
                         String teacherNameFirst ,
-                @RequestParam(required = false,value ="ageFirst")
-                        Integer ageFirst ,
-                @RequestParam(required = false,value ="ageSecond")
-                        Integer ageSecond ,
     @RequestParam(required = false,value ="classId") Long classId ,
     HttpServletResponse response)
     {
@@ -332,8 +334,6 @@ public class AdminClassTeacherListController extends AdminLoginController
         int idx = (pageIndex.intValue() - 1) * 20;
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "teacherNameFirst",teacherNameFirst ,
-                "ageFirst",ageFirst ,
-                "ageSecond",ageSecond ,
         "limitIndex",Integer.valueOf(idx),"limit", Integer.valueOf(20) });
         query.put("classId",classId );
 

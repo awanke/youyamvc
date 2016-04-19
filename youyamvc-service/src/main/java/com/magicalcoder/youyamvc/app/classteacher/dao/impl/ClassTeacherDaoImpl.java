@@ -24,6 +24,14 @@ public class ClassTeacherDaoImpl   implements ClassTeacherDao {
     public ClassTeacher getClassTeacher(Map<String, Object> query) {
         return sqlSessionTemplate.selectOne("ClassTeacherMapper.getClassTeacher",query);
     }
+    @Override
+    public List<ClassTeacher> getClassTeacherList(Map<String, Object> query) {
+        return sqlSessionTemplate.selectList("ClassTeacherMapper.getClassTeacherList", query);
+    }
+    @Override
+    public Integer getClassTeacherListCount(Map<String, Object> query) {
+        return sqlSessionTemplate.selectOne("ClassTeacherMapper.getClassTeacherListCount", query);
+    }
 
     @Override
     public void batchInsertClassTeacher(List<ClassTeacher> list) {
@@ -36,10 +44,9 @@ public class ClassTeacherDaoImpl   implements ClassTeacherDao {
     }
 
     @Override
-    public Long insertClassTeacher(ClassTeacher entity) {
+    public     Long  insertClassTeacher(ClassTeacher entity) {
         sqlSessionTemplate.insert("ClassTeacherMapper.insertClassTeacher",entity);
-        return entity.getId();
-    }
+  return entity.getId();    }
     @Override
     public void updateClassTeacher(ClassTeacher entity) {
         sqlSessionTemplate.update("ClassTeacherMapper.updateClassTeacher", entity);
@@ -48,14 +55,7 @@ public class ClassTeacherDaoImpl   implements ClassTeacherDao {
     public void updateClassTeacherByWhereSql(Map<String,Object> entity) {
         sqlSessionTemplate.update("ClassTeacherMapper.updateClassTeacherByWhereSql", entity);
     }
-    @Override
-    public List<ClassTeacher> getClassTeacherList(Map<String, Object> query) {
-        return sqlSessionTemplate.selectList("ClassTeacherMapper.getClassTeacherList", query);
-    }
-    @Override
-    public Integer getClassTeacherListCount(Map<String, Object> query) {
-        return sqlSessionTemplate.selectOne("ClassTeacherMapper.getClassTeacherListCount", query);
-    }
+
     @Override
     public void truncateClassTeacher() {
         sqlSessionTemplate.delete("ClassTeacherMapper.truncateClassTeacher");
@@ -72,6 +72,11 @@ public class ClassTeacherDaoImpl   implements ClassTeacherDao {
     public void batchDeleteClassTeacher(List<Long> list) {
         sqlSessionTemplate.delete("ClassTeacherMapper.batchDeleteClassTeacher",list);
     }
+    @Override
+    public void batchDeleteClassTeacherList(List<ClassTeacher> list) {
+        sqlSessionTemplate.delete("ClassTeacherMapper.batchDeleteClassTeacherList",list);
+    }
+
     @Override
     public List<ClassTeacherMany> getManyList(Map<String, Object> query) {
         return sqlSessionTemplate.selectList("ClassTeacherMapper.getManyList",query);

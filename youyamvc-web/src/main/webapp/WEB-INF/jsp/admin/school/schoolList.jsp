@@ -43,69 +43,26 @@ pageEncoding="UTF-8"%>
                                         <div class="row">
                                              <div class="col-xs-2">
                                                  <div class="form-group">
-                                                     <label for="schoolNameFirst">学校名称 (like)</label>
+                                                     <label for="schoolNameFirst">学校名称 (=)</label>
                                                      <input type="text" class="form-control"
                                                       value="${ schoolNameFirst }"
-                                                   required  minLength="0"                                                   id="schoolNameFirst" name="schoolNameFirst">
+                                                                                                    id="schoolNameFirst" name="schoolNameFirst">
                                                  </div>
                                              </div>
                                              <div class="col-xs-2">
-                                                 <div class="form-group">
-                                                     <label for="classCountFirst">班级个数 (=)</label>
-                                                     <input type="text" class="form-control"
-                                                      value="${ classCountFirst }"
-                                                   digits  minLength="0"                                                   id="classCountFirst" name="classCountFirst">
-                                                 </div>
-                                             </div>
-                                             <div class="col-xs-2">
-                                                 <div class="form-group">
-                                                 <label for="schoolTypeFirst">学校类型</label>
-                                                     <select class="form-control" id="schoolTypeFirst" name="schoolTypeFirst">
-                                                                 <option value="">全部</option>
-                                                                 <option value="0"
-                                                                     <c:if test="${ schoolType == 0 }">selected</c:if>
-                                                                  >普通
-                                                                 </option>
-                                                                 <option value="1"
-                                                                     <c:if test="${ schoolType == 1 }">selected</c:if>
-                                                                  >重点
-                                                                 </option>
-                                                     </select>
-                                                 </div>
-                                             </div>                                             <div class="col-xs-2">
                                              <div class="form-group">
                                              <label for="openFirst">是否开学</label>
     <input type="radio" name="openFirst" value="">全部
-    <input type="radio" name="openFirst" value="true">是
     <input type="radio" name="openFirst" value="false">否
+    <input type="radio" name="openFirst" value="true">是
                                              </div>
-                                             </div>                                                 <div class="col-xs-2">
-                                                 <div class="form-group">
-                                                 <label for="createTimeFirst"> 创建时间 (>=)</label>
-                                                 <input  type="text"
-                                                  class="Wdate form-control" style="width: 170px;"
-                                                  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'%y-%M-%d %H:%m:%s'})"
-                                                      value="<c:out value='${ createTimeFirst }' escapeXml="false"/>"
-                                                  id="createTimeFirst" name="createTimeFirst">
-                                                 </div>
-                                                 </div>
-                                                 <div class="col-xs-2">
-                                                 <div class="form-group">
-                                                 <label for="createTimeSecond"> 创建时间 (<=)</label>
-                                                 <input  type="text"
-                                                  class="Wdate form-control" style="width: 170px;"
-                                                  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'%y-%M-%d %H:%m:%s'})"
-                                                  value="<c:out value='${ createTimeSecond }' escapeXml="false"/>"
-                                                  id="createTimeSecond" name="createTimeSecond">
-                                                 </div>
-                                                 </div>
-
-                                            <div class="col-xs-2">
-                                                <div class="form-group">
-                                                    <label for="querySubmit">&nbsp;</label>
-                                                    <button class="btn btn-primary form-control" id="querySubmit">查询</button>
+                                             </div>                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label for="querySubmit">&nbsp;</label>
+                                                        <button class="btn btn-primary form-control" id="querySubmit">查询</button>
+                                                    </div>
                                                 </div>
-                                            </div>
+
                                             <input type="hidden" id="pageCount" value="0">
                                         </div>
                                     </div>
@@ -150,19 +107,11 @@ pageEncoding="UTF-8"%>
                                               <tr>
                                                   <th><input type="checkbox" id="checkAll"></th>
                                                   <th>序号</th>
-                                                 <th  class="sorting" orderField="head_img">                                                      学校头像
-                                                  </th>
                                                  <th  class="sorting" orderField="school_name">                                                      学校名称
-                                                  </th>
-                                                 <th   orderField="school_type">                                                      学校类型
-                                                  </th>
-                                                 <th  class="sorting" orderField="open">                                                      是否开学
                                                   </th>
                                                  <th  class="sorting" orderField="class_count">                                                      班级个数
                                                   </th>
-                                                 <th  class="sorting" orderField="create_time">                                                      创建时间
-                                                  </th>
-                                                 <th  class="sorting" orderField="update_time">                                                      更新时间
+                                                 <th  class="sorting" orderField="school_type">                                                      学校类型
                                                   </th>
                                                   <th>操作</th>
                                               </tr>

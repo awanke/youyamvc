@@ -45,7 +45,8 @@ pageEncoding="UTF-8"%>
                                     </h3>
                                     <h3 class="box-title alert-danger">${exceptionMsg}</h3>
                                 </div>
-                                <input type="hidden" name="id" value="${classes.id}">
+                                    <input type="hidden" name="id" value="${classes.id}">
+
                                 <div class="box-body">
                                     <div class="form-group ">
                                         <label class="col-sm-1 control-label">
@@ -53,8 +54,8 @@ pageEncoding="UTF-8"%>
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="className"
-                                                   name="className" title="班级名称"  placeholder="请输班级名称"
-                                                   required  minLength="0"            value="${classes.className}">
+                                                   name="className" title="班级名称"  placeholder="请输入班级名称"
+                                                             value="${classes.className}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>
@@ -66,8 +67,8 @@ pageEncoding="UTF-8"%>
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="studentCount"
-                                                   name="studentCount" title="班级学生人数"  placeholder="请输入班级个数"
-                                                   required  digits  minValues="0"  maxValues="100"  minLength="0"            value="${classes.studentCount}">
+                                                   name="studentCount" title="班级学生人数"  placeholder="请输入班级学生人数"
+                                                             value="${classes.studentCount}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>
@@ -84,12 +85,12 @@ pageEncoding="UTF-8"%>
                                             <input type="text" class="form-control" id="schoolIdSearch"
                                                   name="schoolIdSearch"  placeholder="请输入关键词查询学校"
                                             <c:if test="${ school!=null }">
-                                                         value="${school.schoolName}-${school.classCount}"
+                                                         value="${school.schoolName}"
                                             </c:if>
                                                    >
                                         </div>
                                         <label class="col-sm-2 control-label" >
-                                                <c:if test="${classes.id!=null}">
+                                                <c:if test="${classes.schoolId!=null}">
                                                     <a target="_blank" onclick="openUrl(this,'admin/school/detail_param?id=${classes.schoolId}')"> 查看详情</a>
                                                 </c:if>
                                             <span class="validateMsg"></span>

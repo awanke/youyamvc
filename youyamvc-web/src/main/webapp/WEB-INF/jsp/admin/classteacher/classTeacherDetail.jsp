@@ -45,7 +45,8 @@ pageEncoding="UTF-8"%>
                                     </h3>
                                     <h3 class="box-title alert-danger">${exceptionMsg}</h3>
                                 </div>
-                                <input type="hidden" name="id" value="${classTeacher.id}">
+                                    <input type="hidden" name="id" value="${classTeacher.id}">
+
                                 <div class="box-body">
                                     <div class="form-group ">
                                         <label class="col-sm-1 control-label">
@@ -63,7 +64,7 @@ pageEncoding="UTF-8"%>
                                                    >
                                         </div>
                                         <label class="col-sm-2 control-label" >
-                                                <c:if test="${classTeacher.id!=null}">
+                                                <c:if test="${classTeacher.classId!=null}">
                                                     <a target="_blank" onclick="openUrl(this,'admin/classes/detail_param?id=${classTeacher.classId}')"> 查看详情</a>
                                                 </c:if>
                                             <span class="validateMsg"></span>
@@ -80,12 +81,12 @@ pageEncoding="UTF-8"%>
                                             <input type="text" class="form-control" id="teacherIdSearch"
                                                   name="teacherIdSearch"  placeholder="请输入关键词查询教师"
                                             <c:if test="${ teacher!=null }">
-                                                         value="${teacher.teacherName}-${teacher.age}"
+                                                         value="${teacher.teacherName}"
                                             </c:if>
                                                    >
                                         </div>
                                         <label class="col-sm-2 control-label" >
-                                                <c:if test="${classTeacher.id!=null}">
+                                                <c:if test="${classTeacher.teacherId!=null}">
                                                     <a target="_blank" onclick="openUrl(this,'admin/teacher/detail_param?id=${classTeacher.teacherId}')"> 查看详情</a>
                                                 </c:if>
                                             <span class="validateMsg"></span>

@@ -44,26 +44,10 @@ pageEncoding="UTF-8"%>
                                             <div class="row">
                                              <div class="col-xs-2">
                                                  <div class="form-group">
-                                                     <label for="teacherNameFirst">老师名称 (like)</label>
+                                                     <label for="teacherNameFirst">老师名称 (=)</label>
                                                      <input type="text" class="form-control"
                                                       value="${ teacherNameFirst }"
-                                                   required  minLength="0"  maxLength="6"                                                   id="teacherNameFirst" name="teacherNameFirst">
-                                                 </div>
-                                             </div>
-                                             <div class="col-xs-2">
-                                                 <div class="form-group">
-                                                     <label for="ageFirst">老师年龄 (>=)</label>
-                                                     <input type="text" class="form-control"
-                                                      value="${ ageFirst }"
-                                                   digits  minValues="20"  maxValues="150"  minLength="0"                                                   id="ageFirst" name="ageFirst">
-                                                 </div>
-                                             </div>
-                                             <div class="col-xs-2">
-                                                 <div class="form-group">
-                                                     <label for="ageSecond">老师年龄 (<=)</label>
-                                                     <input type="text" class="form-control"
-                                                      value="${ ageSecond }"
-                                                   digits  minValues="20"  maxValues="150"  minLength="0"                                                   id="ageSecond" name="ageSecond">
+                                                                                                    id="teacherNameFirst" name="teacherNameFirst">
                                                  </div>
                                              </div>
                                                 <div class="col-xs-2">

@@ -23,6 +23,14 @@ public class SchoolDaoImpl   implements SchoolDao {
     public School getSchool(Map<String, Object> query) {
         return sqlSessionTemplate.selectOne("SchoolMapper.getSchool",query);
     }
+    @Override
+    public List<School> getSchoolList(Map<String, Object> query) {
+        return sqlSessionTemplate.selectList("SchoolMapper.getSchoolList", query);
+    }
+    @Override
+    public Integer getSchoolListCount(Map<String, Object> query) {
+        return sqlSessionTemplate.selectOne("SchoolMapper.getSchoolListCount", query);
+    }
 
     @Override
     public void batchInsertSchool(List<School> list) {
@@ -35,10 +43,9 @@ public class SchoolDaoImpl   implements SchoolDao {
     }
 
     @Override
-    public Long insertSchool(School entity) {
+    public     Long  insertSchool(School entity) {
         sqlSessionTemplate.insert("SchoolMapper.insertSchool",entity);
-        return entity.getId();
-    }
+  return entity.getId();    }
     @Override
     public void updateSchool(School entity) {
         sqlSessionTemplate.update("SchoolMapper.updateSchool", entity);
@@ -47,14 +54,7 @@ public class SchoolDaoImpl   implements SchoolDao {
     public void updateSchoolByWhereSql(Map<String,Object> entity) {
         sqlSessionTemplate.update("SchoolMapper.updateSchoolByWhereSql", entity);
     }
-    @Override
-    public List<School> getSchoolList(Map<String, Object> query) {
-        return sqlSessionTemplate.selectList("SchoolMapper.getSchoolList", query);
-    }
-    @Override
-    public Integer getSchoolListCount(Map<String, Object> query) {
-        return sqlSessionTemplate.selectOne("SchoolMapper.getSchoolListCount", query);
-    }
+
     @Override
     public void truncateSchool() {
         sqlSessionTemplate.delete("SchoolMapper.truncateSchool");
@@ -71,4 +71,9 @@ public class SchoolDaoImpl   implements SchoolDao {
     public void batchDeleteSchool(List<Long> list) {
         sqlSessionTemplate.delete("SchoolMapper.batchDeleteSchool",list);
     }
+    @Override
+    public void batchDeleteSchoolList(List<School> list) {
+        sqlSessionTemplate.delete("SchoolMapper.batchDeleteSchoolList",list);
+    }
+
 }

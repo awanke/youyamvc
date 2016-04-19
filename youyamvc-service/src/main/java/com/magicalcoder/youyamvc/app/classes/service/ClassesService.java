@@ -10,6 +10,7 @@ import java.util.Map;
 * 799374340@qq.com
 */
 public interface ClassesService{
+
     /**
     * 根据主键获取实体
     * @param id 主键
@@ -43,8 +44,7 @@ public interface ClassesService{
     * @param entity
     * @return
     */
-    Long insertClasses(Classes entity);
-
+    Long  insertClasses(Classes entity);
     /**
     * 更新实体 保证实体中的主键不为空
     * @param entity
@@ -63,11 +63,16 @@ public interface ClassesService{
     * @param id
     */
     void deleteClasses(Long id);
+    /**
+    * 删除实体
+    * @param entity 如果字段值不为空 将作为查询条件
+    */
+    void deleteClassesList(Map<String,Object> entity);
 
     /**
     * 根据自定义条件删除实体
     * @param whereSql not blank  有sql注入风险 请开发人员自行保证安全性
-*/
+    */
     void deleteClassesByWhereSql(String whereSql);
 
     /**
@@ -98,13 +103,16 @@ public interface ClassesService{
     * @param list
     */
     void batchUpdateClasses(List<Classes> list);
-
     /**
     * 根据主键list 批量删除实体
     * @param idList
     */
     void batchDeleteClasses(List<Long> idList);
-
+    /**
+    * 根据主键list 批量删除实体
+    * @param entityList 如果字段值不为空 将作为查询条件
+    */
+    void batchDeleteClassesList(List<Classes> entityList);
 
     /**
     * 事务保证 导入json文件成功
@@ -112,4 +120,11 @@ public interface ClassesService{
     * @return
     */
     void transactionImportJsonList(List<Classes> list);
+
+    /**
+    * 事务保证 保存实体 无自增主键的情况时 先删除 后插入
+    * @param entity
+    * @return
+    */
+    void transactionSaveEntity(Classes entity,Long idOldValue );
 }

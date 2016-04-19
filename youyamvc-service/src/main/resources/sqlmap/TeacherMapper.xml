@@ -13,7 +13,7 @@
     CREATE TABLE `teacher` (
         PRIMARY KEY (`id`) , KEY (`id`) , UNIQUE KEY `uniq_id` (`id`) ,
         `id` bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '老师主键' ,
-
+ KEY (`teacher_name`) , UNIQUE KEY `uniq_teacher_name` (`teacher_name`) ,
         `teacher_name` varchar(50) COMMENT '老师名称'  DEFAULT  '' ,
 
         `age` int(4) COMMENT '老师年龄'  DEFAULT  '0' 
@@ -30,14 +30,8 @@
         <if test="id!=null "> and teacher.id = #{id}</if>
         <if test="teacherName!=null "> and teacher.teacher_name = #{teacherName}</if>
         <if test="age!=null "> and teacher.age = #{age}</if>
-                <if test="teacherNameFirst!=null "> and teacher.teacher_name <![CDATA[like]]>
-                            concat('%',#{teacherNameFirst},'%')
-                </if>
-                <if test="ageFirst!=null "> and teacher.age <![CDATA[>=]]>
-                            #{ageFirst}
-                </if>
-                <if test="ageSecond!=null "> and teacher.age <![CDATA[<=]]>
-                            #{ageSecond}
+                <if test="teacherNameFirst!=null "> and teacher.teacher_name <![CDATA[=]]>
+                            #{teacherNameFirst}
                 </if>
         <if test="whereSql!=null"> ${whereSql}</if>
     </sql>
@@ -51,24 +45,22 @@
                 <otherwise>SELECT #{id} as id</otherwise>
             </choose>
         </selectKey>
-        insert into teacher (<if test="id!=null">`id`,</if>
-                `teacher_name` ,
-                `age` 
-        )
-        values(<if test="id!=null">#{ id },</if>
-                <choose>
-                    <when test="teacherName==null">
-                             ''
-                    </when>
-                    <otherwise>#{teacherName}</otherwise>
-                </choose>,
-                <choose>
-                    <when test="age==null">
-                             '0'
-                    </when>
-                    <otherwise>#{age}</otherwise>
-                </choose>
-        )
+        insert into teacher (
+    <if test="id!=null">`id`,</if>
+            `teacher_name`,            `age`        )
+        values(
+            <if test="id!=null">#{id`},</if>
+            <choose>
+                <when test="teacherName==null">
+                         ''
+                </when>
+                <otherwise>#{teacherName}</otherwise>
+            </choose>,            <choose>
+                <when test="age==null">
+                         '0'
+                </when>
+                <otherwise>#{age}</otherwise>
+            </choose>        )
     </insert>
 
     <select id="getTeacher" parameterType="hashmap" resultType="Teacher">
@@ -98,15 +90,17 @@
                         teacher.age=0,
                     </otherwise>
                 </choose>
-        teacher.id = id
-        where  teacher.id = #{id}
+                teacher.id = id
+        where 1=1
+            and teacher.id = #{id}
+
     </update>
 
     <update id="updateTeacherByWhereSql" parameterType="hashmap">
         update teacher teacher set
                 <choose><when test="teacherName!=null">teacher.teacher_name=#{teacherName},</when></choose>
                 <choose><when test="age!=null">teacher.age=#{age},</when></choose>
-        teacher.id = id
+            teacher.id = id
         where ${whereSql}
     </update>
 
@@ -115,7 +109,8 @@
     </delete>
 
     <delete id="deleteTeacher" parameterType="hashmap">
-        delete teacher from teacher teacher where teacher.id = #{id}
+        delete teacher from teacher teacher where 1=1
+            and teacher.id = #{id}
     </delete>
 
     <delete id="deleteTeacherByWhereSql" parameterType="hashmap">
@@ -126,14 +121,24 @@
         delete teacher from teacher teacher where teacher.id in
         <foreach item="id" index="index" collection="list" open="(" separator="," close=")">#{id}</foreach>
     </delete>
+    <delete id="batchDeleteTeacherList" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            delete teacher from teacher teacher where
+            1=1
+                    and teacher.id = #{id}
+        </foreach>
+    </delete>
 
     <insert id="batchInsertTeacher" parameterType="java.util.List">
-        insert into teacher (`teacher_name`,`age`)
+        insert into teacher (
+            `teacher_name`,
+            `age`
+        )
         values
         <foreach collection="list" item= "item" index ="index" separator=",">
             (
-                    <choose><when test="item.teacherName==null">  ''  </when><otherwise>#{item.teacherName}</otherwise></choose> ,
-                    <choose><when test="item.age==null">  '0'  </when><otherwise>#{item.age}</otherwise></choose> 
+                <choose><when test="item.teacherName==null">  ''  </when><otherwise>#{item.teacherName}</otherwise></choose> ,
+                <choose><when test="item.age==null">  '0'  </when><otherwise>#{item.age}</otherwise></choose> 
             )
         </foreach >
     </insert>
@@ -142,11 +147,12 @@
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update teacher teacher
             <set>
-                    <choose><when test="item.teacherName!=null">teacher.teacher_name=#{item.teacherName},</when></choose>
-                    <choose><when test="item.age!=null">teacher.age=#{item.age},</when></choose>
-                teacher.id = #{item.id}
+                <choose><when test="item.teacherName!=null">teacher.teacher_name=#{item.teacherName},</when></choose>
+                <choose><when test="item.age!=null">teacher.age=#{item.age},</when></choose>
+                    teacher.id = id
             </set>
-            where teacher.id = #{item.id}
+            where 1=1
+                and teacher.id = #{id}
         </foreach>
     </update>
 

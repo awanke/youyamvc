@@ -45,7 +45,8 @@ pageEncoding="UTF-8"%>
                                     </h3>
                                     <h3 class="box-title alert-danger">${exceptionMsg}</h3>
                                 </div>
-                                <input type="hidden" name="id" value="${teacher.id}">
+                                    <input type="hidden" name="id" value="${teacher.id}">
+
                                 <div class="box-body">
                                     <div class="form-group ">
                                         <label class="col-sm-1 control-label">
@@ -54,10 +55,9 @@ pageEncoding="UTF-8"%>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="teacherName"
                                                    name="teacherName" title="老师名称"  placeholder="请输入老师名称"
-                                                   required  minLength="0"  maxLength="6"            value="${teacher.teacherName}">
+                                                             value="${teacher.teacherName}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
-                                                <span class="minLength">0</span><span class="maxLength">/6</span>
                                             <span class="validateMsg"></span>
                                         </label>
                                     </div>
@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="age"
                                                    name="age" title="老师年龄"  placeholder="请输入老师年龄"
-                                                   digits  minValues="20"  maxValues="150"  minLength="0"            value="${teacher.age}">
+                                                             value="${teacher.age}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>

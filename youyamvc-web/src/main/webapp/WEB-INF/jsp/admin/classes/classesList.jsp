@@ -43,10 +43,10 @@ pageEncoding="UTF-8"%>
                                         <div class="row">
                                              <div class="col-xs-2">
                                                  <div class="form-group">
-                                                     <label for="classNameFirst">班级名称 (like)</label>
+                                                     <label for="classNameFirst">班级名称 (=)</label>
                                                      <input type="text" class="form-control"
                                                       value="${ classNameFirst }"
-                                                   required  minLength="0"                                                   id="classNameFirst" name="classNameFirst">
+                                                                                                    id="classNameFirst" name="classNameFirst">
                                                  </div>
                                              </div>
                                               <div class="col-xs-2">
@@ -59,21 +59,13 @@ pageEncoding="UTF-8"%>
                                                   name="schoolIdFirstSearch"  placeholder="请输入关键词查询学校"
                                                          value="">
                                                  </div>
-                                             </div>                                                 <div class="col-xs-2">
-                                                 <div class="form-group">
-                                                 <label for="schoolNameSchoolFirst">学校-学校名称 (like)</label>
-                                                         <input type="text" class="form-control"
-                                                          value="${ schoolNameSchoolFirst }"
-                                                   required  minLength="0"                                                           id="schoolNameSchoolFirst" name="schoolNameSchoolFirst">
-                                                 </div>
-                                                 </div>
-
-                                            <div class="col-xs-2">
-                                                <div class="form-group">
-                                                    <label for="querySubmit">&nbsp;</label>
-                                                    <button class="btn btn-primary form-control" id="querySubmit">查询</button>
+                                             </div>                                                <div class="col-xs-2">
+                                                    <div class="form-group">
+                                                        <label for="querySubmit">&nbsp;</label>
+                                                        <button class="btn btn-primary form-control" id="querySubmit">查询</button>
+                                                    </div>
                                                 </div>
-                                            </div>
+
                                             <input type="hidden" id="pageCount" value="0">
                                         </div>
                                     </div>
@@ -119,8 +111,6 @@ pageEncoding="UTF-8"%>
                                                   <th><input type="checkbox" id="checkAll"></th>
                                                   <th>序号</th>
                                                  <th  class="sorting" orderField="class_name">                                                      班级名称
-                                                  </th>
-                                                 <th  class="sorting" orderField="student_count">                                                      班级学生人数
                                                   </th>
                                                  <th  class="sorting" orderField="school_id">                                                      学校id
                                                   </th>

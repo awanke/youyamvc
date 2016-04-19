@@ -8,7 +8,6 @@ function buildReqParam(){
     var requestParam = {date:new Date().getTime()}
     setRequestParamById(requestParam,'classNameFirst')
     setRequestParamById(requestParam,'schoolIdFirst')
-    setRequestParamById(requestParam,'schoolNameSchoolFirst')
     //排序
     var orderBy = buildOrderByObj()
     requestParam.orderBySqlField = orderBy.orderBySqlField;
@@ -19,13 +18,12 @@ function buildReqParam(){
 /*pageIndex 当前是第几页 1:第一页*/
 function  getItemPage(pageIndex){
     var template =
-        '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
+            '<tr id="tr{id}"><td><input type="checkbox" value="{id}" class="tdcheckbox"></td><td>{rankNum}</td>'+
+
                     '<td>{className}</td>' +
-                    '<td>{studentCount}</td>' +
             '<td><a title="点击查看详情" target="_blank" onclick="openUrl(this,\'admin/school/detail_param?id={schoolId}\')"> {schoolIdForeignShowValue}</a></td>' +
         '<td><a href="admin/classes/detail/{id}">编辑</a>' +
-        '<a href="javascript:{}" onclick="deleteItem(\'classes\',{id})">删除</a></td></tr>';
-
+        '<a href="javascript:{}" onclick="deleteItem(\'classes\',{id})">删除</a></td></trid>';
     var pageSize = 20;//每页多少条记录
     var pageCount = parseInt($("#pageCount").val());//总共多少条记录
     var url ='admin/classes/page/'+pageIndex+'/'+pageSize+'/'+pageCount;

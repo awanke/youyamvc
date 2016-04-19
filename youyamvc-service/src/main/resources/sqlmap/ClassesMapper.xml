@@ -34,8 +34,8 @@
         <if test="className!=null "> and classes.class_name = #{className}</if>
         <if test="studentCount!=null "> and classes.student_count = #{studentCount}</if>
         <if test="schoolId!=null "> and classes.school_id = #{schoolId}</if>
-                <if test="classNameFirst!=null "> and classes.class_name <![CDATA[like]]>
-                            concat('%',#{classNameFirst},'%')
+                <if test="classNameFirst!=null "> and classes.class_name <![CDATA[=]]>
+                            #{classNameFirst}
                 </if>
                 <if test="schoolIdFirst!=null "> and classes.school_id <![CDATA[=]]>
                             #{schoolIdFirst}
@@ -52,31 +52,27 @@
                 <otherwise>SELECT #{id} as id</otherwise>
             </choose>
         </selectKey>
-        insert into classes (<if test="id!=null">`id`,</if>
-                `class_name` ,
-                `student_count` ,
-                `school_id` 
-        )
-        values(<if test="id!=null">#{ id },</if>
-                <choose>
-                    <when test="className==null">
-                             ''
-                    </when>
-                    <otherwise>#{className}</otherwise>
-                </choose>,
-                <choose>
-                    <when test="studentCount==null">
-                             '0'
-                    </when>
-                    <otherwise>#{studentCount}</otherwise>
-                </choose>,
-                <choose>
-                    <when test="schoolId==null">
-                             '0'
-                    </when>
-                    <otherwise>#{schoolId}</otherwise>
-                </choose>
-        )
+        insert into classes (
+    <if test="id!=null">`id`,</if>
+            `class_name`,            `student_count`,            `school_id`        )
+        values(
+            <if test="id!=null">#{id`},</if>
+            <choose>
+                <when test="className==null">
+                         ''
+                </when>
+                <otherwise>#{className}</otherwise>
+            </choose>,            <choose>
+                <when test="studentCount==null">
+                         '0'
+                </when>
+                <otherwise>#{studentCount}</otherwise>
+            </choose>,            <choose>
+                <when test="schoolId==null">
+                         '0'
+                </when>
+                <otherwise>#{schoolId}</otherwise>
+            </choose>        )
     </insert>
 
     <select id="getClasses" parameterType="hashmap" resultType="Classes">
@@ -112,8 +108,10 @@
                         classes.school_id=0,
                     </otherwise>
                 </choose>
-        classes.id = id
-        where  classes.id = #{id}
+                classes.id = id
+        where 1=1
+            and classes.id = #{id}
+
     </update>
 
     <update id="updateClassesByWhereSql" parameterType="hashmap">
@@ -121,7 +119,7 @@
                 <choose><when test="className!=null">classes.class_name=#{className},</when></choose>
                 <choose><when test="studentCount!=null">classes.student_count=#{studentCount},</when></choose>
                 <choose><when test="schoolId!=null">classes.school_id=#{schoolId},</when></choose>
-        classes.id = id
+            classes.id = id
         where ${whereSql}
     </update>
 
@@ -130,7 +128,8 @@
     </delete>
 
     <delete id="deleteClasses" parameterType="hashmap">
-        delete classes from classes classes where classes.id = #{id}
+        delete classes from classes classes where 1=1
+            and classes.id = #{id}
     </delete>
 
     <delete id="deleteClassesByWhereSql" parameterType="hashmap">
@@ -141,15 +140,26 @@
         delete classes from classes classes where classes.id in
         <foreach item="id" index="index" collection="list" open="(" separator="," close=")">#{id}</foreach>
     </delete>
+    <delete id="batchDeleteClassesList" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            delete classes from classes classes where
+            1=1
+                    and classes.id = #{id}
+        </foreach>
+    </delete>
 
     <insert id="batchInsertClasses" parameterType="java.util.List">
-        insert into classes (`class_name`,`student_count`,`school_id`)
+        insert into classes (
+            `class_name`,
+            `student_count`,
+            `school_id`
+        )
         values
         <foreach collection="list" item= "item" index ="index" separator=",">
             (
-                    <choose><when test="item.className==null">  ''  </when><otherwise>#{item.className}</otherwise></choose> ,
-                    <choose><when test="item.studentCount==null">  '0'  </when><otherwise>#{item.studentCount}</otherwise></choose> ,
-                    <choose><when test="item.schoolId==null">  '0'  </when><otherwise>#{item.schoolId}</otherwise></choose> 
+                <choose><when test="item.className==null">  ''  </when><otherwise>#{item.className}</otherwise></choose> ,
+                <choose><when test="item.studentCount==null">  '0'  </when><otherwise>#{item.studentCount}</otherwise></choose> ,
+                <choose><when test="item.schoolId==null">  '0'  </when><otherwise>#{item.schoolId}</otherwise></choose> 
             )
         </foreach >
     </insert>
@@ -158,30 +168,28 @@
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update classes classes
             <set>
-                    <choose><when test="item.className!=null">classes.class_name=#{item.className},</when></choose>
-                    <choose><when test="item.studentCount!=null">classes.student_count=#{item.studentCount},</when></choose>
-                    <choose><when test="item.schoolId!=null">classes.school_id=#{item.schoolId},</when></choose>
-                classes.id = #{item.id}
+                <choose><when test="item.className!=null">classes.class_name=#{item.className},</when></choose>
+                <choose><when test="item.studentCount!=null">classes.student_count=#{item.studentCount},</when></choose>
+                <choose><when test="item.schoolId!=null">classes.school_id=#{item.schoolId},</when></choose>
+                    classes.id = id
             </set>
-            where classes.id = #{item.id}
+            where 1=1
+                and classes.id = #{id}
         </foreach>
     </update>
 
 <!-- 外键字段一对一关联查询模块 begin-->
     <sql id="fromForeignTable">
-        <if test=" schoolNameSchoolFirst!= null ">
+        <if test="">
             ,school school
         </if>
     </sql>
     <sql id="whereForeignDbField">
-            <if test=" schoolNameSchoolFirst!= null ">
+            <if test="">
                 and classes.school_id = school.id
             </if>
     </sql>
     <sql id="whereForeignFormQuery">
-            <if test="schoolNameSchoolFirst!=null "> and school.school_name <![CDATA[like]]>
-                    concat('%',#{schoolNameSchoolFirst},'%')
-            </if>
     </sql>
     <select id="getClassesOneToOneRelateList" parameterType="hashmap" resultType="Classes">
         select <include refid="selectSqlClasses"/>

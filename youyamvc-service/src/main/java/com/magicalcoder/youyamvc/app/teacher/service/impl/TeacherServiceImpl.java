@@ -47,8 +47,7 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public Long insertTeacher(Teacher entity) {
-        //校验
+    public     Long  insertTeacher(Teacher entity) {
         return teacherDao.insertTeacher(entity);
     }
 
@@ -76,6 +75,10 @@ public class TeacherServiceImpl implements TeacherService{
         Map<String,Object> query = new HashMap<String,Object>();
         query.put("id", id);
         teacherDao.deleteTeacher(query);
+    }
+    @Override
+    public void deleteTeacherList(Map<String,Object> entity){
+        teacherDao.deleteTeacher(entity);
     }
 
     @Override
@@ -105,12 +108,15 @@ public class TeacherServiceImpl implements TeacherService{
         //校验
         teacherDao.batchUpdateTeacher(list);
     }
-
     @Override
     public void batchDeleteTeacher(List<Long> idList) {
         teacherDao.batchDeleteTeacher(idList);
     }
 
+    @Override
+    public void batchDeleteTeacherList(List<Teacher> entityList){
+        teacherDao.batchDeleteTeacherList(entityList);
+    }
 
     @Transactional
     @Override
@@ -132,4 +138,10 @@ public class TeacherServiceImpl implements TeacherService{
         }
     }
 
+    @Transactional
+    @Override
+    public void transactionSaveEntity(Teacher entity,Long idOldValue ) {
+        deleteTeacher(idOldValue );
+        insertTeacher(entity);
+    }
 }

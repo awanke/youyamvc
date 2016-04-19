@@ -23,6 +23,14 @@ public class ClassesDaoImpl   implements ClassesDao {
     public Classes getClasses(Map<String, Object> query) {
         return sqlSessionTemplate.selectOne("ClassesMapper.getClasses",query);
     }
+    @Override
+    public List<Classes> getClassesList(Map<String, Object> query) {
+        return sqlSessionTemplate.selectList("ClassesMapper.getClassesList", query);
+    }
+    @Override
+    public Integer getClassesListCount(Map<String, Object> query) {
+        return sqlSessionTemplate.selectOne("ClassesMapper.getClassesListCount", query);
+    }
 
     @Override
     public void batchInsertClasses(List<Classes> list) {
@@ -35,10 +43,9 @@ public class ClassesDaoImpl   implements ClassesDao {
     }
 
     @Override
-    public Long insertClasses(Classes entity) {
+    public     Long  insertClasses(Classes entity) {
         sqlSessionTemplate.insert("ClassesMapper.insertClasses",entity);
-        return entity.getId();
-    }
+  return entity.getId();    }
     @Override
     public void updateClasses(Classes entity) {
         sqlSessionTemplate.update("ClassesMapper.updateClasses", entity);
@@ -47,14 +54,7 @@ public class ClassesDaoImpl   implements ClassesDao {
     public void updateClassesByWhereSql(Map<String,Object> entity) {
         sqlSessionTemplate.update("ClassesMapper.updateClassesByWhereSql", entity);
     }
-    @Override
-    public List<Classes> getClassesList(Map<String, Object> query) {
-        return sqlSessionTemplate.selectList("ClassesMapper.getClassesList", query);
-    }
-    @Override
-    public Integer getClassesListCount(Map<String, Object> query) {
-        return sqlSessionTemplate.selectOne("ClassesMapper.getClassesListCount", query);
-    }
+
     @Override
     public List<Classes> getClassesOneToOneRelateList(Map<String, Object> query){
         return sqlSessionTemplate.selectList("ClassesMapper.getClassesOneToOneRelateList", query);
@@ -79,4 +79,9 @@ public class ClassesDaoImpl   implements ClassesDao {
     public void batchDeleteClasses(List<Long> list) {
         sqlSessionTemplate.delete("ClassesMapper.batchDeleteClasses",list);
     }
+    @Override
+    public void batchDeleteClassesList(List<Classes> list) {
+        sqlSessionTemplate.delete("ClassesMapper.batchDeleteClassesList",list);
+    }
+
 }

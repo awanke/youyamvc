@@ -34,8 +34,6 @@ function  getItemPage(pageIndex){
     var url ='admin/class_teacher/page_relate/'+pageIndex+'/'+pageCount;
     var requestParam = {date:new Date().getTime()}
     setRequestParamById(requestParam,'teacherNameFirst')
-    setRequestParamById(requestParam,'ageFirst')
-    setRequestParamById(requestParam,'ageSecond')
     setRequestParamById(requestParam,'classId')
     //排序
     var orderBy = buildOrderBy()

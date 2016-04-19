@@ -11,21 +11,20 @@ import java.util.Map;
 */
 public interface ClassesDao{
     Classes getClasses(Map<String, Object> query);
-    Long insertClasses(Classes entity);
-    void batchInsertClasses(List<Classes> list);
+    List<Classes> getClassesList(Map<String, Object> query);
+    Integer getClassesListCount(Map<String, Object> query);
+
+    Long  insertClasses(Classes entity);    void batchInsertClasses(List<Classes> list);
     void batchUpdateClasses(List<Classes> list);
     void updateClasses(Classes entity);
     void updateClassesByWhereSql(Map<String,Object> entity);
-    List<Classes> getClassesList(Map<String, Object> query);
-    Integer getClassesListCount(Map<String, Object> query);
+
     //oneToOne
     List<Classes> getClassesOneToOneRelateList(Map<String, Object> query);
     Integer getClassesOneToOneRelateListCount(Map<String, Object> query);
     void truncateClasses();
     void deleteClasses(Map<String, Object> query);
     void deleteClassesByWhereSql(Map<String, Object> query);
-    //id list
     void batchDeleteClasses(List<Long> list);
-
-
+    void batchDeleteClassesList(List<Classes> entityList);
 }
