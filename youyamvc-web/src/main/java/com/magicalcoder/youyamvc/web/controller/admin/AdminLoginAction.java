@@ -104,6 +104,8 @@ public class AdminLoginAction {
         CopyerSpringUtil.copyProperties(adminUser, adminUserDto);
         //存储到缓存
         CacheUtil.resetCache(sessionId, AdminUserConstant.ADMIN_LOGIN_TIMEOUT, adminUserDto);
+        model.remove("userName");
+        model.remove("password");
         return "redirect:admin/index";//index.jsp 后台主页
 	}
 
