@@ -323,6 +323,8 @@ public class AdminClassTeacherListController extends AdminLoginController
     @RequestParam(required=false, value="orderBy") String orderBy,
                 @RequestParam(required = false,value ="teacherNameFirst")
                         String teacherNameFirst ,
+                @RequestParam(required = false,value ="ageFirst")
+                        Integer ageFirst ,
     @RequestParam(required = false,value ="classId") Long classId ,
     HttpServletResponse response)
     {
@@ -334,6 +336,7 @@ public class AdminClassTeacherListController extends AdminLoginController
         int idx = (pageIndex.intValue() - 1) * 20;
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "teacherNameFirst",teacherNameFirst ,
+                "ageFirst",ageFirst ,
         "limitIndex",Integer.valueOf(idx),"limit", Integer.valueOf(20) });
         query.put("classId",classId );
 

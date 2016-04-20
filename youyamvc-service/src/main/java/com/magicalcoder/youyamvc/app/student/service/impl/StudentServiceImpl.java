@@ -25,6 +25,12 @@ public class StudentServiceImpl implements StudentService{
     private StudentDao studentDao;
 
 
+    @Override
+    public Student getStudent(String name ) {
+        Map<String,Object> query = new HashMap<String,Object>();
+        query.put("name", name);
+        return studentDao.getStudent(query);
+    }
 
     @Override
     public Student selectOneStudentWillThrowException(Map<String, Object> query){
@@ -65,6 +71,12 @@ studentDao.insertStudent(entity);
         studentDao.updateStudentByWhereSql(entity);
     }
 
+    @Override
+    public void deleteStudent(String name ){
+        Map<String,Object> query = new HashMap<String,Object>();
+        query.put("name", name);
+        studentDao.deleteStudent(query);
+    }
     @Override
     public void deleteStudentList(Map<String,Object> entity){
         studentDao.deleteStudent(entity);
@@ -114,6 +126,18 @@ studentDao.insertStudent(entity);
     @Transactional
     @Override
     public void transactionImportJsonList(List<Student> list) {
+    if(list!=null && list.size()>0){
+        for(Student student : list){
+            deleteStudent(student.getName() );
+            insertStudent(student);
+        }
+    }
     }
 
+    @Transactional
+    @Override
+    public void transactionSaveEntity(Student entity,String nameOldValue ) {
+        deleteStudent(nameOldValue );
+        insertStudent(entity);
+    }
 }

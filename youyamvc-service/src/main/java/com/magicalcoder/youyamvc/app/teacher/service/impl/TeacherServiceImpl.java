@@ -24,6 +24,7 @@ public class TeacherServiceImpl implements TeacherService{
     @Resource(name="teacherDao")
     private TeacherDao teacherDao;
 
+
     @Override
     public Teacher getTeacher(Long id) {
         Map<String,Object> query = new HashMap<String,Object>();
@@ -138,10 +139,4 @@ public class TeacherServiceImpl implements TeacherService{
         }
     }
 
-    @Transactional
-    @Override
-    public void transactionSaveEntity(Teacher entity,Long idOldValue ) {
-        deleteTeacher(idOldValue );
-        insertTeacher(entity);
-    }
 }

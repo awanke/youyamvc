@@ -71,7 +71,7 @@ public class AdminClassesListController extends AdminLoginController
             orderBySqlField = orderBySqlField.toLowerCase().trim();
             descAsc=descAsc.toLowerCase().trim();
             if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",class_name,school_id,";
+                String orderBySqlFieldStr = ",class_name,student_count,school_id,";
                 if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
                     orderBy = orderBySqlField+" "+descAsc;
                 }
@@ -85,6 +85,7 @@ public class AdminClassesListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="classNameFirst")                        String classNameFirst ,
+                @RequestParam(required = false,value ="studentCountFirst")                        Integer studentCountFirst ,
                 @RequestParam(required = false,value ="schoolIdFirst")                        Long schoolIdFirst ,
           HttpServletResponse response)
     {
@@ -94,6 +95,7 @@ public class AdminClassesListController extends AdminLoginController
 
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "classNameFirst",classNameFirst ,
+                "studentCountFirst",studentCountFirst ,
                 "schoolIdFirst",schoolIdFirst ,
         "limitIndex",idx,"limit", pageSize });
 
@@ -262,11 +264,13 @@ public class AdminClassesListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="classNameFirst")                        String classNameFirst ,
+                @RequestParam(required = false,value ="studentCountFirst")                        Integer studentCountFirst ,
                 @RequestParam(required = false,value ="schoolIdFirst")                        Long schoolIdFirst ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "classNameFirst",classNameFirst ,
+                "studentCountFirst",studentCountFirst ,
                 "schoolIdFirst",schoolIdFirst ,
         "limitIndex",start,"limit", limit });
 
@@ -322,6 +326,19 @@ public class AdminClassesListController extends AdminLoginController
             if(stopSearch){
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
                 toSimpleJson = true;
+            }
+
+            if(ProjectUtil.isNum(keyword)){
+            if(!stopSearch){
+                list = searchList("studentCountFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
             }
 
             if(ProjectUtil.isNum(keyword)){

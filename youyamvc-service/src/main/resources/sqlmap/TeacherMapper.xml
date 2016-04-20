@@ -33,6 +33,9 @@
                 <if test="teacherNameFirst!=null "> and teacher.teacher_name <![CDATA[=]]>
                             #{teacherNameFirst}
                 </if>
+                <if test="ageFirst!=null "> and teacher.age <![CDATA[=]]>
+                            #{ageFirst}
+                </if>
         <if test="whereSql!=null"> ${whereSql}</if>
     </sql>
 

@@ -50,6 +50,14 @@ pageEncoding="UTF-8"%>
                                                                                                     id="teacherNameFirst" name="teacherNameFirst">
                                                  </div>
                                              </div>
+                                             <div class="col-xs-2">
+                                                 <div class="form-group">
+                                                     <label for="ageFirst">老师年龄 (=)</label>
+                                                     <input type="text" class="form-control"
+                                                      value="${ ageFirst }"
+                                                                                                    id="ageFirst" name="ageFirst">
+                                                 </div>
+                                             </div>
                                                 <div class="col-xs-2">
                                                     <div class="form-group">
                                                         <label for="querySubmit">&nbsp;</label>

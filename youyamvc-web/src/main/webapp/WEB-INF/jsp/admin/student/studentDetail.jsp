@@ -45,6 +45,7 @@ pageEncoding="UTF-8"%>
                                     </h3>
                                     <h3 class="box-title alert-danger">${exceptionMsg}</h3>
                                 </div>
+                                        <input type="hidden" name="nameOldValue" value="${student.name}">
 
                                 <div class="box-body">
                                     <div class="form-group ">

@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
     <aside class="right-side">
         <section class="content-header">
             <h1>
-                教师列表
+                教师列表 
                 <a class="btn btn-app" href="admin/teacher/detail"><i class="fa fa-edit"></i>新增</a>
             </h1>
             <ol class="breadcrumb">
@@ -47,6 +47,14 @@ pageEncoding="UTF-8"%>
                                                      <input type="text" class="form-control"
                                                       value="${ teacherNameFirst }"
                                                                                                     id="teacherNameFirst" name="teacherNameFirst">
+                                                 </div>
+                                             </div>
+                                             <div class="col-xs-2">
+                                                 <div class="form-group">
+                                                     <label for="ageFirst">老师年龄 (=)</label>
+                                                     <input type="text" class="form-control"
+                                                      value="${ ageFirst }"
+                                                                                                    id="ageFirst" name="ageFirst">
                                                  </div>
                                              </div>
                                                 <div class="col-xs-2">

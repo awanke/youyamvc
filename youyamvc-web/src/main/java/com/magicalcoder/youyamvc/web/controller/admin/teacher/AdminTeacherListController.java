@@ -75,6 +75,7 @@ public class AdminTeacherListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="teacherNameFirst")                        String teacherNameFirst ,
+                @RequestParam(required = false,value ="ageFirst")                        Integer ageFirst ,
           HttpServletResponse response)
     {
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
@@ -83,6 +84,7 @@ public class AdminTeacherListController extends AdminLoginController
 
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "teacherNameFirst",teacherNameFirst ,
+                "ageFirst",ageFirst ,
         "limitIndex",idx,"limit", pageSize });
 
         boolean useRelateQuery = false;
@@ -227,10 +229,12 @@ public class AdminTeacherListController extends AdminLoginController
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="teacherNameFirst")                        String teacherNameFirst ,
+                @RequestParam(required = false,value ="ageFirst")                        Integer ageFirst ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "teacherNameFirst",teacherNameFirst ,
+                "ageFirst",ageFirst ,
         "limitIndex",start,"limit", limit });
 
         boolean useRelateQuery = false;
@@ -285,6 +289,19 @@ public class AdminTeacherListController extends AdminLoginController
             if(stopSearch){
                 toSimpleJson(response,showList(list,selectValue,foreignJavaField));
                 toSimpleJson = true;
+            }
+
+            if(ProjectUtil.isNum(keyword)){
+            if(!stopSearch){
+                list = searchList("ageFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
             }
 
             if(!toSimpleJson){

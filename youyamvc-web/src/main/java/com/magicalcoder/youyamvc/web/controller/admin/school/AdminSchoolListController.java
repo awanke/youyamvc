@@ -61,7 +61,7 @@ public class AdminSchoolListController extends AdminLoginController
             orderBySqlField = orderBySqlField.toLowerCase().trim();
             descAsc=descAsc.toLowerCase().trim();
             if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",school_name,class_count,school_type,";
+                String orderBySqlFieldStr = ",school_name,class_count,adress,open,create_time,update_time,";
                 if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
                     orderBy = orderBySqlField+" "+descAsc;
                 }
@@ -76,6 +76,8 @@ public class AdminSchoolListController extends AdminLoginController
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="schoolNameFirst")                        String schoolNameFirst ,
                 @RequestParam(required = false,value ="openFirst")                        Boolean openFirst ,
+                @RequestParam(required = false,value ="createTimeFirst")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeFirst ,
+                @RequestParam(required = false,value ="createTimeSecond")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeSecond ,
           HttpServletResponse response)
     {
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
@@ -85,6 +87,8 @@ public class AdminSchoolListController extends AdminLoginController
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "schoolNameFirst",schoolNameFirst ,
                 "openFirst",openFirst ,
+                "createTimeFirst",createTimeFirst ,
+                "createTimeSecond",createTimeSecond ,
         "limitIndex",idx,"limit", pageSize });
 
         boolean useRelateQuery = false;
@@ -113,6 +117,8 @@ public class AdminSchoolListController extends AdminLoginController
             for(School item:pageList){
                 String json = JSON.toJSONString(item);
                 Map<String,Object> obj = (Map<String,Object>)JSON.parse(json);
+                obj.put("createTime",item.getCreateTime());
+                obj.put("updateTime",item.getUpdateTime());
                 newPageList.add(obj);
             }
         }
@@ -230,11 +236,15 @@ public class AdminSchoolListController extends AdminLoginController
         @RequestParam(required=false, value="descAsc") String descAsc,
                 @RequestParam(required = false,value ="schoolNameFirst")                        String schoolNameFirst ,
                 @RequestParam(required = false,value ="openFirst")                        Boolean openFirst ,
+                @RequestParam(required = false,value ="createTimeFirst")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeFirst ,
+                @RequestParam(required = false,value ="createTimeSecond")                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date createTimeSecond ,
         HttpServletResponse response){
         String orderBy = filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "schoolNameFirst",schoolNameFirst ,
                 "openFirst",openFirst ,
+                "createTimeFirst",createTimeFirst ,
+                "createTimeSecond",createTimeSecond ,
         "limitIndex",start,"limit", limit });
 
         boolean useRelateQuery = false;
@@ -293,6 +303,17 @@ public class AdminSchoolListController extends AdminLoginController
 
             if(!stopSearch){
                 list = searchList("openFirst",keyword);
+                if(ListUtils.isNotBlank(list)){
+                    stopSearch = true;
+                }
+            }
+            if(stopSearch){
+                toSimpleJson(response,showList(list,selectValue,foreignJavaField));
+                toSimpleJson = true;
+            }
+
+            if(!stopSearch){
+                list = searchList("createTimeFirst",keyword);
                 if(ListUtils.isNotBlank(list)){
                     stopSearch = true;
                 }

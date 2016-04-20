@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
     <aside class="right-side">
         <section class="content-header">
             <h1>
-                学生列表 友情提示：MagicalCoder检测不到表中的任何自增字段或主键或唯一键，生成的功能将不可使用
+                学生列表 
                 <a class="btn btn-app" href="admin/student/detail"><i class="fa fa-edit"></i>新增</a>
             </h1>
             <ol class="breadcrumb">

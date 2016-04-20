@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
     <aside class="right-side">
         <section class="content-header">
             <h1>
-                班级关联教师列表
+                班级关联教师列表 
                 <a class="btn btn-app" href="admin/class_teacher/detail"><i class="fa fa-edit"></i>新增</a>
             </h1>
             <ol class="breadcrumb">

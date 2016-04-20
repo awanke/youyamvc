@@ -37,6 +37,9 @@
                 <if test="classNameFirst!=null "> and classes.class_name <![CDATA[=]]>
                             #{classNameFirst}
                 </if>
+                <if test="studentCountFirst!=null "> and classes.student_count <![CDATA[=]]>
+                            #{studentCountFirst}
+                </if>
                 <if test="schoolIdFirst!=null "> and classes.school_id <![CDATA[=]]>
                             #{schoolIdFirst}
                 </if>

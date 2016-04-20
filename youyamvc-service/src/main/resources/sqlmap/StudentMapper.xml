@@ -15,7 +15,7 @@
         `class_id` bigint(20) NOT NULL  COMMENT '所属班级'  DEFAULT  NULL ,
 
         `sex` tinyint(2) NOT NULL  COMMENT '性别'  DEFAULT  '0' ,
-
+        PRIMARY KEY (`name`) ,
         `name` varchar(50) NOT NULL  COMMENT '学生名称'  DEFAULT  '' 
     )
     </sql>
@@ -97,7 +97,9 @@
                         student.name='',
                     </otherwise>
                 </choose>
+                student.name = $uniqueNode.dbField.sqlField
         where 1=1
+                and student.name = #{name}
 
     </update>
 
@@ -106,6 +108,7 @@
                 <choose><when test="classId!=null">student.class_id=#{classId},</when></choose>
                 <choose><when test="sex!=null">student.sex=#{sex},</when></choose>
                 <choose><when test="name!=null">student.name=#{name},</when></choose>
+                student.name = name
         where ${whereSql}
     </update>
 
@@ -115,6 +118,7 @@
 
     <delete id="deleteStudent" parameterType="hashmap">
         delete student from student student where 1=1
+                and student.name = #{name}
     </delete>
 
     <delete id="deleteStudentByWhereSql" parameterType="hashmap">
@@ -125,6 +129,7 @@
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             delete student from student student where
             1=1
+                    and student.name = #{name}
         </foreach>
     </delete>
 
@@ -151,8 +156,10 @@
                 <choose><when test="item.classId!=null">student.class_id=#{item.classId},</when></choose>
                 <choose><when test="item.sex!=null">student.sex=#{item.sex},</when></choose>
                 <choose><when test="item.name!=null">student.name=#{item.name},</when></choose>
+                        student.name = name
             </set>
             where 1=1
+                 and student.name = #{item.name}
         </foreach>
     </update>
 

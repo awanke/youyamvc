@@ -57,7 +57,7 @@ pageEncoding="UTF-8"%>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="schoolName"
                                                    name="schoolName" title="学校名称"  placeholder="请输入学校名称"
-                                                             value="${school.schoolName}">
+                                                   required  chineseCharacter  minLength="0"            value="${school.schoolName}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>
@@ -86,7 +86,7 @@ pageEncoding="UTF-8"%>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control " id="classCount"
                                                    name="classCount" title="班级个数"  placeholder="请输入班级个数"
-                                                             value="${school.classCount}">
+                                                   digits  minLength="0"            value="${school.classCount}">
                                         </div>
                                         <label class="col-sm-2 control-label" >
                                             <span class="validateMsg"></span>

@@ -13,9 +13,9 @@
     CREATE TABLE `class_teacher` (
         PRIMARY KEY (`id`) , KEY (`id`) , UNIQUE KEY `uniq_id` (`id`) ,
         `id` bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '班级关联老师表主键' ,
-
+ UNIQUE KEY `uniq_class_id` (`class_id`) ,
         `class_id` bigint(20) COMMENT '班级表主键'  DEFAULT  '0' ,
-
+ UNIQUE KEY `uniq_teacher_id` (`teacher_id`) ,
         `teacher_id` bigint(20) COMMENT '老师表主键'  DEFAULT  '0' 
     )
     </sql>
@@ -189,6 +189,9 @@
                 <if test="age !=null "> and teacher.age = #{age }</if>
                             <if test="teacherNameFirst!=null "> and teacher.teacher_name <![CDATA[=]]>
                                         #{teacherNameFirst}
+                            </if>
+                            <if test="ageFirst!=null "> and teacher.age <![CDATA[=]]>
+                                        #{ageFirst}
                             </if>
         <if test="whereSql!=null"> ${whereSql}</if>
     </sql>

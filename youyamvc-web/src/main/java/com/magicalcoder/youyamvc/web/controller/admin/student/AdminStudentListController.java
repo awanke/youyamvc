@@ -175,6 +175,48 @@ public class AdminStudentListController extends AdminLoginController
     }
 
 
+    //根据唯一键到编辑
+    @RequestMapping({"/detailUpdate"})
+    public String detailId(
+        @RequestParam(required=true) String name,
+        ModelMap model) {
+            Student entity = this.studentService.getStudent(name);
+            model.addAttribute("student", entity);
+            foreignModel(entity,model);
+            return "admin/student/studentDetail";
+    }
+
+
+    //保存
+    @RequestMapping(value="save", method={RequestMethod.POST})
+    public String save(@ModelAttribute StudentDto studentDto,
+        HttpServletRequest request,ModelMap model) {
+            try{
+                model.addAttribute("student",studentDto);
+                foreignModel(studentDto,model);
+                saveEntity(studentDto);
+            }catch (Exception e){
+                String exceptionMsg = ProjectUtil.buildExceptionMsg(e.getMessage());
+                model.addAttribute("exceptionMsg","保存失败："+exceptionMsg);
+                return "admin/student/studentDetail";
+            }
+            return "redirect:/admin/student/list";
+    }
+
+    private void saveEntity(StudentDto studentDto){
+        this.studentService.transactionSaveEntity(studentDto,studentDto.getNameOldValue() );
+    }
+
+
+    //删除
+    @RequestMapping({"/delete/{name}"})
+    public void delete(
+        @PathVariable String name,
+        HttpServletResponse response) {
+
+        this.studentService.deleteStudent(name );
+        toJson(response, new AjaxData("ok", "", ""));
+    }
     //清空表结构
     @RequestMapping(value = "truncate")
     public void truncate(HttpServletResponse response) {

@@ -7,6 +7,7 @@
 function buildReqParam(){
     var requestParam = {date:new Date().getTime()}
     setRequestParamById(requestParam,'teacherNameFirst')
+    setRequestParamById(requestParam,'ageFirst')
     //排序
     var orderBy = buildOrderByObj()
     requestParam.orderBySqlField = orderBy.orderBySqlField;

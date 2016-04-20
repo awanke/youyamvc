@@ -8,6 +8,8 @@ function buildReqParam(){
     var requestParam = {date:new Date().getTime()}
     setRequestParamById(requestParam,'schoolNameFirst')
     setRequestParamByName(requestParam,'openFirst')
+    setRequestParamById(requestParam,'createTimeFirst')
+    setRequestParamById(requestParam,'createTimeSecond')
     //排序
     var orderBy = buildOrderByObj()
     requestParam.orderBySqlField = orderBy.orderBySqlField;
@@ -22,7 +24,10 @@ function  getItemPage(pageIndex){
 
                     '<td>{schoolName}</td>' +
                     '<td>{classCount}</td>' +
-                    '<td>{schoolType}</td>' +
+                    '<td>{adress}</td>' +
+                    '<td>{open}</td>' +
+                    '<td>{createTime}</td>' +
+                    '<td>{updateTime}</td>' +
         '<td><a href="admin/school/detail/{id}">编辑</a>' +
         '<a href="javascript:{}" onclick="deleteItem(\'school\',{id})">删除</a></td></trid>';
     var pageSize = 20;//每页多少条记录
@@ -51,8 +56,8 @@ function  getItemPage(pageIndex){
                         value.rankNum = ++rankNum;
                         value.CTX = CTX;
                         //自定义输出
-                        var schoolTypeMap = {"":"全部","0":"类型一","1":"类型二"}
-                        value.schoolType = schoolTypeMap[value.schoolType+""]
+                        var openMap = {"":"全部","false":"否","true":"是"}
+                        value.open = openMap[value.open+""]
                         //赋值替换
                         var tm = template;
                         for(var key in value){

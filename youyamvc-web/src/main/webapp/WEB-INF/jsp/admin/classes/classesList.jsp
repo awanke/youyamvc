@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
     <aside class="right-side">
         <section class="content-header">
             <h1>
-                班级列表
+                班级列表 
                 <a class="btn btn-app" href="admin/classes/detail"><i class="fa fa-edit"></i>新增</a>
             </h1>
             <ol class="breadcrumb">
@@ -47,6 +47,14 @@ pageEncoding="UTF-8"%>
                                                      <input type="text" class="form-control"
                                                       value="${ classNameFirst }"
                                                                                                     id="classNameFirst" name="classNameFirst">
+                                                 </div>
+                                             </div>
+                                             <div class="col-xs-2">
+                                                 <div class="form-group">
+                                                     <label for="studentCountFirst">班级学生人数 (=)</label>
+                                                     <input type="text" class="form-control"
+                                                      value="${ studentCountFirst }"
+                                                                                                    id="studentCountFirst" name="studentCountFirst">
                                                  </div>
                                              </div>
                                               <div class="col-xs-2">
@@ -111,6 +119,8 @@ pageEncoding="UTF-8"%>
                                                   <th><input type="checkbox" id="checkAll"></th>
                                                   <th>序号</th>
                                                  <th  class="sorting" orderField="class_name">                                                      班级名称
+                                                  </th>
+                                                 <th  class="sorting" orderField="student_count">                                                      班级学生人数
                                                   </th>
                                                  <th  class="sorting" orderField="school_id">                                                      学校id
                                                   </th>

@@ -121,10 +121,4 @@ public interface ClassesService{
     */
     void transactionImportJsonList(List<Classes> list);
 
-    /**
-    * 事务保证 保存实体 无自增主键的情况时 先删除 后插入
-    * @param entity
-    * @return
-    */
-    void transactionSaveEntity(Classes entity,Long idOldValue );
 }

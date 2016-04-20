@@ -58,11 +58,17 @@
         <if test="createTime!=null "> and school.create_time = #{createTime,jdbcType=TIMESTAMP}</if>
         <if test="schoolDesc!=null "> and school.school_desc = #{schoolDesc}</if>
         <if test="updateTime!=null "> and school.update_time = #{updateTime,jdbcType=TIMESTAMP}</if>
-                <if test="schoolNameFirst!=null "> and school.school_name <![CDATA[=]]>
-                            #{schoolNameFirst}
+                <if test="schoolNameFirst!=null "> and school.school_name <![CDATA[like]]>
+                            concat('%',#{schoolNameFirst},'%')
                 </if>
                 <if test="openFirst!=null "> and school.open <![CDATA[=]]>
                             #{openFirst}
+                </if>
+                <if test="createTimeFirst!=null "> and school.create_time <![CDATA[>=]]>
+                        #{createTimeFirst,jdbcType=TIMESTAMP}
+                </if>
+                <if test="createTimeSecond!=null "> and school.create_time <![CDATA[<=]]>
+                        #{createTimeSecond,jdbcType=TIMESTAMP}
                 </if>
         <if test="whereSql!=null"> ${whereSql}</if>
     </sql>

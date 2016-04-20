@@ -11,6 +11,12 @@ import java.util.Map;
 */
 public interface StudentService{
 
+    /**
+    * 根据唯一键获取实体
+    * @param  name 学生名称
+    * @return
+    */
+    Student getStudent(String name );
 
     /**
     * 调用mybatis selectOne 如果查询返回超过1条 就会发生异常 请自行处理
@@ -52,6 +58,11 @@ public interface StudentService{
     */
     void updateStudentByWhereSql(Map<String,Object> entity,String whereSql);
 
+    /**
+    * 根据唯一键删除实体
+    * @param  name 学生名称
+    */
+    void deleteStudent(String name );
     /**
     * 删除实体
     * @param entity 如果字段值不为空 将作为查询条件
@@ -105,4 +116,10 @@ public interface StudentService{
     */
     void transactionImportJsonList(List<Student> list);
 
+    /**
+    * 事务保证 保存实体 无自增主键的情况时 先删除 后插入
+    * @param entity
+    * @return
+    */
+    void transactionSaveEntity(Student entity,String nameOldValue );
 }

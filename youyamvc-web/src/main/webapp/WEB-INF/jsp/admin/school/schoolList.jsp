@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
     <aside class="right-side">
         <section class="content-header">
             <h1>
-                学校列表
+                学校列表 
                 <a class="btn btn-app" href="admin/school/detail"><i class="fa fa-edit"></i>新增</a>
             </h1>
             <ol class="breadcrumb">
@@ -43,10 +43,10 @@ pageEncoding="UTF-8"%>
                                         <div class="row">
                                              <div class="col-xs-2">
                                                  <div class="form-group">
-                                                     <label for="schoolNameFirst">学校名称 (=)</label>
+                                                     <label for="schoolNameFirst">学校名称 (like)</label>
                                                      <input type="text" class="form-control"
                                                       value="${ schoolNameFirst }"
-                                                                                                    id="schoolNameFirst" name="schoolNameFirst">
+                                                   required  chineseCharacter  minLength="0"                                                   id="schoolNameFirst" name="schoolNameFirst">
                                                  </div>
                                              </div>
                                              <div class="col-xs-2">
@@ -56,7 +56,27 @@ pageEncoding="UTF-8"%>
     <input type="radio" name="openFirst" value="false">否
     <input type="radio" name="openFirst" value="true">是
                                              </div>
-                                             </div>                                                <div class="col-xs-2">
+                                             </div>                                                 <div class="col-xs-2">
+                                                 <div class="form-group">
+                                                 <label for="createTimeFirst"> 创建时间 (>=)</label>
+                                                 <input  type="text"
+                                                  class="Wdate form-control" style="width: 170px;"
+                                                  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'%y-%M-%d %H:%m:%s'})"
+                                                      value="<c:out value='${ createTimeFirst }' escapeXml="false"/>"
+                                                  id="createTimeFirst" name="createTimeFirst">
+                                                 </div>
+                                                 </div>
+                                                 <div class="col-xs-2">
+                                                 <div class="form-group">
+                                                 <label for="createTimeSecond"> 创建时间 (<=)</label>
+                                                 <input  type="text"
+                                                  class="Wdate form-control" style="width: 170px;"
+                                                  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'%y-%M-%d %H:%m:%s'})"
+                                                  value="<c:out value='${ createTimeSecond }' escapeXml="false"/>"
+                                                  id="createTimeSecond" name="createTimeSecond">
+                                                 </div>
+                                                 </div>
+                                                <div class="col-xs-2">
                                                     <div class="form-group">
                                                         <label for="querySubmit">&nbsp;</label>
                                                         <button class="btn btn-primary form-control" id="querySubmit">查询</button>
@@ -111,7 +131,13 @@ pageEncoding="UTF-8"%>
                                                   </th>
                                                  <th  class="sorting" orderField="class_count">                                                      班级个数
                                                   </th>
-                                                 <th  class="sorting" orderField="school_type">                                                      学校类型
+                                                 <th  class="sorting" orderField="adress">                                                      学校地址
+                                                  </th>
+                                                 <th  class="sorting" orderField="open">                                                      是否开学
+                                                  </th>
+                                                 <th  class="sorting" orderField="create_time">                                                      创建时间
+                                                  </th>
+                                                 <th  class="sorting" orderField="update_time">                                                      更新时间
                                                   </th>
                                                   <th>操作</th>
                                               </tr>
