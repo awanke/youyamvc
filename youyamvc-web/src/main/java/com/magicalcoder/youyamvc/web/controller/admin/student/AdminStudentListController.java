@@ -1,6 +1,7 @@
 package com.magicalcoder.youyamvc.web.controller.admin.student;
 import com.magicalcoder.youyamvc.app.student.service.StudentService;
 import com.magicalcoder.youyamvc.app.student.constant.StudentConstant;
+import com.magicalcoder.youyamvc.app.student.util.StudentUtil;
 import com.magicalcoder.youyamvc.app.student.dto.StudentDto;
 import com.magicalcoder.youyamvc.app.model.Student;
 import com.magicalcoder.youyamvc.core.common.utils.ProjectUtil;
@@ -64,32 +65,17 @@ public class AdminStudentListController extends AdminLoginController
         return "admin/student/studentList";
     }
 
-    private String filterOrderBy(String orderBySqlField,String descAsc){
-        String orderBy = null;
-        //排序部分防sql注入安全过滤
-        if(StringUtils.isNotBlank(descAsc)){
-            orderBySqlField = orderBySqlField.toLowerCase().trim();
-            descAsc=descAsc.toLowerCase().trim();
-            if("asc".equals(descAsc) || "desc".equals(descAsc)){
-                String orderBySqlFieldStr = ",class_id,sex,name,";
-                if(orderBySqlFieldStr.contains("" + orderBySqlField+"")){//精确匹配可排序字段
-                    orderBy = orderBySqlField+" "+descAsc;
-                }
-            }
-        }
-        return orderBy;
-    }
     //分页查询
     @RequestMapping(value={"page/{pageIndex}/{pageSize}/{pageCount}"}, method={RequestMethod.GET})
     public void page(@PathVariable Integer pageIndex,@PathVariable Integer pageSize, @PathVariable Integer pageCount,
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
-                @RequestParam(required = false,value ="classIdFirst")                        Long classIdFirst ,
-                @RequestParam(required = false,value ="sexFirst")                        Integer sexFirst ,
-                @RequestParam(required = false,value ="nameFirst")                        String nameFirst ,
+        @RequestParam(required = false,value ="classIdFirst")                        Long classIdFirst ,
+        @RequestParam(required = false,value ="sexFirst")                        Integer sexFirst ,
+        @RequestParam(required = false,value ="nameFirst")                        String nameFirst ,
           HttpServletResponse response)
     {
-        String orderBy = filterOrderBy(orderBySqlField,descAsc);
+        String orderBy = StudentUtil.filterOrderBy(orderBySqlField,descAsc);
         pageSize = Math.min(StudentConstant.PAGE_MAX_SIZE,pageSize);
         int idx = (pageIndex.intValue() - 1) * pageSize;
 
@@ -244,11 +230,11 @@ public class AdminStudentListController extends AdminLoginController
     public void exportJson(@PathVariable Integer start,@PathVariable Integer limit,
         @RequestParam(required=false, value="orderBySqlField") String orderBySqlField,
         @RequestParam(required=false, value="descAsc") String descAsc,
-                @RequestParam(required = false,value ="classIdFirst")                        Long classIdFirst ,
-                @RequestParam(required = false,value ="sexFirst")                        Integer sexFirst ,
-                @RequestParam(required = false,value ="nameFirst")                        String nameFirst ,
+        @RequestParam(required = false,value ="classIdFirst")                        Long classIdFirst ,
+        @RequestParam(required = false,value ="sexFirst")                        Integer sexFirst ,
+        @RequestParam(required = false,value ="nameFirst")                        String nameFirst ,
         HttpServletResponse response){
-        String orderBy = filterOrderBy(orderBySqlField,descAsc);
+        String orderBy = StudentUtil.filterOrderBy(orderBySqlField,descAsc);
         Map<String,Object> query = ProjectUtil.buildMap("orderBy", orderBy, new Object[] {
                 "classIdFirst",classIdFirst ,
                 "sexFirst",sexFirst ,

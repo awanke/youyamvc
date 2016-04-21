@@ -6,18 +6,19 @@ package com.magicalcoder.youyamvc.core.common.dto;
  * @author hdy 2013-7-15下午5:18:58
  */
 public class JsonData {
-
 	private Integer code = 0;// 默认值
 	private String message;
 	private Object info;
 	private String jsonp;
-
+	private String encode;
+	private boolean writeNull;//是否输出null
 	public static class Builder{
 		private Integer code = 0;// 默认值
 		private String message;
 		private Object info;
 		private String jsonp;
-
+		private String encode;
+		private boolean writeNull;
 		public Builder(Object info){
 			this.info = info;
 		}
@@ -35,6 +36,14 @@ public class JsonData {
 			return this;
 		}
 
+		public Builder encode(String encode){
+			this.encode = encode;
+			return this;
+		}
+		public Builder writeNull(boolean writeNull){
+			this.writeNull = writeNull;
+			return this;
+		}
 		public JsonData build(){
 			return new JsonData(this);
 		}
@@ -45,6 +54,8 @@ public class JsonData {
 		this.jsonp = builder.jsonp;
 		this.message = builder.message;
 		this.info = builder.info;
+		this.encode = builder.encode;
+		this.writeNull = builder.writeNull;
 	}
 
 	public Integer getCode() {
@@ -77,5 +88,21 @@ public class JsonData {
 
 	public void setJsonp(String jsonp) {
 		this.jsonp = jsonp;
+	}
+
+	public String getEncode() {
+		return encode;
+	}
+
+	public void setEncode(String encode) {
+		this.encode = encode;
+	}
+
+	public boolean isWriteNull() {
+		return writeNull;
+	}
+
+	public void setWriteNull(boolean writeNull) {
+		this.writeNull = writeNull;
 	}
 }
