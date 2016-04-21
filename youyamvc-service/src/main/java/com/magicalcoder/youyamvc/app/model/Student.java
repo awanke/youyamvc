@@ -12,6 +12,7 @@ public class Student{
     private Long classId;//所属班级
     private Integer sex;//性别
     private String name;//学生名称
+    private Long identyKey;//主键值
 
     public Long getClassId(){
         return classId;
@@ -30,6 +31,12 @@ public class Student{
     }
     public void setName(String name){
         this.name = name;
+    }
+    public Long getIdentyKey(){
+        return identyKey;
+    }
+    public void setIdentyKey(Long identyKey){
+        this.identyKey = identyKey;
     }
 
 }

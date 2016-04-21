@@ -43,9 +43,9 @@ public class StudentDaoImpl   implements StudentDao {
     }
 
     @Override
-    public     void insertStudent(Student entity) {
+    public     Long  insertStudent(Student entity) {
         sqlSessionTemplate.insert("StudentMapper.insertStudent",entity);
-    }
+  return entity.getIdentyKey();    }
     @Override
     public void updateStudent(Student entity) {
         sqlSessionTemplate.update("StudentMapper.updateStudent", entity);
@@ -74,6 +74,10 @@ public class StudentDaoImpl   implements StudentDao {
     @Override
     public void deleteStudentByWhereSql(Map<String, Object> query) {
         sqlSessionTemplate.delete("StudentMapper.deleteStudentByWhereSql",query);
+    }
+    @Override
+    public void batchDeleteStudent(List<Long> list) {
+        sqlSessionTemplate.delete("StudentMapper.batchDeleteStudent",list);
     }
     @Override
     public void batchDeleteStudentList(List<Student> list) {

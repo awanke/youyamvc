@@ -161,47 +161,66 @@ public class AdminStudentListController extends AdminLoginController
     }
 
 
-    //根据唯一键到编辑
-    @RequestMapping({"/detailUpdate"})
-    public String detailId(
-        @RequestParam(required=true) String name,
-        ModelMap model) {
-            Student entity = this.studentService.getStudent(name);
-            model.addAttribute("student", entity);
-            foreignModel(entity,model);
-            return "admin/student/studentDetail";
+    //根据主键到编辑
+    @RequestMapping({"/detail/{identyKey}"})
+        public String detailId(@PathVariable Long identyKey, ModelMap model) {
+        Student entity = this.studentService.getStudent(identyKey);
+        model.addAttribute("student", entity);
+        foreignModel(entity,model);
+        return "admin/student/studentDetail";
     }
 
 
     //保存
     @RequestMapping(value="save", method={RequestMethod.POST})
-    public String save(@ModelAttribute StudentDto studentDto,
+    public String save(@ModelAttribute Student student,
         HttpServletRequest request,ModelMap model) {
-            try{
-                model.addAttribute("student",studentDto);
-                foreignModel(studentDto,model);
-                saveEntity(studentDto);
-            }catch (Exception e){
-                String exceptionMsg = ProjectUtil.buildExceptionMsg(e.getMessage());
-                model.addAttribute("exceptionMsg","保存失败："+exceptionMsg);
-                return "admin/student/studentDetail";
-            }
-            return "redirect:/admin/student/list";
+        try{
+            model.addAttribute("student",student);
+            foreignModel(student,model);
+            saveEntity(student);
+        }catch (Exception e){
+            String exceptionMsg = ProjectUtil.buildExceptionMsg(e.getMessage());
+            model.addAttribute("exceptionMsg","保存失败："+exceptionMsg);
+            return "admin/student/studentDetail";
+        }
+        return "redirect:/admin/student/list";
     }
 
-    private void saveEntity(StudentDto studentDto){
-        this.studentService.transactionSaveEntity(studentDto,studentDto.getNameOldValue() );
+    private void saveEntity(Student student){
+        if (student.getIdentyKey() == null) {
+            this.studentService.insertStudent(student);
+        } else {
+            Student entity = this.studentService.getStudent(student.getIdentyKey());
+            Copyer.copy(student, entity);
+            this.studentService.updateStudent(entity);
+        }
     }
-
 
     //删除
-    @RequestMapping({"/delete/{name}"})
-    public void delete(
-        @PathVariable String name,
-        HttpServletResponse response) {
-
-        this.studentService.deleteStudent(name );
+    @RequestMapping({"/delete/{identyKey}"})
+    public void delete(@PathVariable Long identyKey, HttpServletResponse response) {
+        this.studentService.deleteStudent(identyKey);
         toJson(response, new AjaxData("ok", "", ""));
+    }
+    //批量删除
+    @RequestMapping({"/batchdelete/{ids}"})
+    public void batchDelete(@PathVariable String ids, HttpServletResponse response) {
+        if(StringUtils.isNotBlank(ids)){
+            String[] idArr = ids.split(",");
+            List<Long> list = new ArrayList<Long>();
+            for(String id:idArr){
+                if(StringUtils.isNotBlank(id)){
+                    list.add(Long.valueOf(id));
+                }
+            }
+            if(ListUtils.isNotBlank(list)){
+                this.studentService.batchDeleteStudent(list);
+                toJson(response, new AjaxData("ok", "", ""));
+            }
+        }else{
+            toJson(response, new AjaxData("error", "没有要删除的主键", ""));
+        }
     }
     //清空表结构
     @RequestMapping(value = "truncate")

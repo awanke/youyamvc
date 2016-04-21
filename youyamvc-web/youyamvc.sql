@@ -53,7 +53,7 @@ CREATE TABLE `class_teacher` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_id` (`id`),
   UNIQUE KEY `id` (`class_id`,`teacher_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='班级关联教师';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='班级关联教师';
 
 /*Data for the table `class_teacher` */
 
@@ -71,11 +71,11 @@ CREATE TABLE `classes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_id` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='班级';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='班级';
 
 /*Data for the table `classes` */
 
-insert  into `classes`(`id`,`class_name`,`student_count`,`school_id`) values (1,'社会学',37,1),(2,'计算机科学与技术',100,1),(3,'生物工程',100,2);
+insert  into `classes`(`id`,`class_name`,`student_count`,`school_id`) values (1,'社会学',37,1),(2,'计算机科学与技术',100,1),(3,'生物工程',100,2),(4,'3',3,1);
 
 /*Table structure for table `dict` */
 
@@ -112,11 +112,11 @@ CREATE TABLE `school` (
   UNIQUE KEY `uniq_id` (`id`),
   UNIQUE KEY `uniq_school_name` (`school_name`),
   UNIQUE KEY `u_c` (`class_count`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='学校';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='学校';
 
 /*Data for the table `school` */
 
-insert  into `school`(`id`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`,`update_time`) values (1,'安徽大学','upload/school/20160415140120_785644.jpg',10,'合肥市经济技术开发区九龙路111号',1,'0','2016-03-17 14:14:28','<span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">新闻</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 学术</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 活力</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 校友</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 数字</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> Copyright . 2015 All rights reserved 皖ICP备020547号 联系地址 磬苑校区:合肥市经济技术开发区九龙路111号 邮编...</span>','2016-03-23 11:32:30'),(2,'浙江大学','upload/school/20160415140213_942953.jpg',20,'',1,'0','2016-04-15 14:03:18','<span style=\"color:#262626;font-family:微软雅黑, \'Microsoft YaHei\';font-size:14px;line-height:22.4px;background-color:#F5EFE5;\">浙江大学是一所历史悠久、声誉卓著的高等学府，坐落于中国历史文化名城、风景旅游胜地杭州。浙江大学的前身求是书院创立于1897年，为中国人自己最早创办的新式高等学校之一。1928年，定名国立浙江大学。抗战期间，浙大举校西迁，在贵州遵义、湄潭等地办学七年，1946年秋回迁杭州。1952年全国高等学校院系调整时，浙江大学部分系科转入兄弟高校和中国科学院，留在杭州的主体部分被分为多所单科性院校，后分别发展为原浙江大学、杭州大学、浙江农业大学和浙江医科大学。1998年，同根同源的四校实现合并，组建了新浙江大学，迈上了创建世界一流大学的新征程。在一百一十多年的办学历程中，浙江大学始终以造就卓越人才、推动科技进步、服务社会发展、弘扬先进文化为己任，逐渐形成了以“求是创新”为校训的优良传统。 </span>','2016-04-15 14:03:16');
+insert  into `school`(`id`,`school_name`,`head_img`,`class_count`,`adress`,`school_type`,`open`,`create_time`,`school_desc`,`update_time`) values (1,'安徽大学','upload/school/20160419181833_156001.jpg',10,'合肥市经济技术开发区九龙路111号',1,'1','2016-03-17 14:14:28','<span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">新闻</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 学术</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 活力</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 校友</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> 数字</span><span style=\"color:#CC0000;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\">安大</span><span style=\"color:#333333;font-family:arial;font-size:13px;line-height:20.02px;background-color:#FFFFFF;\"> Copyright . 2015 All rights reserved 皖ICP备020547号 联系地址 磬苑校区:合肥市经济技术开发区九龙路111号 邮编...</span>','2016-03-23 11:32:30'),(2,'浙江大学','upload/school/20160415140213_942953.jpg',20,'',1,'0','2016-04-15 14:03:18','<span style=\"color:#262626;font-family:微软雅黑, \'Microsoft YaHei\';font-size:14px;line-height:22.4px;background-color:#F5EFE5;\">浙江大学是一所历史悠久、声誉卓著的高等学府，坐落于中国历史文化名城、风景旅游胜地杭州。浙江大学的前身求是书院创立于1897年，为中国人自己最早创办的新式高等学校之一。1928年，定名国立浙江大学。抗战期间，浙大举校西迁，在贵州遵义、湄潭等地办学七年，1946年秋回迁杭州。1952年全国高等学校院系调整时，浙江大学部分系科转入兄弟高校和中国科学院，留在杭州的主体部分被分为多所单科性院校，后分别发展为原浙江大学、杭州大学、浙江农业大学和浙江医科大学。1998年，同根同源的四校实现合并，组建了新浙江大学，迈上了创建世界一流大学的新征程。在一百一十多年的办学历程中，浙江大学始终以造就卓越人才、推动科技进步、服务社会发展、弘扬先进文化为己任，逐渐形成了以“求是创新”为校训的优良传统。 </span>','2016-04-15 14:03:16'),(3,'测试学校','upload/school/20160419174902_647821.png',11,'',0,'0',NULL,'',NULL);
 
 /*Table structure for table `student` */
 
@@ -126,12 +126,14 @@ CREATE TABLE `student` (
   `class_id` bigint(20) NOT NULL COMMENT '所属班级',
   `sex` tinyint(2) NOT NULL DEFAULT '0' COMMENT '性别',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '学生名称',
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生';
+  `identy_key` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键值',
+  PRIMARY KEY (`name`),
+  KEY `identy_key` (`identy_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='学生';
 
 /*Data for the table `student` */
 
-insert  into `student`(`class_id`,`sex`,`name`) values (3,0,'一年级');
+insert  into `student`(`class_id`,`sex`,`name`,`identy_key`) values (2,2,'2',1),(3,3,'3',2),(4,4,'4',3),(3,0,'一年级',4);
 
 /*Table structure for table `teacher` */
 

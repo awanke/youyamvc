@@ -43,6 +43,8 @@ YouyaMvc更新日志
 2016-3-25
     1 ProjectUtil迁移至core 便于升级管理
     2 更改默认缓存服务器为ehcache，刚下载工程可以不安装memcache导入表结构后直接启动
+2016-4-21
+    1 优化了很多功能 配合最新版神奇码农pc客户端
 
 MagicalCoder更新日志
 2016-3-17

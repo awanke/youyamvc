@@ -14,7 +14,7 @@ public interface StudentDao{
     List<Student> getStudentList(Map<String, Object> query);
     Integer getStudentListCount(Map<String, Object> query);
 
-    void insertStudent(Student entity);    void batchInsertStudent(List<Student> list);
+    Long  insertStudent(Student entity);    void batchInsertStudent(List<Student> list);
     void batchUpdateStudent(List<Student> list);
     void updateStudent(Student entity);
     void updateStudentByWhereSql(Map<String,Object> entity);
@@ -25,5 +25,6 @@ public interface StudentDao{
     void truncateStudent();
     void deleteStudent(Map<String, Object> query);
     void deleteStudentByWhereSql(Map<String, Object> query);
+    void batchDeleteStudent(List<Long> list);
     void batchDeleteStudentList(List<Student> entityList);
 }

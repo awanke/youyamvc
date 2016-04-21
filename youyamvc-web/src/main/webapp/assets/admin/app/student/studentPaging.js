@@ -19,13 +19,13 @@ function buildReqParam(){
 /*pageIndex 当前是第几页 1:第一页*/
 function  getItemPage(pageIndex){
     var template =
-            '<tr id="tr{name}"><td></td><td>{rankNum}</td>'+
+            '<tr id="tr{identyKey}"><td><input type="checkbox" value="{identyKey}" class="tdcheckbox"></td><td>{rankNum}</td>'+
 
                     '<td>{name}</td>' +
             '<td><a title="点击查看详情" target="_blank" onclick="openUrl(this,\'admin/classes/detail_param?id={classId}\')"> {classIdForeignShowValue}</a></td>' +
                     '<td>{sex}</td>' +
-        '<td><a href="admin/student/detailUpdate?name={name}">编辑</a>' +
-        '<a href="javascript:{}" onclick="deleteItem(\'student\',\'{name}\')">删除</a></td></tr>';
+        '<td><a href="admin/student/detail/{identyKey}">编辑</a>' +
+        '<a href="javascript:{}" onclick="deleteItem(\'student\',{identyKey})">删除</a></td></trid>';
     var pageSize = 20;//每页多少条记录
     var pageCount = parseInt($("#pageCount").val());//总共多少条记录
     var url ='admin/student/page/'+pageIndex+'/'+pageSize+'/'+pageCount;

@@ -26,9 +26,9 @@ public class StudentServiceImpl implements StudentService{
 
 
     @Override
-    public Student getStudent(String name ) {
+    public Student getStudent(Long identyKey) {
         Map<String,Object> query = new HashMap<String,Object>();
-        query.put("name", name);
+        query.put("identyKey", identyKey);
         return studentDao.getStudent(query);
     }
 
@@ -48,8 +48,8 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public     void insertStudent(Student entity) {
-studentDao.insertStudent(entity);
+    public     Long  insertStudent(Student entity) {
+        return studentDao.insertStudent(entity);
     }
 
     @Override
@@ -72,9 +72,9 @@ studentDao.insertStudent(entity);
     }
 
     @Override
-    public void deleteStudent(String name ){
+    public void deleteStudent(Long identyKey) {
         Map<String,Object> query = new HashMap<String,Object>();
-        query.put("name", name);
+        query.put("identyKey", identyKey);
         studentDao.deleteStudent(query);
     }
     @Override
@@ -117,6 +117,10 @@ studentDao.insertStudent(entity);
         //校验
         studentDao.batchUpdateStudent(list);
     }
+    @Override
+    public void batchDeleteStudent(List<Long> idList) {
+        studentDao.batchDeleteStudent(idList);
+    }
 
     @Override
     public void batchDeleteStudentList(List<Student> entityList){
@@ -126,18 +130,21 @@ studentDao.insertStudent(entity);
     @Transactional
     @Override
     public void transactionImportJsonList(List<Student> list) {
-    if(list!=null && list.size()>0){
-        for(Student student : list){
-            deleteStudent(student.getName() );
-            insertStudent(student);
+        if(list!=null && list.size()>0){
+            for(Student student : list){
+                if (student.getIdentyKey() == null) {
+                    insertStudent(student);
+                } else {
+                    Student entity = getStudent(student.getIdentyKey());
+                    if(entity==null){
+                        insertStudent(student);
+                    }else {
+                        CopyerSpringUtil.copyProperties(student, entity);
+                        updateStudent(entity);
+                    }
+                }
+            }
         }
     }
-    }
 
-    @Transactional
-    @Override
-    public void transactionSaveEntity(Student entity,String nameOldValue ) {
-        deleteStudent(nameOldValue );
-        insertStudent(entity);
-    }
 }

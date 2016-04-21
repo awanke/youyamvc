@@ -16,13 +16,16 @@
 
         `sex` tinyint(2) NOT NULL  COMMENT '性别'  DEFAULT  '0' ,
         PRIMARY KEY (`name`) ,
-        `name` varchar(50) NOT NULL  COMMENT '学生名称'  DEFAULT  '' 
+        `name` varchar(50) NOT NULL  COMMENT '学生名称'  DEFAULT  '' ,
+ KEY (`identy_key`) ,
+        `identy_key` bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '主键值' 
     )
     </sql>
     <sql id="selectSqlStudent">
         student.class_id classId,
         student.sex ,
-        student.name 
+        student.name ,
+        student.identy_key identyKey
     </sql>
 
    <sql id="whereSqlStudent">
@@ -30,6 +33,7 @@
         <if test="classId!=null "> and student.class_id = #{classId}</if>
         <if test="sex!=null "> and student.sex = #{sex}</if>
         <if test="name!=null "> and student.name = #{name}</if>
+        <if test="identyKey!=null "> and student.identy_key = #{identyKey}</if>
                 <if test="classIdFirst!=null "> and student.class_id <![CDATA[=]]>
                             #{classIdFirst}
                 </if>
@@ -43,9 +47,19 @@
     </sql>
 
     <insert id="insertStudent" parameterType="Student" >
+        <selectKey resultType="Long" order="AFTER" keyProperty="identyKey" >
+            <choose>
+                <when test="identyKey==null">
+                    SELECT LAST_INSERT_ID() AS identyKey
+                </when>
+                <otherwise>SELECT #{identyKey} as identyKey</otherwise>
+            </choose>
+        </selectKey>
         insert into student (
+    <if test="identyKey!=null">`identy_key`,</if>
             `class_id`,            `sex`,            `name`        )
         values(
+            <if test="identyKey!=null">#{identyKey`},</if>
             <choose>
                 <when test="classId==null">
                     NULL
@@ -97,9 +111,9 @@
                         student.name='',
                     </otherwise>
                 </choose>
-                student.name = $uniqueNode.dbField.sqlField
+                student.identy_key = identy_key
         where 1=1
-                and student.name = #{name}
+            and student.identy_key = #{identyKey}
 
     </update>
 
@@ -108,7 +122,7 @@
                 <choose><when test="classId!=null">student.class_id=#{classId},</when></choose>
                 <choose><when test="sex!=null">student.sex=#{sex},</when></choose>
                 <choose><when test="name!=null">student.name=#{name},</when></choose>
-                student.name = name
+            student.identy_key = identyKey
         where ${whereSql}
     </update>
 
@@ -118,13 +132,17 @@
 
     <delete id="deleteStudent" parameterType="hashmap">
         delete student from student student where 1=1
-                and student.name = #{name}
+            and student.identy_key = #{identyKey}
     </delete>
 
     <delete id="deleteStudentByWhereSql" parameterType="hashmap">
         delete student from student student where ${whereSql}
     </delete>
 
+    <delete id="batchDeleteStudent" parameterType="java.util.List">
+        delete student from student student where student.identy_key in
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">#{identyKey}</foreach>
+    </delete>
     <delete id="batchDeleteStudentList" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             delete student from student student where
@@ -156,10 +174,10 @@
                 <choose><when test="item.classId!=null">student.class_id=#{item.classId},</when></choose>
                 <choose><when test="item.sex!=null">student.sex=#{item.sex},</when></choose>
                 <choose><when test="item.name!=null">student.name=#{item.name},</when></choose>
-                        student.name = name
+                    student.identy_key = identyKey
             </set>
             where 1=1
-                 and student.name = #{item.name}
+                and student.identy_key = #{identyKey}
         </foreach>
     </update>
 

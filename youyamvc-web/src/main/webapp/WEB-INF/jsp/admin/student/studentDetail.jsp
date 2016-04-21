@@ -41,11 +41,11 @@ pageEncoding="UTF-8"%>
                             <form class="form-horizontal" role="form" id="form" action="admin/student/save" method="post">
                                 <div class="box-header">
                                     <h3 class="box-title">
-                                            编辑
+                                        <c:choose><c:when test="${student.identyKey==null}">新增</c:when><c:otherwise>编辑</c:otherwise></c:choose>
                                     </h3>
                                     <h3 class="box-title alert-danger">${exceptionMsg}</h3>
                                 </div>
-                                        <input type="hidden" name="nameOldValue" value="${student.name}">
+                                    <input type="hidden" name="identyKey" value="${student.identyKey}">
 
                                 <div class="box-body">
                                     <div class="form-group ">
