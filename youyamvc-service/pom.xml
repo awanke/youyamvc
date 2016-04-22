@@ -139,10 +139,19 @@
           <groupId>javax.servlet</groupId>
           <artifactId>servlet-api</artifactId>
       </dependency>
-      <dependency>
+<!--      <dependency>
           <groupId>Pingplusplus</groupId>
           <artifactId>pingpp-java</artifactId>
           <type>jar</type>
+      </dependency>-->
+      <!-- velocity-->
+      <dependency>
+          <groupId>org.apache.velocity</groupId>
+          <artifactId>velocity</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.velocity</groupId>
+          <artifactId>velocity-tools</artifactId>
       </dependency>
 	</dependencies>
 	

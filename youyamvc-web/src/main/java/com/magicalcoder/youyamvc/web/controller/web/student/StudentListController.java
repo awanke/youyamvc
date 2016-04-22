@@ -42,32 +42,33 @@ public class StudentListController extends BaseController
      *   url:/user/student/list/{pageIndex}/{pageSize}?...
      *   demo:/user/student/list/1/20
      *   获取学生分页数据
-     *   入参
-     *   @pageIndex 当前页码 [1,n]
-     *   @pageSize  每页条数 [1,n]
-     *   @pageCount 页数 如果传进来将会优化性能 对于需要分页的数据 请求第二页的时候可以把上一页的值传进来
-     *   @needPageCount 是否需要返回pageCount
-     *   @callback callback
-     *   @encode 编码
-     *   @classId         所属班级(Long) 
-     *   @sex         性别(Integer) [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
-     *   @name         学生名称(String) 
-     *   @identyKey         主键值(Long) 
-     *     @classIdFirst         所属班级(Long) 
-     *     @sexFirst         性别(Integer) [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
-     *     @nameFirst         学生名称(String) 
-     *    @orderBySqlField 排序字段 class_id|sex|name|identy_key|
-     *    @descAsc   desc|asc
+     *   是否需要登录
+     *是否必须   入参                          注释
+     *  是   @pageIndex                     (Integer)当前页码 [1,n]
+     *  是   @pageSize                      (Integer)每页条数 [1,n]
+     *  否   @pageCount                     (Integer)页数 如果传进来将会优化性能 对于需要分页的数据 请求第二页的时候可以把上一页的值传进来
+     *  否   @needPageCount                 (Boolean)是否需要返回pageCount
+     *  否   @callback                      (String)回调方法
+     *  否   @encode                        (String)编码 默认UTF-8
+     *  否   @classId                     (Long)所属班级 
+     *  否   @sex                     (Integer)性别 [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
+     *  否   @name                     (String)学生名称 
+     *  否   @identyKey                     (Long)主键值 
+     *  否   @classIdFirst                     (Long)所属班级 
+     *  否   @sexFirst                     (Integer)性别 [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
+     *  否   @nameFirst                     (String)学生名称 
+     *  否   @orderBySqlField                     (String)排序字段 class_id|sex|name|identy_key|
+     *  否   @descAsc                             (String)desc|asc
      *   返回
      *   {
      *      code:0,message:"",jsonp:"",
      *      info:
                 pageCount://总数目
                 pageList:[{
-     *              classId         所属班级(Long) 
-     *              sex         性别(Integer) [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
-     *              name         学生名称(String) 
-     *              identyKey         主键值(Long) 
+     *              classId         (Long)所属班级 
+     *              sex         (Integer)性别 [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
+     *              name         (String)学生名称 
+     *              identyKey         (Long)主键值 
      *      }]
      *   }
      */
@@ -133,17 +134,17 @@ public class StudentListController extends BaseController
     *   url:/user/student/get/{identyKey}
     *   demo:/user/student/get/1
     *   根据主键获取学生
-    *   入参
-    *   @id 主键 Long
+    *是否必须         入参                              注释
+    *是       @identyKey               (Long)主键
     *
     *   返回
     *   {
     *      code:0,message:"",jsonp:"",
     *      info:{
-    *              classId         所属班级(Long) 
-    *              sex         性别(Integer) [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
-    *              name         学生名称(String) 
-    *              identyKey         主键值(Long) 
+    *              classId         (Long)所属班级 
+    *              sex         (Integer)性别 [{"":"全部"},{"0":"类型一"},{"1":"类型二"}]
+    *              name         (String)学生名称 
+    *              identyKey         (Long)主键值 
     *      }
     *   }
     */
@@ -153,5 +154,11 @@ public class StudentListController extends BaseController
         Long userId = UserWebUtil.userId(request);
         Student entity = studentService.selectOneStudentWillThrowException(ProjectUtil.buildMap("identyKey",identyKey,"userId",userId));
         toWebSuccessJson(response,toMap(entity));
+    }
+
+    @RequestMapping(value = "/testvm",method = RequestMethod.GET)
+    public String testVm(ModelMap modelMap){
+        modelMap.addAttribute("name","hdy");
+        return "student";
     }
 }

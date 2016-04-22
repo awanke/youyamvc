@@ -17,13 +17,28 @@
 	 <mvc:resources mapping="/assets/**"  location="/youyamvc-web/assets/"/>     
          <mvc:default-servlet-handler />
 	-->
-	  <bean id="jspViewResolver"  
+	<bean id="jspViewResolver"
     		class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
 	        <property name="viewClass"  
 	            value="org.springframework.web.servlet.view.JstlView" />  
 	        <property name="prefix" value="/WEB-INF/jsp/" />  
 	        <property name="suffix" value=".jsp" />  
-  		</bean>
+	</bean>
+
+	<!--<bean id="velocityConfigurer"
+		  class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath"  value="/WEB-INF/vm" />&lt;!&ndash; 模板位置&ndash;&gt;
+		<property name="configLocation" value="classpath:velocity.properties" />
+	</bean>
+	<bean id="velocityViewResolver"
+		  class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="viewClass"
+				  value="org.springframework.web.servlet.view.velocity.VelocityView" />
+		<property name="suffix" value=".vm" />&lt;!&ndash; 无需前缀 否则会跟resourceLoaderPath冲突&ndash;&gt;
+		&lt;!&ndash; 避免乱码 &ndash;&gt;
+		<property name="contentType" value="text/html;charset=UTF-8" />
+	</bean>-->
+
   	<mvc:interceptors>
   			<!-- 所有请求 -->
 		   <bean class="com.magicalcoder.youyamvc.web.interceptor.ContextInterceptor"/>
