@@ -158,7 +158,8 @@ public class StudentListController extends BaseController
 
     @RequestMapping(value = "/testvm",method = RequestMethod.GET)
     public String testVm(ModelMap modelMap){
-        modelMap.addAttribute("name","hdy");
+        modelMap.addAttribute("name","");
+        modelMap.addAttribute("StringUtils",StringUtils.class);
         return "student";
     }
 }

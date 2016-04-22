@@ -39,6 +39,23 @@
 		<property name="contentType" value="text/html;charset=UTF-8" />
 	</bean>-->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   	<mvc:interceptors>
   			<!-- 所有请求 -->
 		   <bean class="com.magicalcoder.youyamvc.web.interceptor.ContextInterceptor"/>
