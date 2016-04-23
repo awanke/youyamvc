@@ -1,5 +1,5 @@
 <div class="tydb-equip">
-     haha
+     ddd
             <span class="tydb-skill-type"></span><br/>
 
 </div>

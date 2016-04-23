@@ -153,11 +153,17 @@ public class StudentListController extends BaseController
         HttpServletRequest request,HttpServletResponse response){
         Long userId = UserWebUtil.userId(request);
         Student entity = studentService.selectOneStudentWillThrowException(ProjectUtil.buildMap("identyKey",identyKey,"userId",userId));
-        toWebSuccessJson(response,toMap(entity));
+        toWebSuccessJson(response, toMap(entity));
     }
 
     @RequestMapping(value = "/testvm",method = RequestMethod.GET)
     public String testVm(ModelMap modelMap){
+        modelMap.addAttribute("name","");
+        modelMap.addAttribute("StringUtils", StringUtils.class);
+        return "web/student.vm";
+    }
+    @RequestMapping(value = "/testjsp",method = RequestMethod.GET)
+    public String testJsp(ModelMap modelMap){
         modelMap.addAttribute("name","");
         modelMap.addAttribute("StringUtils",StringUtils.class);
         return "student";

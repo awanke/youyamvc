@@ -17,43 +17,34 @@
 	 <mvc:resources mapping="/assets/**"  location="/youyamvc-web/assets/"/>     
          <mvc:default-servlet-handler />
 	-->
+
+    <!-- 多视图并存 begin-->
+    <bean id="velocityConfigurer"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath"  value="/WEB-INF/vm" /><!-- 模板位置-->
+        <property name="configLocation" value="classpath:velocity.properties" />
+    </bean>
+    <bean id="velocityViewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.velocity.VelocityView" />
+        <property name="viewNames" value="*.vm"/>
+        <property name="order" value="0"/><!-- 优先匹配.vm结尾的视图-->
+        <!--<property name="suffix" value=".vm" />--><!-- 无需前缀 否则会跟resourceLoaderPath冲突-->
+        <!-- 避免乱码 -->
+        <property name="contentType" value="text/html;charset=UTF-8" />
+    </bean>
+
 	<bean id="jspViewResolver"
     		class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
 	        <property name="viewClass"  
 	            value="org.springframework.web.servlet.view.JstlView" />  
-	        <property name="prefix" value="/WEB-INF/jsp/" />  
-	        <property name="suffix" value=".jsp" />  
+	        <property name="prefix" value="/WEB-INF/jsp/" />
+			<!--<property name="viewNames" value="*jsp"/>-->
+			<property name="order" value="1"/><!-- 无法匹配.vm结尾的视图则使用jsp模板-->
+	        <property name="suffix" value=".jsp" />
 	</bean>
-
-	<!--<bean id="velocityConfigurer"
-		  class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath"  value="/WEB-INF/vm" />&lt;!&ndash; 模板位置&ndash;&gt;
-		<property name="configLocation" value="classpath:velocity.properties" />
-	</bean>
-	<bean id="velocityViewResolver"
-		  class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="viewClass"
-				  value="org.springframework.web.servlet.view.velocity.VelocityView" />
-		<property name="suffix" value=".vm" />&lt;!&ndash; 无需前缀 否则会跟resourceLoaderPath冲突&ndash;&gt;
-		&lt;!&ndash; 避免乱码 &ndash;&gt;
-		<property name="contentType" value="text/html;charset=UTF-8" />
-	</bean>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- 多视图并存 end-->
 
 
   	<mvc:interceptors>
