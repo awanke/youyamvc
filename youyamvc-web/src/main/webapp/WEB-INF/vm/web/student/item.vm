@@ -1,0 +1,9 @@
+##详情页
+<div class="tydb-equip">
+     haha
+            <span class="tydb-skill-type">$!name</span><br/>
+    $Long.valueOf("1")
+    ##$studentService.getStudent($Long.valueOf("1"))
+    ###set($student = $studentService.selectOneStudentWillThrowException($MapUtil.buildMap("name","2")));
+    $student.name
+</div>
