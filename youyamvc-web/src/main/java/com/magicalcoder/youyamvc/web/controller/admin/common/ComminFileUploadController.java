@@ -1,10 +1,7 @@
 package com.magicalcoder.youyamvc.web.controller.admin.common;
 
 import com.magicalcoder.youyamvc.core.common.utils.MapUtil;
-import com.magicalcoder.youyamvc.core.common.utils.StringUtils;
 import com.magicalcoder.youyamvc.core.spring.admin.AdminLoginController;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,9 +15,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -156,7 +151,7 @@ public class ComminFileUploadController extends AdminLoginController {
                         int width = img.getWidth(null);    // 得到源图宽
                         int height = img.getHeight(null);  // 得到源图长
                         String maxWidth = request.getParameter("maxWidth");
-                        if(StringUtils.isNotBlank(maxWidth) && width > Integer.valueOf(maxWidth)){ // 需要压缩
+                        /*if(StringUtils.isNotBlank(maxWidth) && width > Integer.valueOf(maxWidth)){ // 需要压缩
                             int maxHeigth = height * Integer.valueOf(maxWidth) / width;
                             width = Integer.valueOf(maxWidth);
                             height = maxHeigth;
@@ -169,10 +164,10 @@ public class ComminFileUploadController extends AdminLoginController {
                             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
                             encoder.encode(image); // JPEG编码
                             out.close();
-                        }else{ //不需要压缩
+                        }else{ //不需要压缩*/
                             FileUtils.copyInputStreamToFile(
                                     myfile.getInputStream(), file);//上传文件到磁盘
-                        }
+                       /* }*/
 
                         // 文件上传成功返回文件路径跟文件名
                         String ctx = request.getContextPath();
