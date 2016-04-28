@@ -9,7 +9,7 @@
   	<module>youyamvc-service</module>
   	<module>youyamvc-web</module>
   </modules>
-	<repositories>
+	<!--<repositories>
 		<repository>
 			<snapshots>
 				<enabled>false</enabled>
@@ -18,7 +18,7 @@
 			<name>bintray</name>
 			<url>http://jcenter.bintray.com</url>
 		</repository>
-	</repositories>
+	</repositories>-->
   <properties>
 	  	<!-- 支持jdk1.7 如果更换到1.8请升级spring版本至少4.1.5-->
         <java.version>1.6</java.version>
